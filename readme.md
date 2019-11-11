@@ -8,3 +8,11 @@ An Android timer application with features including:<br/>
 
 ## Video showcasing link
 *TBD*
+
+## Project Structure
+- opening screen: SplashScreen
+- landing page: MainActivity
+- group page: GroupActivity
+- practice page: PracticeActivity
+- settings page: ConfigurationActivity
+- countdown page: StartActivity
