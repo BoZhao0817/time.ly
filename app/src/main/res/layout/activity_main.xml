@@ -7,33 +7,57 @@
     android:layout_height="match_parent"
     android:background="@color/appBar">
 
-    <LinearLayout
-        android:id="@+id/main_backdrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity"
-        android:background="@drawable/rounded_top_corners"
-        android:backgroundTint="@color/backDrop">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/darkIndicatorText"
-                android:text="Current Presentation"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/darkIndicatorText"
-                android:textAlignment="textEnd"
-                android:text="Individual"/>
-        </LinearLayout>
-    </LinearLayout>
+       <LinearLayout
+           android:id="@+id/main_backdrop"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           tools:context=".MainActivity"
+           android:background="@drawable/rounded_top_corners"
+           android:backgroundTint="@color/backDrop">
 
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:padding="20dp">
+               <TextView
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:textColor="@color/darkIndicatorText"
+                   android:text="Current Presentation"
+                   android:fontFamily="sans-serif-medium"/>
+               <TextView
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:textColor="@color/darkIndicatorText"
+                   android:textAlignment="textEnd"
+                   android:text="Individual"
+                   android:fontFamily="sans-serif-medium"/>
+           </LinearLayout>
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           tools:context=".MainActivity"
+           android:background="@drawable/rounded_top_corners"
+           android:backgroundTint="@color/frontLayer"
+           android:padding="20dp"
+           android:layout_alignParentBottom="true">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/lightIndicatorText"
+               android:fontFamily="sans-serif-medium"
+               android:text="Saved Presentations"/>
+       </LinearLayout>
+   </RelativeLayout>
 </FrameLayout>
