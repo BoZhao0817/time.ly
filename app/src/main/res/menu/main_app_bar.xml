@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_help"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:icon="@drawable/icon_help_outline"
+        android:title="Help"/>
+    <item
+        android:id="@+id/action_invitations"
+        android:orderInCategory="2"
+        app:showAsAction="always"
+        android:icon="@drawable/icon_mail_outline"
+        android:title="Invitations"/>
+    <item
+        android:id="@+id/action_sidePanel"
+        android:orderInCategory="3"
+        app:showAsAction="always"
+        android:icon="@drawable/icon_menu"
+        android:title="Side Panel"/>
+</menu>

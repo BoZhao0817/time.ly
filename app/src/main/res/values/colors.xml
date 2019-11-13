@@ -5,4 +5,24 @@
     <color name="colorAccent">#D81B60</color>
     <color name="timelyGreen">#1A9988</color>
     <color name="white">#ffffff</color>
+
+    <color name="appBar">#132E4A</color>
+    <color name="backDrop">#214365</color>
+    <color name="frontLayer">#FAF9F8</color>
+
+    <!-- Dark Area Texts -->
+    <color name="darkIndicatorText">#E1DFDD</color>
+    <color name="darkMainText">#FAF9F8</color>
+    <color name="darkButtonText">#FFA12A</color>
+    <color name="darkHelperText">#E1DFDD</color>
+    <color name="darkWarningText">#DC6A49</color>
+
+    <!-- Light Area Texts -->
+    <color name="lightIndicatorText">#484644</color>
+    <color name="lightMainText">#292827</color>
+    <color name="lightButtonText">#F57F17</color>
+    <color name="lightHelperText">#C8C6C4</color>
+    <color name="lightWarningText">#8F2F13</color>
+
+
 </resources>

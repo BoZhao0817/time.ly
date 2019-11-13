@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Timely.AppBar" parent="android:Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/appBar</item>
+        <item name="android:titleTextStyle">@style/Timely.AppBar.TextColor</item>
+    </style>
+
+    <style name="Timely.AppBar.TextColor" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/darkMainText</item>
+    </style>
+</resources>
