@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashScreen"
-    android:layout_gravity="bottom"
-    android:background="@color/timelyGreen">
+    android:background="@color/frontLayer">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:src="@drawable/timely"
-        android:layout_gravity="bottom"/>
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:layout_gravity="center"/>
 
 
 </LinearLayout>
