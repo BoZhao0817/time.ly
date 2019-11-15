@@ -1,63 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/appBar">
 
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/main_backdrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_top_corners"
+        android:backgroundTint="@color/backDrop"
+        android:padding="20dp">
 
-       <LinearLayout
-           android:id="@+id/main_backdrop"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="vertical"
-           tools:context=".MainActivity"
-           android:background="@drawable/rounded_top_corners"
-           android:backgroundTint="@color/backDrop">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/darkIndicatorText"
+                android:text="Current Presentation"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/darkIndicatorText"
+                android:textAlignment="textEnd"
+                android:text="Individual"
+                android:fontFamily="sans-serif-medium"/>
+        </LinearLayout>
+    </LinearLayout>
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:padding="20dp">
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:textColor="@color/darkIndicatorText"
-                   android:text="Current Presentation"
-                   android:fontFamily="sans-serif-medium"/>
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:textColor="@color/darkIndicatorText"
-                   android:textAlignment="textEnd"
-                   android:text="Individual"
-                   android:fontFamily="sans-serif-medium"/>
-           </LinearLayout>
-       </LinearLayout>
+    <LinearLayout
+        android:id="@+id/main_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/rounded_top_corners"
+        android:backgroundTint="@color/frontLayer"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:behavior_peekHeight="65dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           tools:context=".MainActivity"
-           android:background="@drawable/rounded_top_corners"
-           android:backgroundTint="@color/frontLayer"
-           android:padding="20dp"
-           android:layout_alignParentBottom="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Saved Presentations"
+            android:textColor="@color/lightIndicatorText" />
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textColor="@color/lightIndicatorText"
-               android:fontFamily="sans-serif-medium"
-               android:text="Saved Presentations"/>
-       </LinearLayout>
-   </RelativeLayout>
-</FrameLayout>
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/main_nested_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/icon_add_outline"
+                    android:text="ADD NEW PRESENTATION"
+                    android:textColor="@color/lightButtonText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempor ante ut risus vehicula, vel rhoncus turpis euismod. Donec eget mi in velit finibus fringilla sed nec elit. Mauris ac efficitur nunc, ut faucibus magna. Sed sagittis commodo sapien, in fringilla mauris consequat ultrices. Nam lacus urna, congue vitae varius a, fringilla eget dui. Sed mollis ligula at euismod volutpat. Quisque at ex nibh. Sed porta, orci nec volutpat porta, nisl dolor pretium augue, id porta nunc dui non augue. Curabitur faucibus rutrum mattis. Aenean quis nisl sed lectus vestibulum placerat eget at dui. Curabitur posuere sit amet nibh quis vehicula. Ut viverra enim ut arcu aliquet faucibus. Aliquam efficitur arcu libero, at suscipit nibh porta id. Aliquam fermentum dolor et hendrerit vehicula. Maecenas volutpat ornare lectus. Duis posuere nibh eu libero efficitur, vel feugiat nulla euismod.
+
+Cras vitae elit dui. Nulla at finibus felis. Nam non velit sapien. Donec a neque a ipsum iaculis vulputate. Pellentesque venenatis elit malesuada vestibulum vulputate. Maecenas at eros aliquet, viverra turpis quis, elementum lectus. Nam ac accumsan urna, lobortis tincidunt velit. Nulla dui arcu, maximus vitae lectus sed, tincidunt rhoncus quam. Proin sagittis sed mauris nec tristique. Morbi maximus fermentum lacinia. Nullam eget dui eu nisi sollicitudin sodales id ut lectus. Morbi et leo consectetur, aliquam augue ac, iaculis arcu.
+
+Cras sagittis dapibus velit ac ullamcorper. Morbi convallis lacinia augue et elementum. Suspendisse quis ex faucibus, feugiat est ut, dapibus ante. Donec lobortis sed nunc eget vulputate. Phasellus finibus lobortis varius. In congue nulla diam, at pretium elit scelerisque sit amet. Morbi interdum venenatis bibendum. Curabitur eleifend mi eros, lobortis lacinia massa placerat sed.
+
+Praesent volutpat felis vitae urna tempor venenatis. Nulla lacinia massa in libero pulvinar tincidunt. Suspendisse potenti. Duis fermentum dapibus nunc in viverra. Mauris ante eros, tempus id mollis vitae, dictum eu ante. Maecenas ac ex sodales ante tempor hendrerit. Phasellus egestas, orci vitae elementum efficitur, velit dolor dignissim lacus, eu sollicitudin lectus purus id augue.
+
+Praesent in tincidunt ipsum. Nullam non nibh dapibus, volutpat metus vel, feugiat urna. Praesent in est tempus, egestas mi sit amet, tincidunt augue. Morbi elementum est hendrerit orci dapibus, eget dictum nibh condimentum. Morbi erat tortor, laoreet quis consequat quis, placerat a justo. Vivamus vitae massa id dolor placerat accumsan. Sed blandit bibendum quam vel consectetur. Aenean orci ipsum, blandit et faucibus non, sollicitudin id urna."/>
+
+            </LinearLayout>
+            <!--The content's body goes here-->
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
