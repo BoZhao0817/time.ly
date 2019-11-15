@@ -19,15 +19,23 @@
             android:gravity="top"
             android:layout_weight="1"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="40dp">
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="10:00"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="45sp"
+                android:textColor="@color/darkIndicatorText"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="10:00"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="60sp"
-                android:textColor="@color/darkMainText"/>
+                android:text="Total Time"
+                android:textColor="@color/darkIndicatorText"
+                android:textSize="12sp"
+                android:layout_marginStart="10dp"/>
 
             <Button
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -40,6 +48,32 @@
                 android:paddingBottom="0dp"
                 android:text="DELETE"
                 android:textColor="@color/darkWarningText"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:gravity="top"
+            android:layout_weight="1"
+            android:layout_marginBottom="35dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="10:00"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="55sp"
+                android:textColor="@color/darkMainText"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Your Own Portion"
+                android:textColor="@color/darkIndicatorText"
+                android:textSize="12sp"
+                android:layout_marginStart="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -89,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:rowCount="2"
                 android:columnCount="2"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="20dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:rowCount="2"
                 android:columnCount="2"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="20dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -165,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:rowCount="2"
                 android:columnCount="2"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp">
                 <ImageView
                     android:layout_width="wrap_content"
