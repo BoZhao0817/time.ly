@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen"
-    android:background="@color/frontLayer">
+    android:background="@color/white"
+    android:theme="@style/Theme.AppCompat"
+    tools:context=".SplashScreen">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:src="@drawable/timely"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:scaleX="0.7"
         android:scaleY="0.7"
-        android:layout_gravity="center"/>
+        android:src="@drawable/timely" />
 
 
 </LinearLayout>
