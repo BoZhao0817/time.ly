@@ -63,15 +63,17 @@
                     android:scaleY="1.2"
                     android:src="@drawable/icon_play_circle_outline"
                     android:layout_marginRight="20dp"/>
+
                 <TextView
+                    android:id="@+id/startText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="1"
                     android:layout_gravity="fill_horizontal"
-                    android:text="Start Presentation"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/darkButtonText"/>
+                    android:text="Start Presentation"
+                    android:textColor="@color/darkButtonText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,15 +103,17 @@
                     android:scaleY="1.2"
                     android:src="@drawable/icon_donut"
                     android:layout_marginRight="20dp"/>
+
                 <TextView
+                    android:id="@+id/practiceText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="1"
                     android:layout_gravity="fill_horizontal"
-                    android:text="Practice"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/darkButtonText"/>
+                    android:text="Practice"
+                    android:textColor="@color/darkButtonText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -139,15 +143,17 @@
                     android:scaleY="1.2"
                     android:src="@drawable/icon_vibration"
                     android:layout_marginRight="20dp"/>
+
                 <TextView
+                    android:id="@+id/settingsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="1"
                     android:layout_gravity="fill_horizontal"
-                    android:text="Settings"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/darkButtonText"/>
+                    android:text="Settings"
+                    android:textColor="@color/darkButtonText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,15 +184,17 @@
                     android:scaleY="1.2"
                     android:src="@drawable/icon_share"
                     android:layout_marginRight="20dp"/>
+
                 <TextView
+                    android:id="@+id/shareText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="1"
                     android:layout_gravity="fill_horizontal"
-                    android:text="Share"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/darkButtonText"/>
+                    android:text="Share"
+                    android:textColor="@color/darkButtonText" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

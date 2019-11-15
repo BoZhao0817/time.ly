@@ -4,25 +4,29 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class SplashScreen extends AppCompatActivity {
 
+    Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash_screen);
 
-        // Make Database/Network Calls and Transfer to Intent
-
-        // For now, just a timer and send to next activity
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
-        }
-
-        Intent mainScreen = new Intent(this, MainActivity.class);
-        startActivity(mainScreen);
+        handler=new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashScreen.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        },3000);
 
     }
 }
