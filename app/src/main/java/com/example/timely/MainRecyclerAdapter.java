@@ -20,7 +20,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
         }
     }
     public MainRecyclerAdapter(Presentation[] data) {
-        data = data;
+        this.data = data;
     }
 
     // Create new views (invoked by the layout manager)

@@ -20,6 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:paddingBottom="20dp">
             <TextView
                 android:layout_width="0dp"
@@ -37,13 +38,19 @@
                 android:text="Individual"
                 android:fontFamily="sans-serif-medium"/>
         </LinearLayout>
+
+        <ViewStub
+            android:id="@+id/main_backdrop_menu"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="40dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/main_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
+        android:layout_height="540dp"
         android:background="@drawable/rounded_top_corners"
         android:backgroundTint="@color/frontLayer"
         android:orientation="vertical"

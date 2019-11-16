@@ -3,23 +3,30 @@ package com.example.timely;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.ViewStub;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 public class MainActivity extends AppCompatActivity {
+    private Presentation[] data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        data = initializeData();
         createActionBar();
         createBottomSheet();
+        createRecyclerView();
+        createBackDropMenu();
     }
 
     @Override
@@ -42,31 +49,38 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.main_bottom_sheet);
 
         final BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(linearLayout);
-//        final NestedScrollView nestedScrollView = findViewById(R.id.main_nested_view);
-//        final String key = "closure";
-//        final Map<String, Boolean> isNestedScrolling = new HashMap<>();
-//        isNestedScrolling.put(key, false);
-//        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                isNestedScrolling.put(key, true);
-//            }
-//        });
         sheetBehavior.setHideable(false);
-        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//        sheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-//            @Override
-//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//                if (isNestedScrolling.containsKey(key)) {
-//                    Boolean val = isNestedScrolling.get(key);
-//                    if (newState == BottomSheetBehavior.STATE_DRAGGING && val != null && val) {
-//                        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-//        });
+        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+    private Presentation[] initializeData() {
+        Presentation[] data = new Presentation[1];
+        data[0] = new Presentation();
+        data[0].name = "For CS";
+        data[0].duration = 180;
+        data[0].type = PresentationType.INDIVIDUAL;
+        return data;
+    }
+
+    private void createRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.main_recycler_view);
+        // use a linear layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        // specify an adapter (see also next example)
+        MainRecyclerAdapter adapter = new MainRecyclerAdapter(data);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void createBackDropMenu() {
+        if (data == null || data.length == 0 || data[0].type == PresentationType.INDIVIDUAL) {
+            ViewStub stub = findViewById(R.id.main_backdrop_menu);
+            stub.setLayoutResource(R.layout.fragment_main_backdrop_solo_view);
+            stub.inflate();
+        } else if (data[0].type == PresentationType.GROUP) {
+            ViewStub stub = findViewById(R.id.main_backdrop_menu);
+            stub.setLayoutResource(R.layout.fragment_main_backdrop_group_view);
+            stub.inflate();
+        }
     }
 }
