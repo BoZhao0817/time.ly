@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import dataStructures.Presentation;
 import io.reactivex.Observable;
@@ -29,8 +28,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public MainRecyclerAdapter(Presentation[] data) {
-        this.data = new ArrayList<>(Arrays.asList(data));
+    public MainRecyclerAdapter() {
+        this.data = FakeDatabase.getInstance().presentations;
     }
 
     // Create new views (invoked by the layout manager)

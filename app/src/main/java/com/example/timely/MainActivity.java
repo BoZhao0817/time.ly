@@ -18,12 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-import java.util.ArrayList;
-
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
-import dataStructures.Section;
-import dataStructures.VibrationPattern;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -42,10 +38,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.activePresentation = FakeDatabase.getInstance().presentations.get(0);
+
         createActionBar();
         createBackDrop();
         createBottomSheet();
-        createRecyclerView(initializeDefaultData());
+        createRecyclerView();
 
         // all layout elements are populated
         listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Presentation>() {
@@ -80,32 +78,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
-    private Presentation[] initializeDefaultData() {
-        Presentation[] data = new Presentation[2];
-        data[0] = Presentation.newInstance();
-        data[1] = Presentation.newInstance();
-        data[1].type = PresentationType.GROUP;
-        data[1].duration = 10*60;
-        data[1].name = "Group Example";
-        data[1].sections = new ArrayList<>();
-        data[1].sections.add(new Section());
-        data[1].sections.get(0).duration = 3*60;
-        data[1].sections.get(0).id = "1";
-        data[1].sections.get(0).name = "xxxxx";
-        data[1].sections.get(0).owner = "me";
-        data[1].sections.get(0).userID = "me";
-        data[1].sections.get(0).vibrationPattern = new ArrayList<>();
-        data[1].sections.get(0).vibrationPattern.add(VibrationPattern.SHORT);
-        data[1].sections.get(0).vibrationPattern.add(VibrationPattern.LONG);
-        this.activePresentation = data[0];
-        return data;
-    }
-
-    private void createRecyclerView(Presentation[] data) {
+    private void createRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.main_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        MainRecyclerAdapter adapter = new MainRecyclerAdapter(data);
+        MainRecyclerAdapter adapter = new MainRecyclerAdapter();
         recyclerView.setAdapter(adapter);
         this.recyclerView = recyclerView;
         this.recyclerAdapter = adapter;
@@ -115,9 +92,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (findViewById(R.id.main_backdrop_menu_wrapper) != null) {
             FragmentManager manager = getSupportFragmentManager();
-            if (this.activePresentation == null) {
-                this.initializeDefaultData();
-            }
             // title
             TextView name = findViewById(R.id.main_backdrop_presentation_name);
             name.setText(this.activePresentation.name);

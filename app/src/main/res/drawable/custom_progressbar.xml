@@ -26,10 +26,10 @@
         <clip>
             <shape>
                 <gradient
-                    android:startColor="@color/appBar"
-                    android:centerColor="@color/appBar"
+                    android:startColor="@color/backDrop"
+                    android:centerColor="@color/backDrop"
                     android:centerY="1.0"
-                    android:endColor="@color/appBar"
+                    android:endColor="@color/backDrop"
                     android:angle="270"
                     />
             </shape>

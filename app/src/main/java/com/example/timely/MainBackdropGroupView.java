@@ -39,7 +39,7 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         TextView groupDuration = root.findViewById(R.id.main_backdrop_presentation_group_duration);
         groupDuration.setText(datum.getDurationString());
         TextView portionDuration = root.findViewById(R.id.main_backdrop_presentation_portion_duration);
-        portionDuration.setText(datum.getPortionDurationString("me"));
+        portionDuration.setText(datum.getPortionDurationString(FakeDatabase.getInstance().currentUser.userID));
         return root;
     }
 

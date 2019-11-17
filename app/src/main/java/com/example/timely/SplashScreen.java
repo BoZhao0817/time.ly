@@ -1,14 +1,12 @@
 package com.example.timely;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -19,8 +17,7 @@ public class SplashScreen extends AppCompatActivity {
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash_screen);
-        FakeDatabase d = new FakeDatabase();
-        Log.d("DATA", d.presentations.get(0).toString());
+        Log.d("DATA", FakeDatabase.getInstance().presentations.get(0).name);
         handler=new Handler();
         handler.postDelayed(new Runnable() {
             @Override

@@ -14,13 +14,20 @@ public class Presentation implements Serializable {
     public Integer duration; // seconds
     public ArrayList<Section> sections;
 
+    public Presentation(String name, PresentationType type, Integer duration) {
+        this.name = name;
+        this.id = UUID.randomUUID().toString();
+        this.type = type;
+        this.duration = duration;
+        this.sections = new ArrayList<>();
+    }
+
     public static Presentation newInstance() {
-        Presentation datum = new Presentation();
-        datum.name = "Default Presentation";
-        datum.duration = 180;
-        datum.type = PresentationType.INDIVIDUAL;
-        datum.id = UUID.randomUUID().toString();
-        return datum;
+        return new Presentation(
+                "Default Presentation",
+                PresentationType.INDIVIDUAL,
+                180
+        );
     }
 
     public static String toStringTime(Integer secondCount) {
@@ -47,9 +54,7 @@ public class Presentation implements Serializable {
         Iterator<Section> sectionIterator = sections.iterator();
         while (sectionIterator.hasNext()) {
             String id = sectionIterator.next().userID;
-            if (visitedIDs.contains(id)) {
-                continue;
-            } else {
+            if (!visitedIDs.contains(id)) {
                 visitedIDs.add(id);
                 userIDs.add(id);
             }

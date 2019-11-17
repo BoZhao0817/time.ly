@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".GroupActivity"></activity>
-        <activity android:name=".PracticeActivity" />
+        <activity android:name=".CountdownActivity" />
         <activity android:name=".ConfigurationActivity" />
         <activity android:name=".StartActivity" />
         <activity android:name=".MainActivity">
