@@ -1,6 +1,7 @@
 package com.example.timely;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -8,8 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+
 public class MainRecyclerAdapter extends RecyclerView.Adapter {
-    private Presentation[] data;
+    private ArrayList<Presentation> data;
+    private final PublishSubject<Presentation> onClickEvent = PublishSubject.create();
 
     public static class MainViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -19,14 +27,15 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
             layout = l;
         }
     }
+
     public MainRecyclerAdapter(Presentation[] data) {
-        this.data = data;
+        this.data = new ArrayList<>(Arrays.asList(data));
     }
 
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public MainRecyclerAdapter.MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MainRecyclerAdapter.MainViewHolder onCreateViewHolder(@org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
         // create a new view
         LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_main_presentation_item_view, parent, false);
@@ -39,7 +48,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        Presentation elem = data[position];
+        final Presentation elem = data.get(position);
         LinearLayout layout = ((MainViewHolder)holder).layout;
         TextView name = layout.findViewById(R.id.main_presentation_name);
         name.setText(elem.name);
@@ -47,11 +56,42 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
         type.setText(elem.type.getVal());
         TextView duration = layout.findViewById(R.id.main_presentation_duration);
         duration.setText(elem.getDuration());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickEvent.onNext(elem);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
+    }
+
+    public Observable<Presentation> onClick() {
+        return onClickEvent.hide();
+    }
+
+    public void deleteData(Presentation datum) {
+        int idx = 0;
+        boolean found = false;
+        for (; idx < this.data.size(); idx += 1) {
+            if (data.get(idx).id.equals(datum.id)) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            this.data.remove(idx);
+        }
+        notifyItemRemoved(idx);
+        notifyItemRangeChanged(idx, this.data.size());
+    }
+
+    public void addData(Presentation datum) {
+        this.data.add(0, datum);
     }
 }

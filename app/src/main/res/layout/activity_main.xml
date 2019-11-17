@@ -23,6 +23,7 @@
             android:layout_weight="0"
             android:paddingBottom="20dp">
             <TextView
+                android:id="@+id/main_backdrop_presentation_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -30,6 +31,7 @@
                 android:text="New Presentation"
                 android:fontFamily="sans-serif-medium"/>
             <TextView
+                android:id="@+id/main_backdrop_presentation_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -39,12 +41,12 @@
                 android:fontFamily="sans-serif-medium"/>
         </LinearLayout>
 
-        <ViewStub
-            android:id="@+id/main_backdrop_menu"
+        <FrameLayout
+            android:id="@+id/main_backdrop_menu_wrapper"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_marginBottom="40dp"/>
+            android:layout_marginBottom="50dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -79,6 +81,7 @@
 
                 <Button
                     style="@style/Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/main_add_presentation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/icon_add_outline"
