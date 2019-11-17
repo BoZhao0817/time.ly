@@ -1,10 +1,14 @@
 package com.example.timely;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import dataStructures.Presentation;
 
@@ -18,6 +22,7 @@ public class CountdownActivity extends AppCompatActivity {
         Intent i = getIntent();
         presentation = (Presentation) i.getSerializableExtra("data");
 
+        this.createActionBar();
         this.initializeText();
     }
 
@@ -30,6 +35,18 @@ public class CountdownActivity extends AppCompatActivity {
                 String str = "Next: " + presentation.sections.get(1).sectionName;
                 nextSection.setText(str);
             }
+        }
+    }
+
+    private void createActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            final Drawable backArrow = ContextCompat.getDrawable(this, R.drawable.icon_blue_arrow_back);
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.frontLayer)));
+            actionBar.setElevation(0);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(backArrow);
+            actionBar.show();
         }
     }
 }
