@@ -1,12 +1,10 @@
 package com.example.timely;
 
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -148,13 +146,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_add_presentation: {
                 addData();
                 break;
-            }
-            case R.id.main_individual_start_button:
-            case R.id.main_group_start_button: {
-                Log.d("WARN", "aaaaa");
-                Intent intent = new Intent(getBaseContext(), CountdownActivity.class);
-                intent.putExtra("data", activePresentation);
-                startActivity(intent);
             }
         }
     }

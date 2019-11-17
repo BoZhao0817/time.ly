@@ -2,7 +2,6 @@ package com.example.timely;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +43,7 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         groupDuration.setText(datum.getDurationString());
         TextView portionDuration = root.findViewById(R.id.main_backdrop_presentation_portion_duration);
         portionDuration.setText(datum.getPortionDurationString(FakeDatabase.getInstance().currentUser.userID));
+
         GridLayout g1 = root.findViewById(R.id.main_group_start_button);
         GridLayout g2 = root.findViewById(R.id.main_group_practice_button);
         GridLayout g3 = root.findViewById(R.id.main_group_settings_button);
@@ -57,32 +57,34 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.main_backdrop_delete_button) {
-            MainActivity mainActivity = (MainActivity)getActivity();
-            if (mainActivity != null) {
+        MainActivity mainActivity = (MainActivity)getActivity();
+        if (mainActivity == null) {
+            return;
+        }
+
+        switch (v.getId()) {
+            case R.id.main_backdrop_delete_button: {
                 mainActivity.deleteData(this.datum);
+                break;
             }
-        }
-        if (v.getId() == R.id.main_group_start_button) {
-            MainActivity mainActivity = (MainActivity)getActivity();
-            Log.d("WARN", "aaaaa");
-            Intent intent = new Intent(mainActivity, CountdownActivity.class);
-            intent.putExtra("data", mainActivity.activePresentation);
-            startActivity(intent);
-        }
-
-        if (v.getId() == R.id.main_group_practice_button) {
-            MainActivity mainActivity = (MainActivity)getActivity();
-            Intent intent = new Intent(mainActivity, PracticeActivity.class);
-            intent.putExtra("data", mainActivity.activePresentation);
-            startActivity(intent);
-        }
-
-        if (v.getId() == R.id.main_group_settings_button) {
-            MainActivity mainActivity = (MainActivity)getActivity();
-            Intent intent = new Intent(mainActivity, ConfigurationActivity.class);
-            intent.putExtra("data", mainActivity.activePresentation);
-            startActivity(intent);
+            case R.id.main_group_start_button: {
+                Intent intent = new Intent(mainActivity, CountdownActivity.class);
+                intent.putExtra("data", mainActivity.activePresentation);
+                startActivity(intent);
+                break;
+            }
+            case R.id.main_group_practice_button: {
+                Intent intent = new Intent(mainActivity, PracticeActivity.class);
+                intent.putExtra("data", mainActivity.activePresentation);
+                startActivity(intent);
+                break;
+            }
+            case R.id.main_group_settings_button: {
+                Intent intent = new Intent(mainActivity, ConfigurationActivity.class);
+                intent.putExtra("data", mainActivity.activePresentation);
+                startActivity(intent);
+                break;
+            }
         }
     }
 }
