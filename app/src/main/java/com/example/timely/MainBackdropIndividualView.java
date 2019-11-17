@@ -42,8 +42,14 @@ public class MainBackdropIndividualView extends Fragment implements View.OnClick
         View root = inflater.inflate(R.layout.fragment_main_backdrop_individual_view, container, false);
         TextView duration = root.findViewById(R.id.main_backdrop_presentation_individual_duration);
         duration.setText(datum.getDurationString());
-        GridLayout g = root.findViewById(R.id.main_individual_start_button);
-        g.setOnClickListener(this);
+        GridLayout g1 = root.findViewById(R.id.main_individual_start_button);
+        GridLayout g2 = root.findViewById(R.id.main_individual_practice_button);
+        GridLayout g3 = root.findViewById(R.id.main_individual_settings_button);
+        GridLayout g4 = root.findViewById(R.id.main_individual_share_button);
+        g1.setOnClickListener(this);
+        g2.setOnClickListener(this);
+        g3.setOnClickListener(this);
+        g4.setOnClickListener(this);
         return root;
     }
 
@@ -64,7 +70,10 @@ public class MainBackdropIndividualView extends Fragment implements View.OnClick
         }
 
         if (v.getId() == R.id.main_individual_practice_button) {
-
+            MainActivity mainActivity = (MainActivity)getActivity();
+            Intent intent = new Intent(mainActivity, PracticeActivity.class);
+            intent.putExtra("data", mainActivity.activePresentation);
+            startActivity(intent);
         }
 
         if (v.getId() == R.id.main_individual_settings_button) {

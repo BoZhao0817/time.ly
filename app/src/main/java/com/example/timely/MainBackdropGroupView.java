@@ -44,8 +44,14 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         groupDuration.setText(datum.getDurationString());
         TextView portionDuration = root.findViewById(R.id.main_backdrop_presentation_portion_duration);
         portionDuration.setText(datum.getPortionDurationString(FakeDatabase.getInstance().currentUser.userID));
-        GridLayout g = root.findViewById(R.id.main_group_start_button);
-        g.setOnClickListener(this);
+        GridLayout g1 = root.findViewById(R.id.main_group_start_button);
+        GridLayout g2 = root.findViewById(R.id.main_group_practice_button);
+        GridLayout g3 = root.findViewById(R.id.main_group_settings_button);
+        GridLayout g4 = root.findViewById(R.id.main_group_share_button);
+        g1.setOnClickListener(this);
+        g2.setOnClickListener(this);
+        g3.setOnClickListener(this);
+        g4.setOnClickListener(this);
         return root;
     }
 
@@ -61,6 +67,20 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
             MainActivity mainActivity = (MainActivity)getActivity();
             Log.d("WARN", "aaaaa");
             Intent intent = new Intent(mainActivity, CountdownActivity.class);
+            intent.putExtra("data", mainActivity.activePresentation);
+            startActivity(intent);
+        }
+
+        if (v.getId() == R.id.main_group_practice_button) {
+            MainActivity mainActivity = (MainActivity)getActivity();
+            Intent intent = new Intent(mainActivity, PracticeActivity.class);
+            intent.putExtra("data", mainActivity.activePresentation);
+            startActivity(intent);
+        }
+
+        if (v.getId() == R.id.main_group_settings_button) {
+            MainActivity mainActivity = (MainActivity)getActivity();
+            Intent intent = new Intent(mainActivity, ConfigurationActivity.class);
             intent.putExtra("data", mainActivity.activePresentation);
             startActivity(intent);
         }
