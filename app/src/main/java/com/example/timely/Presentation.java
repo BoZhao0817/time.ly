@@ -15,11 +15,18 @@ enum PresentationType {
 
 public class Presentation {
     public String name;
-    public PresentationType type;
+    public String type;
     public Integer duration; // seconds
     public Section[] sections;
 
     public String getDuration() {
         return duration.toString();
+    }
+
+    public Presentation(String n, String t, Integer d, Section[] s) {
+        name = n;
+        type = t;
+        duration = d;
+        sections = s;
     }
 }

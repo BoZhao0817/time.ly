@@ -1,11 +1,13 @@
 package com.example.timely;
 
-enum VibrationPattern {
-    LONG, SHORT
-}
-
 public class Section {
     String name;
     Integer duration; // seconds
-    VibrationPattern[] vibrationPattern;
+    String vibrationPattern; //e.g. SLSSL
+
+    public Section(String n, Integer d, String p) {
+        name = n;
+        duration = d;
+        vibrationPattern = p;
+    }
 }
