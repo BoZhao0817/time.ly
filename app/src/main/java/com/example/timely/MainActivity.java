@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         createBottomSheet();
         createRecyclerView();
         createBackDropMenu();
+
+
     }
 
     @Override
@@ -55,10 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Presentation[] initializeData() {
         Presentation[] data = new Presentation[1];
-        data[0] = new Presentation();
-        data[0].name = "For CS";
-        data[0].duration = 180;
-        data[0].type = PresentationType.INDIVIDUAL;
+        Section[] s = new Section[1];
+        s[0] = new Section("Test", 180, "sss");
+        data[0] = new Presentation("For CS", "solo", 180, s);
         return data;
     }
 
@@ -73,11 +74,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createBackDropMenu() {
-        if (data == null || data.length == 0 || data[0].type == PresentationType.INDIVIDUAL) {
+        if (data == null || data.length == 0 || data[0].type.equals("solo")) {
             ViewStub stub = findViewById(R.id.main_backdrop_menu);
             stub.setLayoutResource(R.layout.fragment_main_backdrop_solo_view);
             stub.inflate();
-        } else if (data[0].type == PresentationType.GROUP) {
+        } else if (data[0].type.equals("group")) {
             ViewStub stub = findViewById(R.id.main_backdrop_menu);
             stub.setLayoutResource(R.layout.fragment_main_backdrop_group_view);
             stub.inflate();
