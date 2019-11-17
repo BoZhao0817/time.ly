@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,7 +25,7 @@ import dataStructures.PresentationType;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class PracticeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MainRecyclerAdapter recyclerAdapter;
 
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_practice);
 
         this.activePresentation = FakeDatabase.getInstance().presentations.get(0);
 

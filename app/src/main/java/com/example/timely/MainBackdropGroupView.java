@@ -1,9 +1,12 @@
 package com.example.timely;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -41,6 +44,8 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         groupDuration.setText(datum.getDurationString());
         TextView portionDuration = root.findViewById(R.id.main_backdrop_presentation_portion_duration);
         portionDuration.setText(datum.getPortionDurationString(FakeDatabase.getInstance().currentUser.userID));
+        GridLayout g = root.findViewById(R.id.main_group_start_button);
+        g.setOnClickListener(this);
         return root;
     }
 
@@ -51,6 +56,13 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
             if (mainActivity != null) {
                 mainActivity.deleteData(this.datum);
             }
+        }
+        if (v.getId() == R.id.main_group_start_button) {
+            MainActivity mainActivity = (MainActivity)getActivity();
+            Log.d("WARN", "aaaaa");
+            Intent intent = new Intent(mainActivity, CountdownActivity.class);
+            intent.putExtra("data", mainActivity.activePresentation);
+            startActivity(intent);
         }
     }
 }

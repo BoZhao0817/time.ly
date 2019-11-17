@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -21,7 +22,7 @@ public class CountdownActivity extends AppCompatActivity {
         setContentView(R.layout.activity_countdown);
         Intent i = getIntent();
         presentation = (Presentation) i.getSerializableExtra("data");
-
+        Log.d("PRESENTATION", presentation.id + " " + presentation.name);
         this.createActionBar();
         this.initializeText();
     }
@@ -29,7 +30,9 @@ public class CountdownActivity extends AppCompatActivity {
     private void initializeText() {
         if (presentation != null) {
             TextView t = findViewById(R.id.countdown_current_section);
-            t.setText(presentation.sections.get(0).getDurationString());
+            t.setText(presentation.sections.get(0).sectionName);
+            TextView time = findViewById(R.id.timeView);
+            time.setText(Presentation.toStringTime(presentation.sections.get(0).duration));
             if (presentation.sections.size() >= 2) {
                 TextView nextSection = findViewById(R.id.countdown_next_section);
                 String str = "Next: " + presentation.sections.get(1).sectionName;

@@ -48,7 +48,7 @@
                 android:layout_weight="1"
                 android:background="@color/frontLayer"
                 android:scaleType="fitCenter"
-                tools:srcCompat="@drawable/icon_pause_orange"/>
+                android:src="@drawable/icon_pause_orange"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:background="@color/frontLayer"
                 android:scaleType="fitCenter"
-                tools:srcCompat="@drawable/icon_play_orange" />
+                android:src="@drawable/icon_play_orange" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                 android:layout_weight="1"
                 android:background="@color/frontLayer"
                 android:scaleType="fitCenter"
-                tools:srcCompat="@drawable/icon_stop_orange" />
+                android:src="@drawable/icon_stop_orange" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -120,7 +120,7 @@
                 android:layout_weight="1"
                 android:background="@color/frontLayer"
                 android:scaleType="fitCenter"
-                tools:srcCompat="@drawable/icon_skip_next_orange" />
+                android:src="@drawable/icon_skip_next_orange" />
 
             <TextView
                 android:layout_width="match_parent"

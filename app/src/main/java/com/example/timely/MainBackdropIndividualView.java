@@ -1,9 +1,13 @@
 package com.example.timely;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -38,6 +42,8 @@ public class MainBackdropIndividualView extends Fragment implements View.OnClick
         View root = inflater.inflate(R.layout.fragment_main_backdrop_individual_view, container, false);
         TextView duration = root.findViewById(R.id.main_backdrop_presentation_individual_duration);
         duration.setText(datum.getDurationString());
+        GridLayout g = root.findViewById(R.id.main_individual_start_button);
+        g.setOnClickListener(this);
         return root;
     }
 
@@ -48,6 +54,28 @@ public class MainBackdropIndividualView extends Fragment implements View.OnClick
             if (mainActivity != null) {
                 mainActivity.deleteData(this.datum);
             }
+        }
+
+        if (v.getId() == R.id.main_individual_start_button) {
+            MainActivity mainActivity = (MainActivity)getActivity();
+            Intent intent = new Intent(mainActivity, CountdownActivity.class);
+            intent.putExtra("data", mainActivity.activePresentation);
+            startActivity(intent);
+        }
+
+        if (v.getId() == R.id.main_individual_practice_button) {
+
+        }
+
+        if (v.getId() == R.id.main_individual_settings_button) {
+            MainActivity mainActivity = (MainActivity)getActivity();
+            Intent intent = new Intent(mainActivity, ConfigurationActivity.class);
+            intent.putExtra("data", mainActivity.activePresentation);
+            startActivity(intent);
+        }
+
+        if (v.getId() == R.id.main_individual_share_button) {
+
         }
     }
 }
