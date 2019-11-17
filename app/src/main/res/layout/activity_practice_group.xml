@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Section 1"
+        android:text="Emma: Section 1"
         android:textColor="@android:color/black"
         android:textSize="40sp" />
 
@@ -41,7 +41,6 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/pauseButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -64,7 +63,6 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/playButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -87,7 +85,6 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/stopButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -135,7 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Next: Section 2"
+        android:text="Next: Chris Section 2"
         android:textColor="@android:color/black"
         android:textSize="24sp" />
 

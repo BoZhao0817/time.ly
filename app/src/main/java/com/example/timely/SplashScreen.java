@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -17,7 +19,8 @@ public class SplashScreen extends AppCompatActivity {
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash_screen);
-
+        FakeDatabase d = new FakeDatabase();
+        Log.d("DATA", d.presentations.get(0).toString());
         handler=new Handler();
         handler.postDelayed(new Runnable() {
             @Override
