@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import dataStructures.Presentation;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -53,9 +54,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
         TextView name = layout.findViewById(R.id.main_presentation_name);
         name.setText(elem.name);
         TextView type = layout.findViewById(R.id.main_presentation_type);
-        type.setText(elem.type.getVal());
+        type.setText(elem.type.toString());
         TextView duration = layout.findViewById(R.id.main_presentation_duration);
-        duration.setText(elem.getDuration());
+        duration.setText(elem.getDurationString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

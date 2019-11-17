@@ -18,6 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.util.ArrayList;
+
+import dataStructures.Presentation;
+import dataStructures.PresentationType;
+import dataStructures.Section;
+import dataStructures.VibrationPattern;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -75,8 +81,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private Presentation[] initializeDefaultData() {
-        Presentation[] data = new Presentation[1];
+        Presentation[] data = new Presentation[2];
         data[0] = Presentation.newInstance();
+        data[1] = Presentation.newInstance();
+        data[1].type = PresentationType.GROUP;
+        data[1].duration = 10*60;
+        data[1].name = "Group Example";
+        data[1].sections = new ArrayList<>();
+        data[1].sections.add(new Section());
+        data[1].sections.get(0).duration = 3*60;
+        data[1].sections.get(0).id = "1";
+        data[1].sections.get(0).name = "xxxxx";
+        data[1].sections.get(0).owner = "me";
+        data[1].sections.get(0).userID = "me";
+        data[1].sections.get(0).vibrationPattern = new ArrayList<>();
+        data[1].sections.get(0).vibrationPattern.add(VibrationPattern.SHORT);
+        data[1].sections.get(0).vibrationPattern.add(VibrationPattern.LONG);
         this.activePresentation = data[0];
         return data;
     }
@@ -101,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // title
             TextView name = findViewById(R.id.main_backdrop_presentation_name);
             name.setText(this.activePresentation.name);
+            // type
+            TextView type = findViewById(R.id.main_backdrop_presentation_type);
+            type.setText(this.activePresentation.type.toString());
             // menu
             Bundle inputData = new Bundle();
             inputData.putSerializable("data", this.activePresentation);
@@ -128,8 +151,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // title
         TextView name = findViewById(R.id.main_backdrop_presentation_name);
         name.setText(this.activePresentation.name);
+        // type
+        TextView type = findViewById(R.id.main_backdrop_presentation_type);
+        type.setText(this.activePresentation.type.toString());
         // menu
-
         if (datum.type == PresentationType.INDIVIDUAL) {
             MainBackdropIndividualView individualView = new MainBackdropIndividualView();
             individualView.setArguments(inputData);

@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/main_backdrop_presentation_portion_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
@@ -55,6 +56,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/main_backdrop_presentation_group_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
