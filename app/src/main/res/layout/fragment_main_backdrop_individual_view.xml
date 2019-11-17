@@ -136,6 +136,7 @@
         </GridLayout>
 
         <GridLayout
+            android:id="@+id/main_individual_settings_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -146,7 +147,6 @@
             android:background="?android:attr/selectableItemBackground">
 
             <ImageView
-                android:id="@+id/main_individual_settings_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="0"

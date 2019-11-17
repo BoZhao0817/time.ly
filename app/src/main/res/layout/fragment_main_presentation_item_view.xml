@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/main_presentation_name"
@@ -14,10 +17,7 @@
         android:layout_weight="1"
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/lightMainText"
-        android:text="For CS"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"/>
+        android:text="For CS"/>
     <TextView
         android:id="@+id/main_presentation_type"
         android:layout_width="wrap_content"

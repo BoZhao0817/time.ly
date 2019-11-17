@@ -57,6 +57,7 @@
         android:backgroundTint="@color/frontLayer"
         android:orientation="vertical"
         android:padding="20dp"
+        android:clickable="true"
         app:behavior_peekHeight="65dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
