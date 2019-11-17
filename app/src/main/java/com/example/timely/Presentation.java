@@ -1,5 +1,6 @@
 package com.example.timely;
 
+/*
 enum PresentationType {
     INDIVIDUAL("Individual"), GROUP("Group");
     private String val;
@@ -12,6 +13,9 @@ enum PresentationType {
         return val;
     }
 }
+*/
+
+import androidx.annotation.NonNull;
 
 public class Presentation {
     public String name;
@@ -28,5 +32,11 @@ public class Presentation {
         type = t;
         duration = d;
         sections = s;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Name: " + name + "\tType: " + type + "\tDuration: " + duration;
     }
 }
