@@ -1,10 +1,11 @@
 package com.example.timely;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
 import io.reactivex.disposables.Disposable;
@@ -25,10 +27,7 @@ import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ActionBar actionBar;
     private MainRecyclerAdapter recyclerAdapter;
-    private RecyclerView recyclerView;
-    private ViewStub backdropMenu;
 
     private Disposable listItemClicked;
     private Presentation activePresentation;
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.appBar)));
             actionBar.setElevation(0);
             actionBar.show();
-            this.actionBar = actionBar;
         }
     }
 
@@ -84,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(layoutManager);
         MainRecyclerAdapter adapter = new MainRecyclerAdapter();
         recyclerView.setAdapter(adapter);
-        this.recyclerView = recyclerView;
         this.recyclerAdapter = adapter;
     }
 
@@ -144,8 +141,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.main_add_presentation) {
-            addData();
+        switch (v.getId()) {
+            case R.id.main_add_presentation: {
+                addData();
+                break;
+            }
+            case R.id.main_individual_start_button:
+            case R.id.main_group_start_button: {
+                Log.d("WARN", "aaaaa");
+                Intent intent = new Intent(getBaseContext(), CountdownActivity.class);
+                intent.putExtra("data", activePresentation);
+                startActivity(intent);
+            }
         }
     }
 

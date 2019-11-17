@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/lightHelperText"
+                android:textColor="@color/lightIndicatorText"
                 android:text="Pause"/>
         </LinearLayout>
 
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/lightHelperText"
+                android:textColor="@color/lightIndicatorText"
                 android:text="Continue" />
         </LinearLayout>
 
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/lightHelperText"
+                android:textColor="@color/lightIndicatorText"
                 android:text="Stop" />
         </LinearLayout>
 
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/lightHelperText"
+                android:textColor="@color/lightIndicatorText"
                 android:text="Next Section" />
         </LinearLayout>
 

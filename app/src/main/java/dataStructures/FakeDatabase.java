@@ -1,11 +1,6 @@
-package com.example.timely;
+package dataStructures;
 
 import java.util.ArrayList;
-
-import dataStructures.Presentation;
-import dataStructures.PresentationType;
-import dataStructures.Profile;
-import dataStructures.Section;
 
 public class FakeDatabase {
     public ArrayList<Presentation> presentations;

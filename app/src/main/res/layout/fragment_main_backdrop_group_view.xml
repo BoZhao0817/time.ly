@@ -81,6 +81,7 @@
         android:orientation="vertical">
 
         <GridLayout
+            android:id="@+id/main_group_start_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
@@ -124,6 +125,7 @@
         </GridLayout>
 
         <GridLayout
+            android:id="@+id/main_group_practice_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -168,6 +170,7 @@
         </GridLayout>
 
         <GridLayout
+            android:id="@+id/main_group_settings_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -212,6 +215,7 @@
         </GridLayout>
 
         <GridLayout
+            android:id="@+id/main_group_share_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
