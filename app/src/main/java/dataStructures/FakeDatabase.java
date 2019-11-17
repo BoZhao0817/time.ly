@@ -36,8 +36,8 @@ public class FakeDatabase {
         a.sections.add(new Section("a3", users.get(2).userName, users.get(2).userID, 10));
 
         Presentation b = new Presentation("CS498", PresentationType.INDIVIDUAL, 120);
-        b.sections.add(new Section("b1", users.get(0).userName, users.get(0).userID, 60));
-        b.sections.add(new Section("b2", users.get(0).userName, users.get(0).userID, 100));
+        b.sections.add(new Section("b1", users.get(0).userName, users.get(0).userID, 10));
+        b.sections.add(new Section("b2", users.get(0).userName, users.get(0).userID, 15));
         b.sections.add(new Section("b3", users.get(0).userName, users.get(0).userID, 10));
 
         Presentation c = new Presentation("CS101", PresentationType.INDIVIDUAL, 60);

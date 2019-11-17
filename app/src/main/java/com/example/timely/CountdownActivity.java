@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -13,10 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import dataStructures.Presentation;
+import dataStructures.Section;
+import dataStructures.State;
+import dataStructures.Timer;
 
-public class CountdownActivity extends AppCompatActivity {
+public class CountdownActivity extends AppCompatActivity implements View.OnClickListener {
     private Presentation presentation;
-
+    boolean finished = false;
+    Timer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,18 +33,56 @@ public class CountdownActivity extends AppCompatActivity {
         presentation = (Presentation) i.getSerializableExtra("data");
         Log.d("PRESENTATION", presentation.id + " " + presentation.name);
         this.createActionBar();
-        this.initializeText();
+        this.initializeText(0);
+        timer = new Timer(presentation.sections.get(0).duration);
+        final Handler handler = new Handler();
+        final int delay = 1000;
+        final TextView timeView = findViewById(R.id.timeView);
+        ImageButton play = findViewById(R.id.playButton);
+        ImageButton pause = findViewById(R.id.pauseButton);
+        ImageButton stop = findViewById(R.id.stopButton);
+        ImageButton next = findViewById(R.id.nextButton);
+        play.setOnClickListener(this);
+        pause.setOnClickListener(this);
+        stop.setOnClickListener(this);
+        next.setOnClickListener(this);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                timer.updateTimer();
+                timeView.setText(timer.timeString);
+                if(timer.done) {
+                    if (timer.count < presentation.sections.size()) {
+                        timer.seconds = presentation.sections.get(timer.count).duration;
+                        timer.done = false;
+                        initializeText(timer.count);
+                    } else {
+                        finished = true;
+                    }
+                }
+                if (!finished) {
+                    handler.postDelayed(this, delay);
+                } else {
+
+                }
+            }
+        }, delay);
+
     }
 
-    private void initializeText() {
+    private void initializeText(int curr) {
         if (presentation != null) {
             TextView t = findViewById(R.id.countdown_current_section);
-            t.setText(presentation.sections.get(0).sectionName);
+            t.setText(presentation.sections.get(curr).sectionName);
             TextView time = findViewById(R.id.timeView);
-            time.setText(Presentation.toStringTime(presentation.sections.get(0).duration));
-            if (presentation.sections.size() >= 2) {
+            time.setText(Presentation.toStringTime(presentation.sections.get(curr).duration));
+            if (presentation.sections.size() > curr + 1) {
                 TextView nextSection = findViewById(R.id.countdown_next_section);
-                String str = "Next: " + presentation.sections.get(1).sectionName;
+                String str = "Next: " + presentation.sections.get(curr+1).sectionName;
+                nextSection.setText(str);
+            } else {
+                TextView nextSection = findViewById(R.id.countdown_next_section);
+                String str = "Next: End of Presentation";
                 nextSection.setText(str);
             }
         }
@@ -64,5 +110,23 @@ public class CountdownActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.pauseButton:
+                timer.state = State.PAUSED;
+                break;
+            case R.id.playButton:
+                timer.state = State.PLAYING;
+                break;
+            case R.id.stopButton:
+                finished = true;
+            case R.id.nextButton:
+                timer.count++;
+                timer.done = true;
+            default:
+                break;
+        }
     }
 }
