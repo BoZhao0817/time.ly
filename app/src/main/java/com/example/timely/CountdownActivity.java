@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -145,6 +146,23 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+            case 1082:
+                if (timer.state == State.PAUSED)
+                    timer.state = State.PLAYING;
+                else
+                    timer.state = State.PAUSED;
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     public void onClick(View v) {
