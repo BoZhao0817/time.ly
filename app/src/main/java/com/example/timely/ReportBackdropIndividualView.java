@@ -55,31 +55,36 @@ public class ReportBackdropIndividualView extends Fragment implements View.OnCli
         root = inflater.inflate(R.layout.fragment_report_backdrop_individual_view, container, false);
         TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
         duration.setText(Presentation.toStringTime(datum.total_actual));
-        /*
-        HorizontalBarChart chart = root.findViewById(R.id.estimate_chart);
-        chart.setMaxVisibleValueCount(60);
-        chart.setPinchZoom(false);
-        chart.setDrawGridBackground(false);
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        BarEntry estimates = new BarEntry(0f, new float[] {10, 20, 30});
-        entries.add(estimates);
-        BarDataSet set = new BarDataSet(entries, "Dataset 1");
-        set.setDrawIcons(false);
-        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set);
-        BarData data = new BarData(dataSets);
-        data.setValueTextSize(0);
-        data.setBarWidth(9f);
-        chart.setData(data);
-        */
-        LinearLayout ll = root.findViewById(R.id.estimateChart);
+        TextView estTime = root.findViewById(R.id.estimateTime);
+        TextView actTime = root.findViewById(R.id.actualTime);
+        estTime.setText(Presentation.toStringTime(datum.total_estimate));
+        actTime.setText(Presentation.toStringTime(datum.total_actual));
+        LinearLayout est = root.findViewById(R.id.estimateChart);
+        LinearLayout act = root.findViewById(R.id.actualChart);
         ArrayList<Integer> estimates = datum.estimates;
-        setChart(ll, estimates);
+        ArrayList<Integer> actuals = datum.actuals;
+        double avse = (datum.total_actual*1.0) / datum.total_estimate;
+        double evsa = (datum.total_estimate*1.0) / datum.total_actual;
+        double est_len;
+        double act_len;
+        if (avse < 1.0) {
+            est_len = est.getLayoutParams().width;
+            act_len = est_len * avse;
+        } else {
+            act_len = act.getLayoutParams().width;
+            est_len = act_len * evsa;
+        }
+        est_len = convertPX((int)est_len);
+        act_len = convertPX((int)act_len);
+
+        setChart(est, estimates, (int)est_len);
+        setChart(act, actuals, (int)act_len);
+
+
         return root;
     }
 
-    private void setChart(LinearLayout ll, ArrayList<Integer> values) {
-        int length = convertPX(ll.getLayoutParams().width);
+    private void setChart(LinearLayout ll, ArrayList<Integer> values, int length) {
         String[] colors = {"#FC6451", "#1CBD7D", "#FDD242", "#C056FF"};
         int total = 0;
         for (int v : values) {

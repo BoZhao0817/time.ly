@@ -69,10 +69,53 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:id="@+id/estimateChart"
-        android:layout_width="350dp"
-        android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/estimateChart"
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/estimateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="00:00"
+            android:textColor="@color/darkMainText"
+            android:textStyle="bold" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/actualChart"
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/actualTime"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="00:00"
+            android:textColor="@color/darkMainText"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </LinearLayout>
 
