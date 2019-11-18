@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -17,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import dataStructures.Presentation;
-import dataStructures.Section;
 import dataStructures.State;
 import dataStructures.Timer;
 
@@ -37,7 +35,7 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
         timer = new Timer(presentation.sections.get(0).duration);
         final Handler handler = new Handler();
         final int delay = 1000;
-        final TextView timeView = findViewById(R.id.timeView);
+        final TextView timeView = findViewById(R.id.countdown_current_time);
         ImageButton play = findViewById(R.id.playButton);
         ImageButton pause = findViewById(R.id.pauseButton);
         ImageButton stop = findViewById(R.id.stopButton);
@@ -74,7 +72,7 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
         if (presentation != null) {
             TextView t = findViewById(R.id.countdown_current_section);
             t.setText(presentation.sections.get(curr).sectionName);
-            TextView time = findViewById(R.id.timeView);
+            TextView time = findViewById(R.id.countdown_current_time);
             time.setText(Presentation.toStringTime(presentation.sections.get(curr).duration));
             if (presentation.sections.size() > curr + 1) {
                 TextView nextSection = findViewById(R.id.countdown_next_section);

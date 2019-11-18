@@ -19,11 +19,20 @@
         android:textSize="40sp" />
 
     <TextView
-        android:id="@+id/timeView"
+        android:id="@+id/countdown_current_target"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="10:00"
+        android:text="Target: 1:00"
+        android:textColor="@color/darkMainText"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/countdown_current_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0:00"
         android:textColor="@color/darkMainText"
         android:textSize="72sp"
         android:textStyle="bold" />
@@ -63,7 +72,8 @@
         app:waveSecondaryLineWidth="1.0"
         app:waveXAxisPositionMultiplier="0.5" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginTop="50dp"
@@ -73,21 +83,35 @@
             android:id="@+id/recordOuter"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:background="@drawable/record_outer" />
+            android:layout_marginStart="168dp"
+            android:background="@drawable/record_outer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/recordInner"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignStart="@+id/recordOuter"
-            android:layout_alignEnd="@+id/recordOuter"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/record_inner" />
-    </RelativeLayout>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/record_inner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/recordOuter"
+            app:layout_constraintStart_toStartOf="@+id/recordOuter"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/nextButton"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="24dp"
+            android:background="@color/backDrop"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toEndOf="@+id/recordOuter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/next" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

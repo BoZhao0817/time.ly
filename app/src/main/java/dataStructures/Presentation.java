@@ -13,6 +13,7 @@ public class Presentation implements Serializable {
     public PresentationType type;
     public Integer duration; // seconds
     public ArrayList<Section> sections;
+    public ArrayList<Report> reports;
 
     public Presentation(String name, PresentationType type, Integer duration) {
         this.name = name;
@@ -20,6 +21,7 @@ public class Presentation implements Serializable {
         this.type = type;
         this.duration = duration;
         this.sections = new ArrayList<>();
+        this.reports = new ArrayList<>();
     }
 
     public static Presentation newInstance() {

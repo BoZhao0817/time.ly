@@ -29,4 +29,14 @@ public class Timer {
                 break;
         }
     }
+
+    public void tickUp() {
+        switch(state) {
+            case PAUSED:
+                break;
+            case PLAYING:
+                seconds++;
+                timeString = Presentation.toStringTime(seconds);
+        }
+    }
 }
