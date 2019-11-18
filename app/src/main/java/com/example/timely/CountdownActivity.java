@@ -85,6 +85,17 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
         }, delay);
 
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("LIFECYCLE", "DESTROYED");
+        timer.state = State.PAUSED;
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("LIFECYCLE", "STOPPED");
+    }
     private void vibrate(Section section) {
         long shortDuration = 300L;
         long longDuration = 700L;
@@ -150,6 +161,7 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d("KEY", ""+keyCode);
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
