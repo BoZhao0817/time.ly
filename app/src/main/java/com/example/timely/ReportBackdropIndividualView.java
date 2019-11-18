@@ -26,6 +26,7 @@ import java.util.Arrays;
 import dataStructures.Presentation;
 import dataStructures.Report;
 import dataStructures.Section;
+import dataStructures.Utilities;
 
 
 /**
@@ -74,40 +75,18 @@ public class ReportBackdropIndividualView extends Fragment implements View.OnCli
             act_len = act.getLayoutParams().width;
             est_len = act_len * evsa;
         }
-        est_len = convertPX((int)est_len);
-        act_len = convertPX((int)act_len);
+        Utilities util = new Utilities(getContext());
+        est_len = util.convertPX((int)est_len);
+        act_len = util.convertPX((int)act_len);
 
-        setChart(est, estimates, (int)est_len);
-        setChart(act, actuals, (int)act_len);
+        util.setChart(est, estimates, (int)est_len);
+        util.setChart(act, actuals, (int)act_len);
 
 
         return root;
     }
 
-    private void setChart(LinearLayout ll, ArrayList<Integer> values, int length) {
-        String[] colors = {"#FC6451", "#1CBD7D", "#FDD242", "#C056FF"};
-        int total = 0;
-        for (int v : values) {
-            total += v;
-        }
-        for (int i = 0; i < values.size(); i++) {
-            int dp = (int)Math.floor(((values.get(i)*1.0) / total) * length);
-            View v = new View(getContext());
-            v.setLayoutParams(new LinearLayout.LayoutParams(convertDP(dp), convertDP(20)));
-            v.setBackgroundColor(Color.parseColor(colors[i % colors.length]));
-            ll.addView(v);
-        }
-    }
 
-    private int convertDP(int dp) {
-        final float scale = getContext().getResources().getDisplayMetrics().density;
-        return (int)(dp*scale+0.5f);
-    }
-
-    private int convertPX(int px) {
-        final float scale = getContext().getResources().getDisplayMetrics().density;
-        return (int)Math.ceil(px / scale);
-    }
     @Override
     public void onClick(View v) {
         MainActivity mainActivity = (MainActivity)getActivity();
