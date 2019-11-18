@@ -16,6 +16,7 @@
         <activity android:name=".CountdownActivity" />
         <activity android:name=".ConfigurationActivity" />
         <activity android:name=".StartActivity" />
+        <activity android:name=".ReportActivity"/>
         <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".SplashScreen"

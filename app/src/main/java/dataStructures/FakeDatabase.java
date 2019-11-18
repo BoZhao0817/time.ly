@@ -6,7 +6,7 @@ public class FakeDatabase {
     public ArrayList<Presentation> presentations;
     public ArrayList<Profile> users;
     public Profile currentUser;
-
+    public Report testReport;
     private static FakeDatabase instance;
 
     private FakeDatabase() {
@@ -46,5 +46,11 @@ public class FakeDatabase {
         presentations.add(a);
         presentations.add(b);
         presentations.add(c);
+
+        Report r = new Report(b);
+        r.addEstimate(45);
+        r.addEstimate(90);
+        r.addEstimate(20);
+        testReport = r;
     }
 }
