@@ -19,6 +19,7 @@ import com.narayanacharya.waveview.WaveView;
 import org.w3c.dom.Text;
 
 import dataStructures.Presentation;
+import dataStructures.Report;
 import dataStructures.State;
 import dataStructures.Timer;
 
@@ -31,6 +32,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
     TextView target;
     TextView time;
     Presentation presentation;
+    Report report;
     Timer timer;
     boolean finished = false;
     int delay = 1000;
@@ -40,6 +42,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_practice);
         Intent i = getIntent();
         presentation = (Presentation) i.getSerializableExtra("data");
+        report = new Report(presentation);
         initializeText(0);
         wave = findViewById(R.id.wave);
         wave2 = findViewById(R.id.wave2);
@@ -73,7 +76,10 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
                 if (!finished) {
                     handler.postDelayed(this, delay);
                 } else {
-
+                    presentation.reports.add(report);
+                    Intent end = new Intent(getApplicationContext(), ReportActivity.class);
+                    end.putExtra("data", presentation);
+                    startActivity(end);
                 }
             }
         }, delay);
@@ -106,6 +112,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
             case R.id.nextButton:
                 timer.count++;
                 timer.done = true;
+                report.addEstimate(timer.seconds);
                 break;
             default:
                 break;
