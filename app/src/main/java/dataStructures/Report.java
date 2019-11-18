@@ -16,6 +16,8 @@ public class Report {
         id = UUID.randomUUID();
         date = new Date();
         total_actual = p.duration;
+        actuals = new ArrayList<>();
+        estimates = new ArrayList<>();
         for (Section s : p.sections) {
             actuals.add(s.duration);
         }

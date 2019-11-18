@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -40,6 +41,9 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
         ImageButton pause = findViewById(R.id.pauseButton);
         ImageButton stop = findViewById(R.id.stopButton);
         ImageButton next = findViewById(R.id.nextButton);
+        final ProgressBar progress = findViewById(R.id.progressBar);
+        progress.setMax(timer.seconds);
+        progress.setProgress(0);
         play.setOnClickListener(this);
         pause.setOnClickListener(this);
         stop.setOnClickListener(this);
@@ -49,9 +53,12 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
             public void run() {
                 timer.updateTimer();
                 timeView.setText(timer.timeString);
+                progress.setProgress(progress.getMax() - timer.seconds);
                 if(timer.done) {
                     if (timer.count < presentation.sections.size()) {
                         timer.seconds = presentation.sections.get(timer.count).duration;
+                        progress.setMax(timer.seconds);
+                        progress.setProgress(0);
                         timer.done = false;
                         initializeText(timer.count);
                     } else {

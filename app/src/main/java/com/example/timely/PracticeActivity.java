@@ -43,7 +43,6 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         Intent i = getIntent();
         presentation = (Presentation) i.getSerializableExtra("data");
         report = new Report(presentation);
-        initializeText(0);
         wave = findViewById(R.id.wave);
         wave2 = findViewById(R.id.wave2);
         wave.pause();
@@ -52,13 +51,15 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         Button out = findViewById(R.id.recordOuter);
         ImageButton next = findViewById(R.id.nextButton);
         section = findViewById(R.id.countdown_current_section);
-        target = findViewById(R.id.countdown_current_target);
+        target = findViewById(R.id.practice_current_target);
         time = findViewById(R.id.countdown_current_time);
+        initializeText(0);
         in.setOnClickListener(this);
         out.setOnClickListener(this);
         next.setOnClickListener(this);
         final Handler handler = new Handler();
         timer = new Timer(0);
+        timer.state = State.PAUSED;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -66,8 +67,9 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
                 time.setText(timer.timeString);
                 if(timer.done) {
                     if (timer.count < presentation.sections.size()) {
-                        timer.seconds = presentation.sections.get(timer.count).duration;
+                        timer.seconds = 0;
                         timer.done = false;
+                        timer.timeString = "00:00";
                         initializeText(timer.count);
                     } else {
                         finished = true;
@@ -89,7 +91,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         if (presentation != null) {
             section.setText(presentation.sections.get(curr).sectionName);
             target.setText(Presentation.toStringTime(presentation.sections.get(curr).duration));
-            time.setText("0:00");
+            time.setText("00:00");
         }
     }
 

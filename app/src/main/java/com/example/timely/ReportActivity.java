@@ -34,7 +34,7 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_report);
 
         this.activePresentation = FakeDatabase.getInstance().presentations.get(0);
 
