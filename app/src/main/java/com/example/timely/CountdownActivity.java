@@ -1,10 +1,13 @@
 package com.example.timely;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +19,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import java.util.ArrayList;
+
 import dataStructures.Presentation;
+import dataStructures.Section;
 import dataStructures.State;
 import dataStructures.Timer;
+import dataStructures.VibrationPattern;
 
 public class CountdownActivity extends AppCompatActivity implements View.OnClickListener {
     private Presentation presentation;
@@ -56,12 +63,15 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
                 progress.setProgress(progress.getMax() - timer.seconds);
                 if(timer.done) {
                     if (timer.count < presentation.sections.size()) {
-                        timer.seconds = presentation.sections.get(timer.count).duration;
+                        Section section = presentation.sections.get(timer.count);
+                        vibrate(presentation.sections.get(timer.count-1));
+                        timer.seconds = section.duration;
                         progress.setMax(timer.seconds);
                         progress.setProgress(0);
                         timer.done = false;
                         initializeText(timer.count);
                     } else {
+                        vibrate(presentation.sections.get(timer.count-1));
                         finished = true;
                     }
                 }
@@ -74,7 +84,27 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
         }, delay);
 
     }
-
+    private void vibrate(Section section) {
+        long shortDuration = 300L;
+        long longDuration = 700L;
+        long delay = 200L;
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = new long[section.vibrationPattern.size()*2];
+        pattern[0] = 0;
+        for (int i = 1; i <= section.vibrationPattern.size(); i++) {
+            VibrationPattern vp = section.vibrationPattern.get(i-1);
+            if (vp == VibrationPattern.LONG) {
+                pattern[2 * i - 1] = shortDuration;
+                if (i != section.vibrationPattern.size())
+                    pattern[2 * i] = delay;
+            } else {
+                pattern[2 * i - 1] = longDuration;
+                if (i != section.vibrationPattern.size())
+                    pattern[2 * i] = delay;
+            }
+        }
+        v.vibrate(VibrationEffect.createWaveform(pattern, -1));
+    }
     private void initializeText(int curr) {
         if (presentation != null) {
             TextView t = findViewById(R.id.countdown_current_section);

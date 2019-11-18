@@ -20,6 +20,19 @@ public class Section implements Serializable {
         this.duration = duration;
         this.id = UUID.randomUUID().toString();
         this.vibrationPattern = new ArrayList<>();
+        vibrationPattern.add(VibrationPattern.LONG);
+        vibrationPattern.add(VibrationPattern.SHORT);
+        vibrationPattern.add(VibrationPattern.LONG);
+    }
+
+    public Section(String sectionName, String ownerName, String userID, Integer duration,
+                   ArrayList<VibrationPattern> pattern) {
+        this.sectionName = sectionName;
+        this.ownerName = ownerName;
+        this.userID = userID;
+        this.duration = duration;
+        this.id = UUID.randomUUID().toString();
+        this.vibrationPattern = pattern;
     }
 
     public String getDurationString() {
