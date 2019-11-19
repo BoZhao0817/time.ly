@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="ltr"
+    >
+    <item
+        android:id="@+id/back"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="Back"/>
+    <item
+        android:orderInCategory="2"
+        android:id="@+id/Settings"
+        android:title="Settings"
+        app:showAsAction="always"
+        />
+    <item
+        android:orderInCategory="3"
+        android:id="@+id/help"
+        android:icon="@drawable/icon_help_outline"
+        android:title="Help"
+        app:showAsAction="always"
+        />
+    <item
+        android:orderInCategory="4"
+        android:id="@+id/menu"
+        android:title="Menu"
+        android:icon="@drawable/icon_menu"
+        app:showAsAction="always"
+        />
+
+</menu>

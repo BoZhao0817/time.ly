@@ -8,7 +8,6 @@ public class FakeDatabase {
     public Profile currentUser;
     public Report testReport;
     private static FakeDatabase instance;
-
     private FakeDatabase() {
         this.presentations = new ArrayList<>();
         this.users = new ArrayList<>();
@@ -78,5 +77,6 @@ public class FakeDatabase {
         a.reports.add(ar2);
 
         c.reports.add(cr);
+
     }
 }

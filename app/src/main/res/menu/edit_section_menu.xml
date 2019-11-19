@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="ltr"
+    >
+    <item
+        android:id="@+id/action_help"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_close_black_24dp"
+        android:title="Help"
+        />
+    <item
+        android:orderInCategory="2"
+        android:id="@+id/EditSection"
+        android:title="Edit Section"
+        app:showAsAction="always"
+        />
+    <item
+        android:orderInCategory="3"
+        android:id="@+id/mybutton"
+        android:title="Save"
+        app:showAsAction="always"
+        />
+
+</menu>
