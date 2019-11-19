@@ -47,10 +47,36 @@ public class FakeDatabase {
         presentations.add(b);
         presentations.add(c);
 
-        Report r = new Report(b);
-        r.addEstimate(45);
-        r.addEstimate(90);
-        r.addEstimate(20);
-        testReport = r;
+        Report br = new Report(b);
+        br.addEstimate(45);
+        br.addEstimate(90);
+        br.addEstimate(20);
+
+        Report br2 = new Report(b);
+        br2.addEstimate(50);
+        br2.addEstimate(100);
+        br2.addEstimate(40);
+        testReport = br;
+
+        Report ar = new Report(a);
+        ar.addEstimate(70);
+        ar.addEstimate(110);
+        ar.addEstimate(20);
+
+        Report ar2 = new Report(a);
+        ar2.addEstimate(50);
+        ar2.addEstimate(90);
+        ar2.addEstimate(5);
+
+        Report cr = new Report(c);
+        cr.addEstimate(80);
+
+        b.reports.add(br);
+        b.reports.add(br2);
+
+        a.reports.add(ar);
+        a.reports.add(ar2);
+
+        c.reports.add(cr);
     }
 }

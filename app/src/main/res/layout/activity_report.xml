@@ -67,7 +67,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Saved Presentations"
+            android:text="Saved Reports"
             android:textColor="@color/lightIndicatorText" />
 
         <androidx.core.widget.NestedScrollView
@@ -79,15 +79,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <Button
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:id="@+id/main_add_presentation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/icon_add_outline"
-                    android:text="ADD NEW PRESENTATION"
-                    android:textColor="@color/lightButtonText" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/main_recycler_view"

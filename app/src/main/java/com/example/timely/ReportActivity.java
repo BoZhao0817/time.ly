@@ -27,7 +27,7 @@ import io.reactivex.functions.Consumer;
 
 public class ReportActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MainRecyclerAdapter recyclerAdapter;
+    private ReportRecyclerAdapter recyclerAdapter;
 
     private Disposable listItemClicked;
     Report activeReport;
@@ -45,10 +45,10 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
         createRecyclerView();
 
         // all layout elements are populated
-        listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Presentation>() {
+        listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Report>() {
             @Override
-            public void accept(Presentation presentation) throws Exception {
-                updateBackdrop(activeReport);
+            public void accept(Report report) throws Exception {
+                updateBackdrop(report);
             }
         });
     }
@@ -80,7 +80,7 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
         RecyclerView recyclerView = findViewById(R.id.main_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        MainRecyclerAdapter adapter = new MainRecyclerAdapter();
+        ReportRecyclerAdapter adapter = new ReportRecyclerAdapter();
         recyclerView.setAdapter(adapter);
         this.recyclerAdapter = adapter;
     }
@@ -111,6 +111,7 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void updateBackdrop(Report datum) {
+        Log.e("BACKDROP UPDATE", datum.id.toString() + " " + Presentation.toStringTime(datum.total_estimate));
         if (this.activeReport != null && datum.id.equals(this.activeReport.id)) {
             return;
         }

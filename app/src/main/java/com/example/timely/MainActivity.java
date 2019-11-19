@@ -27,7 +27,7 @@ import io.reactivex.functions.Consumer;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MainRecyclerAdapter recyclerAdapter;
-
+    public ReportListView rpl;
     private Disposable listItemClicked;
     Presentation activePresentation;
 
