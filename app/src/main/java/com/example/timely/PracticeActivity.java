@@ -38,8 +38,10 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
 
-        this.activePresentation = FakeDatabase.getInstance().presentations.get(0);
+        this.activePresentation = FakeDatabase.getInstance().presentations.get(1);
 //        activePresentation = (Presentation) getIntent().getSerializableExtra("data");
+        activeReport = new Report(this.activePresentation, "new recording");
+        this.activePresentation.reports.add(activeReport);
 
         createActionBar();
         createBackDrop();
@@ -66,7 +68,8 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             final Drawable backArrow = ContextCompat.getDrawable(this, R.drawable.icon_light_arrow_back);
-            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.frontLayer)));
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.appBar)));
+            actionBar.setTitle("Practice");
             actionBar.setElevation(0);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -93,11 +96,10 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void createBackDrop() {
-        if (this.activePresentation != null) { return; }
+        if (this.activePresentation == null) { return; }
         if (findViewById(R.id.practice_backdrop_menu_wrapper) != null) {
             FragmentManager manager = getSupportFragmentManager();
             Bundle inputData = new Bundle();
-            inputData.putSerializable("data", this.activePresentation);
             inputData.putSerializable("data", this.activePresentation);
             if (this.activePresentation.type == PresentationType.GROUP) {
                 PracticeBackdropGroupView v = new PracticeBackdropGroupView();
@@ -112,7 +114,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void updateBackdrop(PracticeBackdropType requestType, Report nextReport) {
-        if (this.activePresentation != null) { return; }
+        if (this.activePresentation == null) { return; }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Bundle inputData = new Bundle();
@@ -125,6 +127,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
                 PracticeBackdropReportView v = new PracticeBackdropReportView();
                 v.setArguments(inputData);
                 transaction.replace(R.id.practice_backdrop_menu_wrapper, v);
+                transaction.commit();
                 showBottomSheet();
                 break;
             }
@@ -134,25 +137,34 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
                     PracticeBackdropGroupView v = new PracticeBackdropGroupView();
                     v.setArguments(inputData);
                     transaction.replace(R.id.practice_backdrop_menu_wrapper, v);
+                    transaction.commit();
                 } else {
                     PracticeBackdropIndividualView v = new PracticeBackdropIndividualView();
                     v.setArguments(inputData);
                     transaction.replace(R.id.practice_backdrop_menu_wrapper, v);
+                    transaction.commit();
                 }
                 break;
             }
         }
-        transaction.commit();
     }
 
     public void showBottomSheet() {
         bottomSheet.setHideable(false);
         bottomSheet.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        LinearLayout backdrop = findViewById(R.id.practice_backdrop);
+        if (backdrop != null) {
+            backdrop.setBackgroundResource(R.drawable.rounded_top_corners);
+        }
     }
 
     public void closeBottomSheet() {
         bottomSheet.setHideable(true);
         bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
+        LinearLayout backdrop = findViewById(R.id.practice_backdrop);
+        if (backdrop != null) {
+            backdrop.setBackgroundResource(0);
+        }
     }
 
 
@@ -175,5 +187,8 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
     public void onDestroy() {
         super.onDestroy();
         this.listItemClicked.dispose();
+        if (this.activeReport.actuals.size() == 0) {
+            this.activePresentation.reports.remove(this.activeReport);
+        }
     }
 }

@@ -64,7 +64,7 @@ public abstract class PracticeCommonView extends Fragment implements View.OnClic
             public void run() {
                 timer.tickUp();
                 time.setText(timer.timeString);
-                if(timer.done) {
+                if (timer.done) {
                     if (timer.count < presentation.sections.size()) {
                         timer.seconds = 0;
                         timer.done = false;

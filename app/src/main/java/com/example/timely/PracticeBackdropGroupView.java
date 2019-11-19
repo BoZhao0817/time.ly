@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import dataStructures.Presentation;
@@ -27,8 +29,7 @@ public class PracticeBackdropGroupView extends PracticeCommonView {
         if (bundle != null) {
             currentPresentation = (Presentation) bundle.getSerializable("data");
             if (currentPresentation != null){
-                currentReport = new Report(currentPresentation);
-                currentPresentation.reports.add(currentReport);
+                currentReport = currentPresentation.reports.get(currentPresentation.reports.size() - 1);
             }
         }
     }
@@ -39,18 +40,22 @@ public class PracticeBackdropGroupView extends PracticeCommonView {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_practice_backdrop_group_view, container, false);
         init(root, currentPresentation, currentReport);
+        TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
+        if (name != null) {
+            name.setText(currentReport.name);
+        }
         return root;
     }
 
     @Override
     protected void onStarted() {
-        TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
-        if (name != null) {
-            name.setText(currentReport.name);
-        }
         TextView type = root.findViewById(R.id.practice_backdrop_recording_type);
         if (type != null) {
             type.setText(currentReport.group_type.toString());
+        }
+        RadioGroup radios = root.findViewById(R.id.practice_radios);
+        if (type != null) {
+            ((LinearLayout)radios.getParent()).removeView(radios);
         }
 
         PracticeActivity parent = (PracticeActivity) getActivity();

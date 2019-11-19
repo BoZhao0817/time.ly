@@ -6,9 +6,10 @@
     tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBar">
+    android:background="@color/backDrop">
 
     <LinearLayout
+        android:id="@+id/practice_backdrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

@@ -1,63 +1,37 @@
 package com.example.timely;
 
-import android.content.Context;
-import android.net.Uri;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PracticeBackdropReportView.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PracticeBackdropReportView#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PracticeBackdropReportView extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import dataStructures.Presentation;
+import dataStructures.Report;
+import dataStructures.Utilities;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
+public class PracticeBackdropReportView extends Fragment implements View.OnClickListener {
+    private Report datum;
+    private View root;
     public PracticeBackdropReportView() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PracticeBackdropReportView.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PracticeBackdropReportView newInstance(String param1, String param2) {
-        PracticeBackdropReportView fragment = new PracticeBackdropReportView();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            datum = (Report) bundle.getSerializable("data");
         }
     }
 
@@ -65,45 +39,48 @@ public class PracticeBackdropReportView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_practice_backdrop_report_view, container, false);
-    }
+        root = inflater.inflate(R.layout.fragment_practice_backdrop_report_view, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        if (getContext() != null) {
+            SeekBar seekBar = root.findViewById(R.id.seekBar);
+            seekBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.darkButtonText), PorterDuff.Mode.MULTIPLY);
         }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
+        duration.setText(Presentation.toStringTime(datum.total_actual));
+        TextView estTime = root.findViewById(R.id.estimateTime);
+        TextView actTime = root.findViewById(R.id.actualTime);
+        estTime.setText(Presentation.toStringTime(datum.total_estimate));
+        actTime.setText(Presentation.toStringTime(datum.total_actual));
+        LinearLayout est = root.findViewById(R.id.estimateChart);
+        LinearLayout act = root.findViewById(R.id.actualChart);
+        ArrayList<Integer> estimates = datum.estimates;
+        ArrayList<Integer> actuals = datum.actuals;
+        double avse = (datum.total_actual*1.0) / datum.total_estimate;
+        double evsa = (datum.total_estimate*1.0) / datum.total_actual;
+        double est_len;
+        double act_len;
+        if (avse < 1.0) {
+            est_len = est.getLayoutParams().width;
+            act_len = est_len * avse;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            act_len = act.getLayoutParams().width;
+            est_len = act_len * evsa;
         }
+        Utilities util = new Utilities(getContext());
+        est_len = util.convertPX((int)est_len);
+        act_len = util.convertPX((int)act_len);
+
+        util.setChart(est, estimates, (int)est_len);
+        util.setChart(act, actuals, (int)act_len);
+
+
+        return root;
     }
+
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void onClick(View v) {
+        // TODO
     }
 }

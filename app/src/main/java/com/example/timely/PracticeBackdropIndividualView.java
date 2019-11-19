@@ -25,8 +25,7 @@ public class PracticeBackdropIndividualView extends PracticeCommonView {
         if (bundle != null) {
             currentPresentation = (Presentation) bundle.getSerializable("data");
             if (currentPresentation != null){
-                currentReport = new Report(currentPresentation);
-                currentPresentation.reports.add(currentReport);
+                currentReport = currentPresentation.reports.get(currentPresentation.reports.size() - 1);
             }
         }
     }
@@ -35,17 +34,17 @@ public class PracticeBackdropIndividualView extends PracticeCommonView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_practice_backdrop_group_view, container, false);
+        View root = inflater.inflate(R.layout.fragment_practice_backdrop_individual_view, container, false);
+        TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
+        if (name != null) {
+            name.setText(currentReport.name);
+        }
         init(root, currentPresentation, currentReport);
         return root;
     }
 
     @Override
     protected void onStarted() {
-        TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
-        if (name != null) {
-            name.setText(currentReport.name);
-        }
 
         PracticeActivity parent = (PracticeActivity) getActivity();
         if (parent != null) {

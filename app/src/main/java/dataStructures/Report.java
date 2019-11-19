@@ -16,8 +16,9 @@ public class Report implements Serializable {
     public PresentationType type;
     public ReportGroupType group_type;
 
-    public Report(Presentation p) {
+    public Report(Presentation p, String name) {
         id = UUID.randomUUID();
+        this.name = name;
         date = new Date();
         total_actual = p.duration;
         actuals = new ArrayList<>();
