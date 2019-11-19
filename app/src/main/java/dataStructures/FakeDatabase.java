@@ -46,6 +46,12 @@ public class FakeDatabase {
         presentations.add(b);
         presentations.add(c);
 
+        Report r = new Report(b, "existing recording");
+        r.addEstimate(45);
+        r.addEstimate(90);
+        r.addEstimate(20);
+        a.reports.add(r);
+
         Report br = new Report(b);
         br.addEstimate(45);
         br.addEstimate(90);

@@ -1,42 +1,29 @@
 package com.example.timely;
 
-import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import dataStructures.Presentation;
+import dataStructures.PresentationType;
 import dataStructures.Report;
-import dataStructures.Section;
 import dataStructures.Utilities;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ReportBackdropIndividualView extends Fragment implements View.OnClickListener {
-
+public class PracticeBackdropReportView extends Fragment implements View.OnClickListener {
     private Report datum;
     private View root;
-    public ReportBackdropIndividualView() {
+    public PracticeBackdropReportView() {
         // Required empty public constructor
     }
 
@@ -53,7 +40,24 @@ public class ReportBackdropIndividualView extends Fragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_report_backdrop_individual_view, container, false);
+        root = inflater.inflate(R.layout.fragment_practice_backdrop_report_view, container, false);
+
+        if (getContext() != null) {
+            SeekBar seekBar = root.findViewById(R.id.seekBar);
+            seekBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.darkButtonText), PorterDuff.Mode.MULTIPLY);
+        }
+
+        TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
+        if (name != null) {
+            name.setText(datum.name);
+        }
+        if (datum.type == PresentationType.GROUP) {
+            TextView type = root.findViewById(R.id.practice_backdrop_recording_type);
+            if (type != null) {
+                type.setText(datum.group_type.toString());
+            }
+        }
+
         TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
         duration.setText(Presentation.toStringTime(datum.total_actual));
         TextView estTime = root.findViewById(R.id.estimateTime);
@@ -89,39 +93,6 @@ public class ReportBackdropIndividualView extends Fragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        MainActivity mainActivity = (MainActivity)getActivity();
-        if (mainActivity == null) {
-            return;
-        }
-
-        switch (v.getId()) {
-            case R.id.main_backdrop_delete_button: {
-                break;
-            }
-            case R.id.main_individual_start_button: {
-                Intent intent = new Intent(mainActivity, CountdownActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
-                startActivity(intent);
-                break;
-            }
-            case R.id.main_individual_practice_button: {
-                Intent intent = new Intent(mainActivity, PracticeActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
-                startActivity(intent);
-                break;
-            }
-            case R.id.main_individual_settings_button: {
-                Intent intent = new Intent(mainActivity, ConfigurationActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
-                startActivity(intent);
-                break;
-            }
-            case R.id.main_individual_share_button: {
-                Intent intent = new Intent(mainActivity, GroupActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
-                startActivity(intent);
-                break;
-            }
-        }
+        // TODO
     }
 }
