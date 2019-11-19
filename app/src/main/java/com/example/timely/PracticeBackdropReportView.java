@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 import dataStructures.Presentation;
+import dataStructures.PresentationType;
 import dataStructures.Report;
 import dataStructures.Utilities;
 
@@ -44,6 +45,17 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
         if (getContext() != null) {
             SeekBar seekBar = root.findViewById(R.id.seekBar);
             seekBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.darkButtonText), PorterDuff.Mode.MULTIPLY);
+        }
+
+        TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
+        if (name != null) {
+            name.setText(datum.name);
+        }
+        if (datum.type == PresentationType.GROUP) {
+            TextView type = root.findViewById(R.id.practice_backdrop_recording_type);
+            if (type != null) {
+                type.setText(datum.group_type.toString());
+            }
         }
 
         TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);

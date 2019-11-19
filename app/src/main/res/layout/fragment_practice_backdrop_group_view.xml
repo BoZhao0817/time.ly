@@ -36,50 +36,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_marginBottom="5dp">
+        <RadioButton android:id="@+id/practice_radio_individual"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-            <RadioButton android:id="@+id/practice_radio_individual"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Individual"
-                android:onClick="onRadioButtonClicked"
-                android:buttonTint="@color/darkButtonText"
-                android:textColor="@color/darkIndicatorText"
-                android:fontFamily="sans-serif-medium"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Practice with your own portion"
-                android:textColor="@color/darkHelperText"
-                android:textSize="10sp"
-                android:layout_marginStart="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:text="Portion: practice with your own portion"
+            android:buttonTint="@color/darkButtonText"
+            android:textColor="@color/darkIndicatorText"
+            android:fontFamily="sans-serif-medium"/>
+        <RadioButton android:id="@+id/practice_radio_group"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <RadioButton android:id="@+id/practice_radio_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Group"
-                android:onClick="onRadioButtonClicked"
-                android:buttonTint="@color/darkButtonText"
-                android:textColor="@color/darkIndicatorText"
-                android:fontFamily="sans-serif-medium"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Practice as a group"
-                android:textColor="@color/darkHelperText"
-                android:textSize="10sp"
-                android:layout_marginStart="30dp"/>
-        </LinearLayout>
+            android:text="Group: practice as a group"
+            android:buttonTint="@color/darkButtonText"
+            android:textColor="@color/darkIndicatorText"
+            android:fontFamily="sans-serif-medium"/>
     </RadioGroup>
 
     <include

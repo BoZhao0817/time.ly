@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -13,7 +12,7 @@ import dataStructures.Presentation;
 import dataStructures.Report;
 import dataStructures.ReportGroupType;
 
-public class PracticeBackdropGroupView extends PracticeCommonView {
+public class PracticeBackdropGroupView extends PracticeCommonView implements RadioGroup.OnCheckedChangeListener {
 
     private Presentation currentPresentation;
     private Report currentReport;
@@ -28,7 +27,7 @@ public class PracticeBackdropGroupView extends PracticeCommonView {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             currentPresentation = (Presentation) bundle.getSerializable("data");
-            if (currentPresentation != null){
+            if (currentPresentation != null) {
                 currentReport = currentPresentation.reports.get(currentPresentation.reports.size() - 1);
             }
         }
@@ -44,6 +43,10 @@ public class PracticeBackdropGroupView extends PracticeCommonView {
         if (name != null) {
             name.setText(currentReport.name);
         }
+        RadioGroup radios = root.findViewById(R.id.practice_radios);
+        if (radios != null) {
+            radios.setOnCheckedChangeListener(this);
+        }
         return root;
     }
 
@@ -55,7 +58,7 @@ public class PracticeBackdropGroupView extends PracticeCommonView {
         }
         RadioGroup radios = root.findViewById(R.id.practice_radios);
         if (type != null) {
-            ((LinearLayout)radios.getParent()).removeView(radios);
+            ((LinearLayout) radios.getParent()).removeView(radios);
         }
 
         PracticeActivity parent = (PracticeActivity) getActivity();
@@ -72,10 +75,9 @@ public class PracticeBackdropGroupView extends PracticeCommonView {
         }
     }
 
-    public void onRadioButtonClicked(View v) {
-        boolean checked = ((RadioButton) v).isChecked();
-        if (!checked) { return; }
-        switch(v.getId()) {
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
             case R.id.practice_radio_individual:
                 currentReport.group_type = ReportGroupType.PORTION;
                 break;

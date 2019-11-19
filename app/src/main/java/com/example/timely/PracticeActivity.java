@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,7 +39,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
 
-        this.activePresentation = FakeDatabase.getInstance().presentations.get(1);
+        this.activePresentation = FakeDatabase.getInstance().presentations.get(0);
 //        activePresentation = (Presentation) getIntent().getSerializableExtra("data");
         activeReport = new Report(this.activePresentation, "new recording");
         this.activePresentation.reports.add(activeReport);
@@ -152,18 +153,18 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
     public void showBottomSheet() {
         bottomSheet.setHideable(false);
         bottomSheet.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        LinearLayout backdrop = findViewById(R.id.practice_backdrop);
-        if (backdrop != null) {
-            backdrop.setBackgroundResource(R.drawable.rounded_top_corners);
+        CoordinatorLayout basis = findViewById(R.id.practice_basis);
+        if (basis != null) {
+            basis.setBackgroundColor(ContextCompat.getColor(this, R.color.appBar));
         }
     }
 
     public void closeBottomSheet() {
         bottomSheet.setHideable(true);
         bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
-        LinearLayout backdrop = findViewById(R.id.practice_backdrop);
-        if (backdrop != null) {
-            backdrop.setBackgroundResource(0);
+        CoordinatorLayout basis = findViewById(R.id.practice_basis);
+        if (basis != null) {
+            basis.setBackgroundColor(ContextCompat.getColor(this, R.color.backDrop));
         }
     }
 
