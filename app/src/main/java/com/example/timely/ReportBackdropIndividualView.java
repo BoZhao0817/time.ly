@@ -1,31 +1,18 @@
 package com.example.timely;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.fragment.app.Fragment;
 
-import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import dataStructures.Presentation;
 import dataStructures.Report;
-import dataStructures.Section;
 import dataStructures.Utilities;
 
 
@@ -89,39 +76,6 @@ public class ReportBackdropIndividualView extends Fragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        MainActivity mainActivity = (MainActivity)getActivity();
-        if (mainActivity == null) {
-            return;
-        }
-
-        switch (v.getId()) {
-            case R.id.main_backdrop_delete_button: {
-                break;
-            }
-            case R.id.main_individual_start_button: {
-                Intent intent = new Intent(mainActivity, CountdownActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
-                startActivity(intent);
-                break;
-            }
-            case R.id.main_individual_practice_button: {
-                Intent intent = new Intent(mainActivity, PracticeActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
-                startActivity(intent);
-                break;
-            }
-            case R.id.main_individual_settings_button: {
-                Intent intent = new Intent(mainActivity, ConfigurationActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
-                startActivity(intent);
-                break;
-            }
-            case R.id.main_individual_share_button: {
-                Intent intent = new Intent(mainActivity, GroupActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
-                startActivity(intent);
-                break;
-            }
-        }
+        // TODO
     }
 }

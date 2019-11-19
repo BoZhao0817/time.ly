@@ -51,6 +51,6 @@ public class FakeDatabase {
         r.addEstimate(45);
         r.addEstimate(90);
         r.addEstimate(20);
-        testReport = r;
+        a.reports.add(r);
     }
 }

@@ -1,185 +1,179 @@
 package com.example.timely;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.animation.ValueAnimator;
-import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.os.Handler;
+import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-import com.narayanacharya.waveview.WaveView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
+import dataStructures.PresentationType;
 import dataStructures.Report;
-import dataStructures.State;
-import dataStructures.Timer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class PracticeActivity extends AppCompatActivity implements View.OnClickListener {
-    boolean rec = false;
-    WaveView wave;
-    WaveView wave2;
-    int duration = 1000;
-    TextView section;
-    TextView target;
-    TextView time;
-    Presentation presentation;
-    Report report;
-    Timer timer;
-    boolean finished = false;
-    int delay = 1000;
+
+    private PracticeRecyclerAdapter recyclerAdapter;
+    private BottomSheetBehavior bottomSheet;
+    private Disposable listItemClicked;
+
+    private Report activeReport;
+    private Presentation activePresentation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
-        Intent i = getIntent();
-        presentation = (Presentation) i.getSerializableExtra("data");
-        report = new Report(presentation);
-        wave = findViewById(R.id.wave);
-        wave2 = findViewById(R.id.wave2);
-        wave.pause();
-        wave2.pause();
-        Button in = findViewById(R.id.recordInner);
-        Button out = findViewById(R.id.recordOuter);
-        ImageButton next = findViewById(R.id.nextButton);
-        section = findViewById(R.id.countdown_current_section);
-        target = findViewById(R.id.practice_current_target);
-        time = findViewById(R.id.countdown_current_time);
-        initializeText(0);
-        in.setOnClickListener(this);
-        out.setOnClickListener(this);
-        next.setOnClickListener(this);
-        final Handler handler = new Handler();
-        timer = new Timer(0);
-        timer.state = State.PAUSED;
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                timer.tickUp();
-                time.setText(timer.timeString);
-                if(timer.done) {
-                    if (timer.count < presentation.sections.size()) {
-                        timer.seconds = 0;
-                        timer.done = false;
-                        timer.timeString = "00:00";
-                        initializeText(timer.count);
-                    } else {
-                        finished = true;
-                    }
-                }
-                if (!finished) {
-                    handler.postDelayed(this, delay);
-                } else {
-                    presentation.reports.add(report);
-                    Intent end = new Intent(getApplicationContext(), ReportActivity.class);
-                    end.putExtra("data", presentation);
-                    startActivity(end);
-                }
-            }
-        }, delay);
-    }
 
-    private void initializeText(int curr) {
-        if (presentation != null) {
-            section.setText(presentation.sections.get(curr).sectionName);
-            target.setText(Presentation.toStringTime(presentation.sections.get(curr).duration));
-            time.setText("00:00");
-        }
+        this.activePresentation = FakeDatabase.getInstance().presentations.get(0);
+//        activePresentation = (Presentation) getIntent().getSerializableExtra("data");
+
+        createActionBar();
+        createBackDrop();
+        createBottomSheet();
+        createRecyclerView();
+
+        // all layout elements are populated
+        listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Report>() {
+            @Override
+            public void accept(Report report) throws Exception {
+                updateBackdrop(PracticeBackdropType.REPORT, report);
+            }
+        });
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.recordOuter:
-            case R.id.recordInner:
-                animate();
-                if(wave.isPlaying()) {
-                    wave.pause();
-                    wave2.pause();
-                    timer.state = State.PAUSED;
-                } else {
-                    wave.play();
-                    wave2.play();
-                    timer.state = State.PLAYING;
-                }
-                break;
-            case R.id.nextButton:
-                timer.count++;
-                timer.done = true;
-                report.addEstimate(timer.seconds);
-                break;
-            default:
-                break;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.practice_app_bar, menu);
+        return true;
+    }
+
+    private void createActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            final Drawable backArrow = ContextCompat.getDrawable(this, R.drawable.icon_light_arrow_back);
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.frontLayer)));
+            actionBar.setElevation(0);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(backArrow);
+            actionBar.show();
         }
     }
 
-    private void animate() {
-        if (!rec) {
-            Button in = findViewById(R.id.recordInner);
-            Button out = findViewById(R.id.recordOuter);
-            final float fromRadius = 10;
-            final float toRadius = 1000;
-            final GradientDrawable gd = (GradientDrawable) in.getBackground();
-            final ValueAnimator animator = ValueAnimator.ofFloat(toRadius, fromRadius);
-            animator.setDuration(duration)
-                    .addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            float value = (float) animation.getAnimatedValue();
-                            gd.setCornerRadius(value);
-                        }
-                    });
+    private void createBottomSheet() {
+        LinearLayout linearLayout = findViewById(R.id.practice_bottom_sheet);
+        final BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(linearLayout);
+        sheetBehavior.setHideable(false);
+        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        this.bottomSheet = sheetBehavior;
+    }
 
-            final GradientDrawable gd2 = (GradientDrawable) out.getBackground();
-            final ValueAnimator animator2 = ValueAnimator.ofFloat(toRadius, fromRadius);
-            animator2.setDuration(duration)
-                    .addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            float value = (float) animation.getAnimatedValue();
-                            gd2.setCornerRadius(value);
-                        }
-                    });
-            animator.start();
-            animator2.start();
-            rec = true;
-        } else {
-            Button in = findViewById(R.id.recordInner);
-            Button out = findViewById(R.id.recordOuter);
-            final float fromRadius = 10;
-            final float toRadius = 1000;
-            final GradientDrawable gd = (GradientDrawable) in.getBackground();
-            final ValueAnimator animator = ValueAnimator.ofFloat(fromRadius, toRadius);
-            animator.setDuration(duration)
-                    .addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            float value = (float) animation.getAnimatedValue();
-                            gd.setCornerRadius(value);
-                        }
-                    });
+    private void createRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.practice_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        PracticeRecyclerAdapter adapter = new PracticeRecyclerAdapter(this.activePresentation);
+        recyclerView.setAdapter(adapter);
+        this.recyclerAdapter = adapter;
+    }
 
-            final GradientDrawable gd2 = (GradientDrawable) out.getBackground();
-            final ValueAnimator animator2 = ValueAnimator.ofFloat(fromRadius, toRadius);
-            animator2.setDuration(duration)
-                    .addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            float value = (float) animation.getAnimatedValue();
-                            gd2.setCornerRadius(value);
-                        }
-                    });
-            animator.start();
-            animator2.start();
-            rec = false;
+    private void createBackDrop() {
+        if (this.activePresentation != null) { return; }
+        if (findViewById(R.id.practice_backdrop_menu_wrapper) != null) {
+            FragmentManager manager = getSupportFragmentManager();
+            Bundle inputData = new Bundle();
+            inputData.putSerializable("data", this.activePresentation);
+            inputData.putSerializable("data", this.activePresentation);
+            if (this.activePresentation.type == PresentationType.GROUP) {
+                PracticeBackdropGroupView v = new PracticeBackdropGroupView();
+                v.setArguments(inputData);
+                manager.beginTransaction().add(R.id.practice_backdrop_menu_wrapper, v).commit();
+            } else {
+                PracticeBackdropIndividualView v = new PracticeBackdropIndividualView();
+                v.setArguments(inputData);
+                manager.beginTransaction().add(R.id.practice_backdrop_menu_wrapper, v).commit();
+            }
         }
+    }
+
+    public void updateBackdrop(PracticeBackdropType requestType, Report nextReport) {
+        if (this.activePresentation != null) { return; }
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        Bundle inputData = new Bundle();
+
+        switch (requestType) {
+            case REPORT: {
+                if (nextReport == null) { return; }
+                inputData.putSerializable("data", nextReport);
+                this.activeReport = nextReport;
+                PracticeBackdropReportView v = new PracticeBackdropReportView();
+                v.setArguments(inputData);
+                transaction.replace(R.id.practice_backdrop_menu_wrapper, v);
+                showBottomSheet();
+                break;
+            }
+            case COUNTDOWN: {
+                inputData.putSerializable("data", this.activePresentation);
+                if (this.activePresentation.type == PresentationType.GROUP) {
+                    PracticeBackdropGroupView v = new PracticeBackdropGroupView();
+                    v.setArguments(inputData);
+                    transaction.replace(R.id.practice_backdrop_menu_wrapper, v);
+                } else {
+                    PracticeBackdropIndividualView v = new PracticeBackdropIndividualView();
+                    v.setArguments(inputData);
+                    transaction.replace(R.id.practice_backdrop_menu_wrapper, v);
+                }
+                break;
+            }
+        }
+        transaction.commit();
+    }
+
+    public void showBottomSheet() {
+        bottomSheet.setHideable(false);
+        bottomSheet.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+    public void closeBottomSheet() {
+        bottomSheet.setHideable(true);
+        bottomSheet.setState(BottomSheetBehavior.STATE_HIDDEN);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.practice_add_recording: {
+                break;
+            }
+        }
+    }
+
+    public void deleteData(Presentation toDelete) {
+        this.recyclerAdapter.deleteData(toDelete);
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.listItemClicked.dispose();
     }
 }

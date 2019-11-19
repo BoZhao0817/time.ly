@@ -1,117 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/backDrop"
-    tools:context=".CountdownActivity">
+    android:background="@color/appBar">
 
-    <TextView
-        android:id="@+id/countdown_current_section"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Section 1"
-        android:textColor="@color/darkMainText"
-        android:textSize="40sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_top_corners"
+        android:backgroundTint="@color/backDrop"
+        android:padding="20dp">
 
-    <TextView
-        android:id="@+id/practice_current_target"
+        <FrameLayout
+            android:id="@+id/practice_backdrop_menu_wrapper"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="50dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/practice_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Target: 1:00"
-        android:textColor="@color/darkMainText"
-        android:textSize="20sp" />
+        android:layout_height="540dp"
+        android:background="@drawable/rounded_top_corners"
+        android:backgroundTint="@color/frontLayer"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:clickable="true"
+        app:behavior_peekHeight="65dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <TextView
-        android:id="@+id/countdown_current_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="0:00"
-        android:textColor="@color/darkMainText"
-        android:textSize="72sp"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Saved Recordings"
+            android:textColor="@color/lightIndicatorText" />
 
-    <com.narayanacharya.waveview.WaveView
-        android:id="@+id/wave"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        app:waveAmplitude="9"
-        app:waveBackgroundColor="#00000000"
-        app:waveColor="@color/darkButtonText"
-        app:waveDensity="3.0"
-        app:waveFrequency="2.0"
-        app:waveNumberOfWaves="5"
-        app:wavePhaseShift="-0.05"
-        app:wavePrimaryLineWidth="1.0"
-        app:waveSecondaryLineWidth="1.0"
-        app:waveXAxisPositionMultiplier="0.5" />
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/practice_nested_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <com.narayanacharya.waveview.WaveView
-        android:id="@+id/wave2"
-        android:rotation="180"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="-1dp"
-        app:waveAmplitude="9"
-        app:waveBackgroundColor="#00000000"
-        app:waveColor="@color/darkButtonText"
-        app:waveDensity="3.0"
-        app:waveFrequency="2.0"
-        app:waveNumberOfWaves="5"
-        app:wavePhaseShift="0.05"
-        app:wavePrimaryLineWidth="1.0"
-        app:waveSecondaryLineWidth="1.0"
-        app:waveXAxisPositionMultiplier="0.5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="50dp"
-        android:gravity="center">
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/practice_add_recording"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/icon_add_outline"
+                    android:text="ADD NEW RECORDING"
+                    android:textColor="@color/lightButtonText" />
 
-        <Button
-            android:id="@+id/recordOuter"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="168dp"
-            android:background="@drawable/record_outer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/practice_recycler_view"
+                    android:scrollbars="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-        <Button
-            android:id="@+id/recordInner"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/record_inner"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/recordOuter"
-            app:layout_constraintStart_toStartOf="@+id/recordOuter"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/nextButton"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="24dp"
-            android:background="@color/backDrop"
-            android:scaleType="fitCenter"
-            app:layout_constraintStart_toEndOf="@+id/recordOuter"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/next" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+            </LinearLayout>
+            <!--The content's body goes here-->
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
