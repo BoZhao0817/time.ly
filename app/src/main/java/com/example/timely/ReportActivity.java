@@ -2,6 +2,7 @@ package com.example.timely;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,22 +21,23 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
+import dataStructures.Report;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReportActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MainRecyclerAdapter recyclerAdapter;
-    public ReportListView rpl;
+    private ReportRecyclerAdapter recyclerAdapter;
+
     private Disposable listItemClicked;
-    Presentation activePresentation;
+    Report activeReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_report);
 
-        this.activePresentation = FakeDatabase.getInstance().presentations.get(0);
+        this.activeReport = FakeDatabase.getInstance().testReport;
 
         createActionBar();
         createBackDrop();
@@ -43,10 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createRecyclerView();
 
         // all layout elements are populated
-        listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Presentation>() {
+        listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Report>() {
             @Override
-            public void accept(Presentation presentation) throws Exception {
-                updateBackdrop(presentation);
+            public void accept(Report report) throws Exception {
+                updateBackdrop(report);
             }
         });
     }
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void createActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.appBar)));
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.appBar)));
             actionBar.setElevation(0);
             actionBar.show();
         }
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView recyclerView = findViewById(R.id.main_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        MainRecyclerAdapter adapter = new MainRecyclerAdapter();
+        ReportRecyclerAdapter adapter = new ReportRecyclerAdapter();
         recyclerView.setAdapter(adapter);
         this.recyclerAdapter = adapter;
     }
@@ -88,16 +90,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (findViewById(R.id.main_backdrop_menu_wrapper) != null) {
             FragmentManager manager = getSupportFragmentManager();
             // title
-            TextView name = findViewById(R.id.main_backdrop_presentation_name);
-            name.setText(this.activePresentation.name);
+            //TextView name = findViewById(R.id.main_backdrop_presentation_name);
+            //name.setText(this.activePresentation.name);
             // type
-            TextView type = findViewById(R.id.main_backdrop_presentation_type);
-            type.setText(this.activePresentation.type.toString());
+            //TextView type = findViewById(R.id.main_backdrop_presentation_type);
+            //type.setText(this.activePresentation.type.toString());
             // menu
             Bundle inputData = new Bundle();
-            inputData.putSerializable("data", this.activePresentation);
-            if (this.activePresentation.type == PresentationType.INDIVIDUAL) {
-                MainBackdropIndividualView individualView = new MainBackdropIndividualView();
+            inputData.putSerializable("data", this.activeReport);
+            if (this.activeReport.type == PresentationType.INDIVIDUAL) {
+                ReportBackdropIndividualView individualView = new ReportBackdropIndividualView();
                 individualView.setArguments(inputData);
                 manager.beginTransaction().add(R.id.main_backdrop_menu_wrapper, individualView).commit();
             } else {
@@ -108,24 +110,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void updateBackdrop(Presentation datum) {
-        if (this.activePresentation != null && datum.id.equals(this.activePresentation.id)) {
+    private void updateBackdrop(Report datum) {
+        Log.e("BACKDROP UPDATE", datum.id.toString() + " " + Presentation.toStringTime(datum.total_estimate));
+        if (this.activeReport != null && datum.id.equals(this.activeReport.id)) {
             return;
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Bundle inputData = new Bundle();
         inputData.putSerializable("data", datum);
-        this.activePresentation = datum;
+        this.activeReport = datum;
 
         // title
-        TextView name = findViewById(R.id.main_backdrop_presentation_name);
-        name.setText(this.activePresentation.name);
+        //TextView name = findViewById(R.id.report);
+        //name.setText(this.activeReport.name);
         // type
-        TextView type = findViewById(R.id.main_backdrop_presentation_type);
-        type.setText(this.activePresentation.type.toString());
+        //TextView type = findViewById(R.id.main_backdrop_presentation_type);
+        //type.setText(this.activePresentation.type.toString());
         // menu
         if (datum.type == PresentationType.INDIVIDUAL) {
-            MainBackdropIndividualView individualView = new MainBackdropIndividualView();
+            ReportBackdropIndividualView individualView = new ReportBackdropIndividualView();
             individualView.setArguments(inputData);
             transaction.replace(R.id.main_backdrop_menu_wrapper, individualView);
         } else {
@@ -142,7 +145,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_add_presentation: {
-                addData();
                 break;
             }
         }
@@ -152,11 +154,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.recyclerAdapter.deleteData(toDelete);
     }
 
-    public void addData() {
-        Presentation datum = Presentation.newInstance();
-        this.activePresentation = datum;
-        this.recyclerAdapter.addData(datum);
-    }
 
 
     @Override

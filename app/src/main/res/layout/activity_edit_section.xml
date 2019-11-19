@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:paddingTop="40dp"
+        android:paddingLeft="20dp"
+        android:background="@android:color/holo_blue_dark">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/SectionInformation"
+            android:text="Section Information"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/edit_section_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="Section Name"
+            android:layout_below="@+id/SectionInformation"
+            />
+        <EditText
+            android:layout_alignParentTop="true"
+            android:id="@+id/sec_name"
+            android:layout_width="wrap_content"
+            android:gravity="left"
+            android:layout_marginRight="40dp"
+            android:layout_toRightOf="@+id/edit_section_name"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/edit_section_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/sec_name"
+            android:layout_below="@+id/SectionInformation"
+            android:text="Duration"/>
+        <EditText
+            android:inputType="number"
+            android:layout_alignBottom="@+id/edit_section_duration"
+            android:id="@+id/sec_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/edit_section_duration"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_section_name"
+            android:id="@+id/pattern"
+            android:text="Selected Vibration Pattern"
+            android:layout_alignLeft="@+id/edit_section_name"
+            android:layout_marginRight="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_section_name"
+            android:id="@+id/pattern_name"
+            android:text="Pattern1"
+            android:layout_toRightOf="@+id/pattern"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pattern"
+            android:id="@+id/DeleteSection"
+            android:layout_centerHorizontal="true"
+            android:text="Delete Current Section"/>
+    </RelativeLayout>
+
+</LinearLayout>
