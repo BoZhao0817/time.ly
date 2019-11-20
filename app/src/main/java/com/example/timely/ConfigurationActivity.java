@@ -20,38 +20,42 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import dataStructures.FakeDatabase;
+import dataStructures.Presentation;
 import dataStructures.Section;
 import dataStructures.Utilities;
 
 public class ConfigurationActivity extends AppCompatActivity {
-
+    Presentation activePresentation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
         createActionBar();
+        Intent i = getIntent();
+        activePresentation = (Presentation) i.getSerializableExtra("data");
         Utilities utilities=new Utilities(getApplicationContext());
-        TextView total_time = (TextView)findViewById(R.id.total_time);
-        ListView lView = (ListView)findViewById(R.id.listview);
+        TextView total_time = findViewById(R.id.total_time);
+        ListView lView = findViewById(R.id.listview);
         LinearLayout linearLayout1=findViewById(R.id.ll1);
-        Button add_section= (Button)findViewById(R.id.add_section);
-        ArrayList<Section> list = new ArrayList<Section>();
+        Button add_section= findViewById(R.id.add_section);
+        ArrayList<Section> list = new ArrayList<>();
         ArrayList<Integer>array1=new ArrayList<>();
         int total_duration=0;
-        for(Section temp:FakeDatabase.getInstance().presentations.get(1).sections)
+        for(Section temp:activePresentation.sections)
         {
             list.add(temp);
             total_duration+=temp.duration;
             array1.add(temp.duration);
         }
-        SectionAdapter adapter = new SectionAdapter(list, this);
+        SectionAdapter adapter = new SectionAdapter(list, this, activePresentation);
         utilities.setChart(linearLayout1,array1,320);
         lView.setAdapter(adapter);
-        total_time.setText(FakeDatabase.getInstance().presentations.get(1).getDurationString());
+        total_time.setText(activePresentation.getDurationString());
         add_section.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent add_new_section = new Intent(getApplicationContext(), EditSection.class);
+                add_new_section.putExtra("data", activePresentation);
                 add_new_section.putExtra("user_name",FakeDatabase.getInstance().users.get(0).userName);
                 add_new_section.putExtra("user_id",FakeDatabase.getInstance().users.get(0).userID);
                 startActivity(add_new_section);

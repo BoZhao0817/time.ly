@@ -20,9 +20,11 @@ import dataStructures.Section;
 public class SectionAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<Section> list = new ArrayList<Section>();
     private Context context;
-    public SectionAdapter(ArrayList<Section> list, Context context) {
+    private Presentation presentation;
+    public SectionAdapter(ArrayList<Section> list, Context context, Presentation pres) {
         this.list = list;
         this.context = context;
+        this.presentation = pres;
     }
 
     @Override
@@ -82,6 +84,7 @@ public class SectionAdapter extends BaseAdapter implements ListAdapter {
                 inte.putExtra("section_index",position);
                 inte.putExtra("user_name",list.get(position).ownerName);
                 inte.putExtra("user_id",list.get(position).userID);
+                inte.putExtra("data", presentation);
                 context.startActivity(inte);
             }
         });

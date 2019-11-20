@@ -1,5 +1,6 @@
 package com.example.timely;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -38,8 +39,8 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
-
-        this.activePresentation = FakeDatabase.getInstance().presentations.get(0);
+        Intent i = getIntent();
+        this.activePresentation = (Presentation) i.getSerializableExtra("data");
 //        activePresentation = (Presentation) getIntent().getSerializableExtra("data");
         activeReport = new Report(this.activePresentation, "new recording");
         this.activePresentation.reports.add(activeReport);
