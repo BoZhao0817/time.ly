@@ -29,6 +29,7 @@ public class PracticeBackdropGroupView extends PracticeCommonView implements Rad
             currentPresentation = (Presentation) bundle.getSerializable("data");
             if (currentPresentation != null) {
                 currentReport = currentPresentation.reports.get(currentPresentation.reports.size() - 1);
+                currentReport.group_type = ReportGroupType.PORTION;
             }
         }
     }

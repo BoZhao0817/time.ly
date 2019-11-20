@@ -45,7 +45,8 @@
             android:text="Portion: practice with your own portion"
             android:buttonTint="@color/darkButtonText"
             android:textColor="@color/darkIndicatorText"
-            android:fontFamily="sans-serif-medium"/>
+            android:fontFamily="sans-serif-medium"
+            android:checked="true"/>
         <RadioButton android:id="@+id/practice_radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

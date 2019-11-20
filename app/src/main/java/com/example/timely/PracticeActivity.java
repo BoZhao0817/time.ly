@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
 import dataStructures.Report;
@@ -84,7 +83,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         LinearLayout linearLayout = findViewById(R.id.practice_bottom_sheet);
         final BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(linearLayout);
         sheetBehavior.setHideable(false);
-        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         this.bottomSheet = sheetBehavior;
     }
 
