@@ -37,9 +37,11 @@ public class ConfigurationEditPresetActivity extends AppCompatActivity {
             switch (type) {
                 case LONG: {
                     preset_display.addView(inflater.inflate(R.layout.preset_rect_short, preset_display, false));
+                    break;
                 }
                 case SHORT: {
                     preset_display.addView(inflater.inflate(R.layout.preset_rect_long, preset_display, false));
+                    break;
                 }
             }
         }
