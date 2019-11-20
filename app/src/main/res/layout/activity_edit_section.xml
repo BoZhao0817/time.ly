@@ -103,8 +103,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl1"
-        android:paddingTop="40dp"
+        android:paddingTop="20dp"
         android:paddingLeft="20dp"
+        android:paddingBottom="30dp"
         android:background="@android:color/white"
         >
         <TextView
@@ -112,6 +113,8 @@
             android:layout_height="wrap_content"
             android:text="All Pattern Presets"
             android:id="@+id/allPatternPreset"
+            android:textColor="#000000"
+            android:textStyle="bold"
             />
         <ListView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -122,6 +125,8 @@
             android:layout_below="@+id/allPatternPreset"
             android:divider="@null"
             android:dividerHeight="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10dp"
         />
         <TextView
             android:layout_width="wrap_content"
@@ -130,6 +135,22 @@
             android:id="@+id/addPreset"
             android:layout_toLeftOf="@+id/addPresetbutton"
             android:text="Add New Preset"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="#F68928"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Drag"
+            android:text="Drag to Reorder"
+            android:textColor="#909090"
+            android:textSize="12dp"
+            android:layout_alignTop="@+id/addPresetbutton"
+            android:layout_alignBottom="@+id/addPresetbutton"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/listview2"
+            android:layout_marginTop="-30dp"
+            android:layout_marginRight="30dp"
             />
         <Button
             android:id="@+id/addPresetbutton"
@@ -137,6 +158,8 @@
             android:layout_height="20dp"
             android:layout_below="@+id/listview2"
             android:layout_alignRight="@+id/listview2"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/icon_add_outline"/>
     </RelativeLayout>
 </LinearLayout>
