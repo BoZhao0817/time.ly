@@ -37,6 +37,7 @@
 
         <Button
             style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/main_delete_presentation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"

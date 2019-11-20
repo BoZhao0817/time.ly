@@ -94,5 +94,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
 
     public void addData(Presentation datum) {
         this.data.add(0, datum);
+        notifyItemInserted(0);
     }
 }

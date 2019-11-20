@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,11 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         TextView portionDuration = root.findViewById(R.id.main_backdrop_presentation_portion_duration);
         portionDuration.setText(datum.getPortionDurationString(FakeDatabase.getInstance().currentUser.userID));
 
+        Button delete = root.findViewById(R.id.main_delete_presentation);
+        if (delete != null) {
+            delete.setOnClickListener(this);
+        }
+
         GridLayout g1 = root.findViewById(R.id.main_group_start_button);
         GridLayout g2 = root.findViewById(R.id.main_group_practice_button);
         GridLayout g3 = root.findViewById(R.id.main_group_settings_button);
@@ -63,7 +69,7 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         }
 
         switch (v.getId()) {
-            case R.id.main_backdrop_delete_button: {
+            case R.id.main_delete_presentation: {
                 mainActivity.deleteData(this.datum);
                 break;
             }

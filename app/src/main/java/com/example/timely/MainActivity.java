@@ -4,6 +4,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import io.reactivex.functions.Consumer;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MainRecyclerAdapter recyclerAdapter;
-    public ReportListView rpl;
+    private BottomSheetBehavior bottomSheet;
     private Disposable listItemClicked;
     Presentation activePresentation;
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void accept(Presentation presentation) throws Exception {
                 updateBackdrop(presentation);
+                minimizeBottomSheet();
             }
         });
     }
@@ -72,6 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(linearLayout);
         sheetBehavior.setHideable(false);
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        this.bottomSheet = sheetBehavior;
+
+        Button addNewPresentation = findViewById(R.id.main_add_presentation);
+        if (addNewPresentation != null) {
+            addNewPresentation.setOnClickListener(this);
+        }
     }
 
     private void createRecyclerView() {
@@ -143,19 +151,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.main_add_presentation: {
                 addData();
+                minimizeBottomSheet();
                 break;
             }
         }
     }
 
+    public void expandBottomSheet() {
+        bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+
+    public void minimizeBottomSheet() {
+        bottomSheet.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
     public void deleteData(Presentation toDelete) {
         this.recyclerAdapter.deleteData(toDelete);
+        this.expandBottomSheet();
+        if (FakeDatabase.getInstance().presentations.size() > 0) {
+            this.updateBackdrop(FakeDatabase.getInstance().presentations.get(FakeDatabase.getInstance().presentations.size() - 1));
+        } else {
+            addData();
+        }
     }
 
     public void addData() {
         Presentation datum = Presentation.newInstance();
-        this.activePresentation = datum;
         this.recyclerAdapter.addData(datum);
+        this.updateBackdrop(datum);
     }
 
 
