@@ -32,18 +32,33 @@ public class FakeDatabase {
 
         currentUser = users.get(0);
 
+        VibrationPattern vp1 = new VibrationPattern("Pattern 1");
+        vp1.patterns.add(VibrationPatternType.SHORT);
+
+        VibrationPattern vp2 = new VibrationPattern("Pattern 2");
+        vp2.patterns.add(VibrationPatternType.LONG);
+
+        VibrationPattern vp3 = new VibrationPattern("Pattern 3");
+        vp3.patterns.add(VibrationPatternType.SHORT);
+        vp3.patterns.add(VibrationPatternType.LONG);
+        vp3.patterns.add(VibrationPatternType.SHORT);
+
+        vibrationPatterns.add(vp1);
+        vibrationPatterns.add(vp2);
+        vibrationPatterns.add(vp3);
+
         Presentation a = new Presentation("CS465", PresentationType.GROUP, 600);
-        a.sections.add(new Section("a1", users.get(0).userName, users.get(0).userID, 60));
-        a.sections.add(new Section("a2", users.get(1).userName, users.get(1).userID, 100));
-        a.sections.add(new Section("a3", users.get(2).userName, users.get(2).userID, 10));
+        a.sections.add(new Section("a1", users.get(0).userName, users.get(0).userID, 60, vp1.id));
+        a.sections.add(new Section("a2", users.get(1).userName, users.get(1).userID, 100, vp2.id));
+        a.sections.add(new Section("a3", users.get(2).userName, users.get(2).userID, 10, vp3.id));
 
         Presentation b = new Presentation("CS498", PresentationType.INDIVIDUAL, 120);
-        b.sections.add(new Section("b1", users.get(0).userName, users.get(0).userID, 10));
-        b.sections.add(new Section("b2", users.get(0).userName, users.get(0).userID, 15));
-        b.sections.add(new Section("b3", users.get(0).userName, users.get(0).userID, 10));
+        b.sections.add(new Section("b1", users.get(0).userName, users.get(0).userID, 10, vp1.id));
+        b.sections.add(new Section("b2", users.get(0).userName, users.get(0).userID, 15, vp2.id));
+        b.sections.add(new Section("b3", users.get(0).userName, users.get(0).userID, 10, vp2.id));
 
         Presentation c = new Presentation("CS101", PresentationType.INDIVIDUAL, 60);
-        c.sections.add(new Section("c1", users.get(0).userName, users.get(0).userID, 60));
+        c.sections.add(new Section("c1", users.get(0).userName, users.get(0).userID, 60, vp1.id));
 
         presentations.add(a);
         presentations.add(b);
@@ -89,21 +104,6 @@ public class FakeDatabase {
         a.reports.add(ar2);
 
         c.reports.add(cr);
-
-        VibrationPattern vp1 = new VibrationPattern("Pattern 1");
-        vp1.patterns.add(VibrationPatternType.SHORT);
-
-        VibrationPattern vp2 = new VibrationPattern("Pattern 2");
-        vp2.patterns.add(VibrationPatternType.LONG);
-
-        VibrationPattern vp3 = new VibrationPattern("Pattern 3");
-        vp3.patterns.add(VibrationPatternType.SHORT);
-        vp3.patterns.add(VibrationPatternType.LONG);
-        vp3.patterns.add(VibrationPatternType.SHORT);
-
-        vibrationPatterns.add(vp1);
-        vibrationPatterns.add(vp2);
-        vibrationPatterns.add(vp3);
     }
 
     public VibrationPattern findPattern(String id) {

@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -74,16 +74,16 @@ public class ConfigurationPresetAdapter extends BaseAdapter implements ListAdapt
         for (VibrationPatternType type: currentPattern.patterns){
             switch (type) {
                 case LONG: {
-                    preset_display.addView(inflater.inflate(R.layout.preset_line_short, preset_display));
+                    preset_display.addView(inflater.inflate(R.layout.preset_line_short, null));
                 }
                 case SHORT: {
-                    preset_display.addView(inflater.inflate(R.layout.preset_line_long, preset_display));
+                    preset_display.addView(inflater.inflate(R.layout.preset_line_long, null));
                 }
             }
         }
 
-        Button editButton = view.findViewById(R.id.EditPreset);
-        final Button checkButton = view.findViewById(R.id.checkButton);
+        ImageButton editButton = view.findViewById(R.id.EditPreset);
+        final ImageButton checkButton = view.findViewById(R.id.checkButton);
 
         editButton.setOnClickListener(new View.OnClickListener(){
             @Override

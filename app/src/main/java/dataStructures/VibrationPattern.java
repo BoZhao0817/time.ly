@@ -13,5 +13,6 @@ public class VibrationPattern implements Serializable {
     public VibrationPattern(String name) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
+        this.patterns = new ArrayList<>();
     }
 }

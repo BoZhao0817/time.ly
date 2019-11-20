@@ -20,10 +20,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.Section;
 import dataStructures.State;
 import dataStructures.Timer;
+import dataStructures.VibrationPattern;
 import dataStructures.VibrationPatternType;
 
 public class CountdownActivity extends AppCompatActivity implements View.OnClickListener {
@@ -99,17 +101,18 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
         long longDuration = 700L;
         long delay = 200L;
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        long[] pattern = new long[section.vibrationPattern.size()*2];
+        VibrationPattern currentVibration = FakeDatabase.getInstance().findPattern(section.patternID);
+        long[] pattern = new long[currentVibration.patterns.size()*2];
         pattern[0] = 0;
-        for (int i = 1; i <= section.vibrationPattern.size(); i++) {
-            VibrationPatternType vp = section.vibrationPattern.get(i-1);
+        for (int i = 1; i <= currentVibration.patterns.size(); i++) {
+            VibrationPatternType vp = currentVibration.patterns.get(i-1);
             if (vp == VibrationPatternType.LONG) {
                 pattern[2 * i - 1] = shortDuration;
-                if (i != section.vibrationPattern.size())
+                if (i != currentVibration.patterns.size())
                     pattern[2 * i] = delay;
             } else {
                 pattern[2 * i - 1] = longDuration;
-                if (i != section.vibrationPattern.size())
+                if (i != currentVibration.patterns.size())
                     pattern[2 * i] = delay;
             }
         }
