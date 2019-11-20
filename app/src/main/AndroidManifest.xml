@@ -19,7 +19,6 @@
         <activity android:name=".ConfigurationActivity" />
         <activity android:name=".StartActivity" />
         <activity android:name=".PracticeActivity"/>
-        <activity android:name=".ReportActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashScreen"

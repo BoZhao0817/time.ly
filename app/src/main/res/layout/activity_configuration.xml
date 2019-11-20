@@ -75,16 +75,7 @@
             android:orientation="horizontal"
             android:layout_below="@+id/sections_glance"
             />
-        <TextView
-            android:textSize="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sections_glance"
-            android:textColor="#909090"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:text="There are no sections for current presentation"
-        />
+
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -101,20 +92,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sections"
+            android:text="Sections Details"
             android:id="@+id/section_details"
             android:textColor="#000000"
             android:textSize="15dp"
-            />
-        <TextView
-            android:textSize="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/section_details"
-            android:textColor="#909090"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:text="There are no sections for current presentation"
             />
         <ListView
             android:layout_below="@+id/section_details"
@@ -124,6 +105,8 @@
             android:layout_height="wrap_content"
             android:divider="@null"
             android:dividerHeight="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -133,7 +116,22 @@
             android:textColor="#F68928"
             android:textStyle="bold"
             android:layout_below="@+id/listview"
+            android:layout_marginTop="25dp"
             android:layout_toLeftOf="@+id/add_section"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Drag"
+            android:text="Drag to Reorder"
+            android:textColor="#909090"
+            android:textSize="12dp"
+            android:layout_alignTop="@+id/add_new_section"
+            android:layout_alignBottom="@+id/add_new_section"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/listview"
+            android:layout_marginTop="-25dp"
+            android:layout_marginRight="30dp"
             />
         <Button
             android:id="@+id/add_section"
@@ -144,6 +142,7 @@
             android:layout_alignRight="@id/listview"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="20dp"
             android:layout_alignTop="@+id/add_new_section"
             android:layout_alignBottom="@+id/add_new_section"/>
     </RelativeLayout>
