@@ -48,28 +48,37 @@ public class FakeDatabase {
         presentations.add(b);
         presentations.add(c);
 
-        Report br = new Report(b);
+        Report r = new Report(b, "existing recording");
+        r.addEstimate(45);
+        r.addEstimate(90);
+        r.addEstimate(20);
+        r.group_type = ReportGroupType.GROUP;
+        a.reports.add(r);
+
+        Report br = new Report(b, "Test B1");
         br.addEstimate(45);
         br.addEstimate(90);
         br.addEstimate(20);
 
-        Report br2 = new Report(b);
+        Report br2 = new Report(b, "Test B2");
         br2.addEstimate(50);
         br2.addEstimate(100);
         br2.addEstimate(40);
         testReport = br;
 
-        Report ar = new Report(a);
+        Report ar = new Report(a, "Test A1");
         ar.addEstimate(70);
         ar.addEstimate(110);
         ar.addEstimate(20);
+        ar.group_type = ReportGroupType.GROUP;
 
-        Report ar2 = new Report(a);
+        Report ar2 = new Report(a, "Test A2");
         ar2.addEstimate(50);
         ar2.addEstimate(90);
         ar2.addEstimate(5);
+        ar2.group_type = ReportGroupType.GROUP;
 
-        Report cr = new Report(c);
+        Report cr = new Report(c, "Test C1");
         cr.addEstimate(80);
 
         b.reports.add(br);

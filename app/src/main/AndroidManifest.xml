@@ -14,12 +14,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SectionAdapter"></activity>
         <activity android:name=".EditSection" />
-        <activity android:name=".PracticeActivity" />
         <activity android:name=".GroupActivity" />
         <activity android:name=".CountdownActivity" />
         <activity android:name=".ConfigurationActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name=".ReportActivity" />
+        <activity android:name=".PracticeActivity"/>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashScreen"
