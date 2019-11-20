@@ -5,14 +5,15 @@ import java.util.ArrayList;
 public class FakeDatabase {
     public ArrayList<Presentation> presentations;
     public ArrayList<Profile> users;
+    public ArrayList<VibrationPattern> vibrationPatterns;
     public Profile currentUser;
     public Report testReport;
-    public ArrayList<ArrayList<VibrationPattern> > aList = new ArrayList<ArrayList<VibrationPattern> >();
+
     private static FakeDatabase instance;
     private FakeDatabase() {
         this.presentations = new ArrayList<>();
         this.users = new ArrayList<>();
-        this.aList= new ArrayList<ArrayList<VibrationPattern> >();
+        this.vibrationPatterns= new ArrayList<>();
         populateData();
     }
     // add synchronized for multi-threading
@@ -89,18 +90,28 @@ public class FakeDatabase {
 
         c.reports.add(cr);
 
-        ArrayList<VibrationPattern> pattern1= new ArrayList<>();
-        pattern1.add(VibrationPattern.SHORT);
-        //pattern1.add(VibrationPattern.LONG);
-        //pattern1.add(VibrationPattern.SHORT);
-        aList.add(pattern1);
-        ArrayList<VibrationPattern> pattern2= new ArrayList<>();
-        pattern2.add(VibrationPattern.LONG);
-        aList.add(pattern2);
-        ArrayList<VibrationPattern> pattern3= new ArrayList<>();
-        pattern3.add(VibrationPattern.SHORT);
-        pattern3.add(VibrationPattern.SHORT);
-        pattern3.add(VibrationPattern.LONG);
-        aList.add(pattern3);
+        VibrationPattern vp1 = new VibrationPattern("Pattern 1");
+        vp1.patterns.add(VibrationPatternType.SHORT);
+
+        VibrationPattern vp2 = new VibrationPattern("Pattern 2");
+        vp2.patterns.add(VibrationPatternType.LONG);
+
+        VibrationPattern vp3 = new VibrationPattern("Pattern 3");
+        vp3.patterns.add(VibrationPatternType.SHORT);
+        vp3.patterns.add(VibrationPatternType.LONG);
+        vp3.patterns.add(VibrationPatternType.SHORT);
+
+        vibrationPatterns.add(vp1);
+        vibrationPatterns.add(vp2);
+        vibrationPatterns.add(vp3);
+    }
+
+    public VibrationPattern findPattern(String id) {
+        for (VibrationPattern pattern : vibrationPatterns) {
+            if (pattern.id.equals(id)) {
+                return pattern;
+            }
+        }
+        return null;
     }
 }

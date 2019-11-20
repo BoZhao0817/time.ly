@@ -25,6 +25,10 @@ import dataStructures.Report;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
+enum PracticeBackdropType {
+    COUNTDOWN, REPORT
+}
+
 public class PracticeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private PracticeRecyclerAdapter recyclerAdapter;

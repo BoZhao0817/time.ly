@@ -22,5 +22,6 @@
     <color name="lightHelperText">#C8C6C4</color>
     <color name="lightWarningText">#8F2F13</color>
 
-
+    <color name="shortVibrationSegment">#389453</color>
+    <color name="longVibrationSegment">#AFE5A2</color>
 </resources>

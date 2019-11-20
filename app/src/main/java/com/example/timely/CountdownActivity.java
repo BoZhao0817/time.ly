@@ -20,13 +20,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import java.util.ArrayList;
-
 import dataStructures.Presentation;
 import dataStructures.Section;
 import dataStructures.State;
 import dataStructures.Timer;
-import dataStructures.VibrationPattern;
+import dataStructures.VibrationPatternType;
 
 public class CountdownActivity extends AppCompatActivity implements View.OnClickListener {
     private Presentation presentation;
@@ -104,8 +102,8 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
         long[] pattern = new long[section.vibrationPattern.size()*2];
         pattern[0] = 0;
         for (int i = 1; i <= section.vibrationPattern.size(); i++) {
-            VibrationPattern vp = section.vibrationPattern.get(i-1);
-            if (vp == VibrationPattern.LONG) {
+            VibrationPatternType vp = section.vibrationPattern.get(i-1);
+            if (vp == VibrationPatternType.LONG) {
                 pattern[2 * i - 1] = shortDuration;
                 if (i != section.vibrationPattern.size())
                     pattern[2 * i] = delay;
