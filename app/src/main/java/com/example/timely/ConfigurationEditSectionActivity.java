@@ -123,6 +123,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                             allPatterns.remove(i);
                             // TODO: Need to change associated sections as well
                         }
+                        break;
                     }
                     case SAVE: {
                         int i = 0;
@@ -138,6 +139,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                         } else {
                             allPatterns.add(passedPattern);
                         }
+                        break;
                     }
                 }
             }
