@@ -8,25 +8,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="200dp"
         android:paddingTop="40dp"
         android:paddingLeft="20dp"
-        android:background="@android:color/holo_blue_dark">
+        android:background="#184063">
+
         <TextView
+            android:id="@+id/SectionInformation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/SectionInformation"
-            android:text="Section Information"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            />
+            android:text="Section Information"
+            android:layout_marginBottom="10dp"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
         <TextView
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:id="@+id/edit_section_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
             android:text="Section Name"
+            android:textSize="12dp"
             android:layout_below="@+id/SectionInformation"
             />
         <EditText
@@ -34,6 +38,13 @@
             android:id="@+id/sec_name"
             android:layout_width="wrap_content"
             android:gravity="left"
+            android:textColor="#FFFFFF"
+            android:textSize="17dp"
+            android:text="Section 1"
+            android:textStyle="bold"
+            android:backgroundTint="#FFA500"
+
+            android:layout_marginTop="15dp"
             android:layout_marginRight="40dp"
             android:layout_toRightOf="@+id/edit_section_name"
             android:layout_height="wrap_content"/>
@@ -41,7 +52,7 @@
             android:id="@+id/edit_section_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/sec_name"
             android:layout_below="@+id/SectionInformation"
             android:text="Duration"/>
@@ -51,12 +62,18 @@
             android:id="@+id/sec_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="3:00"
+            android:textStyle="bold"
+            android:backgroundTint="#FFA500"
+            android:layout_marginBottom="-15dp"
             android:layout_toRightOf="@+id/edit_section_duration"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_section_name"
             android:id="@+id/pattern"
+            android:textSize="12dp"
             android:text="Selected Vibration Pattern"
             android:layout_alignLeft="@+id/edit_section_name"
             android:layout_marginRight="20dp"
@@ -66,7 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_section_name"
             android:id="@+id/pattern_name"
-            android:text="Pattern1"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Pattern 1"
             android:layout_toRightOf="@+id/pattern"
             />
         <Button
@@ -74,6 +93,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/pattern"
             android:id="@+id/DeleteSection"
+            android:layout_marginTop="10dp"
+            android:textColor="#db5318"
+            android:background="#FF184063"
             android:layout_centerHorizontal="true"
             android:text="Delete Current Section"/>
     </RelativeLayout>
