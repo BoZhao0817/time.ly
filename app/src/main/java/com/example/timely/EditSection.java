@@ -13,12 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.Section;
+import dataStructures.VibrationPattern;
 
 public class EditSection extends AppCompatActivity {
     Presentation activePresentation;
@@ -28,8 +32,10 @@ public class EditSection extends AppCompatActivity {
         setContentView(R.layout.activity_edit_section);
         createActionBar();
         final Intent intent=getIntent();
-        final EditText section_name = findViewById(R.id.sec_name);
-        final EditText section_duration = findViewById(R.id.sec_duration);
+        final EditText section_name = (EditText) findViewById(R.id.sec_name);
+        final EditText section_duration = (EditText) findViewById(R.id.sec_duration);
+        final TextView selectedPattern= (TextView)findViewById(R.id.selectedPattern);
+        ListView lView = (ListView)findViewById(R.id.listview2);
         activePresentation = (Presentation) intent.getSerializableExtra("data");
         section_name.setText(intent.getStringExtra("section_name"));
         section_duration.setText(intent.getStringExtra("section_duration"));
@@ -42,6 +48,8 @@ public class EditSection extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        PresetAdapter adapter = new PresetAdapter(FakeDatabase.getInstance().aList,selectedPattern, this);
+        lView.setAdapter(adapter);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
