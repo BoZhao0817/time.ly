@@ -5,160 +5,144 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/frontLayer"
     >
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl1"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:paddingTop="40dp"
-        android:paddingLeft="20dp"
-        android:background="#184063">
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:background="#184063"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/SectionInformation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:text="Section Information"
             android:layout_marginBottom="10dp"
             android:textSize="15dp"
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_marginLeft="30dp"
-            android:id="@+id/edit_section_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="20dp"
-            android:text="Section Name"
-            android:textSize="12dp"
-            android:layout_below="@+id/SectionInformation"
-            />
-        <EditText
-            android:layout_alignParentTop="true"
-            android:id="@+id/sec_name"
-            android:layout_width="wrap_content"
-            android:gravity="left"
-            android:textColor="#FFFFFF"
-            android:textSize="17dp"
-            android:text="Section 1"
-            android:textStyle="bold"
-            android:backgroundTint="#FFA500"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/darkIndicatorText"/>
 
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="40dp"
-            android:layout_toRightOf="@+id/edit_section_name"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/edit_section_duration"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/sec_name"
-            android:layout_below="@+id/SectionInformation"
-            android:text="Duration"/>
-        <EditText
-            android:inputType="number"
-            android:layout_alignBottom="@+id/edit_section_duration"
-            android:id="@+id/sec_duration"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="20dp">
+            <TextView
+                android:id="@+id/edit_section_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Section Name"
+                android:textColor="@color/darkIndicatorText"/>
+            <EditText
+                android:id="@+id/sec_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/darkMainText"
+                android:text="Section 1"
+                android:fontFamily="sans-serif-medium"
+                android:backgroundTint="@color/darkButtonText"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
-            android:text="3:00"
-            android:textStyle="bold"
-            android:backgroundTint="#FFA500"
-            android:layout_marginBottom="-15dp"
-            android:layout_toRightOf="@+id/edit_section_duration"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_section_name"
-            android:id="@+id/pattern"
-            android:textSize="12dp"
-            android:text="Selected Vibration Pattern"
-            android:layout_alignLeft="@+id/edit_section_name"
-            android:layout_marginRight="20dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_section_name"
-            android:id="@+id/selectedPattern"
-            android:text="Pattern1"
-            android:layout_toRightOf="@+id/pattern"
-            />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="20dp">
+            <TextView
+                android:id="@+id/edit_section_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Section Duration"
+                android:textColor="@color/darkIndicatorText"/>
+            <EditText
+                android:id="@+id/sec_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/darkMainText"
+                android:text="3:00"
+                android:fontFamily="sans-serif-medium"
+                android:backgroundTint="@color/darkButtonText"/>
+        </LinearLayout>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/pattern"
             android:id="@+id/DeleteSection"
             android:layout_marginTop="10dp"
             android:textColor="#db5318"
             android:background="#FF184063"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:text="Delete Current Section"/>
-    </RelativeLayout>
-    <RelativeLayout
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/rl2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl1"
         android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingBottom="30dp"
-        android:background="@android:color/white"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All Pattern Presets"
-            android:id="@+id/allPatternPreset"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:paddingLeft="10dp"
-            android:id="@+id/listview2"
+        android:padding="20dp"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/allPatternPreset"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="10dp"
-        />
-        <TextView
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pattern"
+                android:text="Selected Vibration Pattern: "
+                android:textColor="@color/lightIndicatorText"
+                android:fontFamily="sans-serif-medium"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectedPattern"
+                android:text="Pattern1"
+                android:textColor="@color/lightMainText"
+                android:fontFamily="sans-serif-medium"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/listview2"
-            android:id="@+id/addPreset"
-            android:layout_toLeftOf="@+id/addPresetbutton"
-            android:text="Add New Preset"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:textColor="#F68928"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Drag"
-            android:text="Drag to Reorder"
-            android:textColor="#909090"
-            android:textSize="12dp"
-            android:layout_alignTop="@+id/addPresetbutton"
-            android:layout_alignBottom="@+id/addPresetbutton"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/listview2"
-            android:layout_marginTop="-30dp"
-            android:layout_marginRight="30dp"
-            />
-        <Button
-            android:id="@+id/addPresetbutton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_below="@+id/listview2"
-            android:layout_alignRight="@+id/listview2"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/icon_add_outline"/>
-    </RelativeLayout>
+            android:orientation="vertical"
+            android:layout_marginStart="20dp">
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/addPresetbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/icon_add_outline"
+                android:drawablePadding="10dp"
+                android:layout_marginStart="-10dp"
+                android:text="ADD NEW PRESET"
+                android:textColor="@color/lightButtonText"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listview2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Drag"
+                android:text="Drag to Reorder"
+                android:textColor="@color/lightHelperText"
+                android:textSize="10dp"
+                android:layout_gravity="end"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
