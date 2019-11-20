@@ -4,11 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -28,13 +29,20 @@ class ConfigurationCheckedItem {
     }
 }
 
-public class ConfigurationPresetAdapter extends BaseAdapter implements ListAdapter {
+public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
     private ArrayList<VibrationPattern> list;
     private Context context;
-    private ViewGroup root;
 
     private final PublishSubject<VibrationPattern> onEdit = PublishSubject.create();
     private final PublishSubject<ConfigurationCheckedItem> onCheck = PublishSubject.create();
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public LinearLayout layout;
+        public ViewHolder(LinearLayout l) {
+            super(l);
+            layout = l;
+        }
+    }
 
     public ConfigurationPresetAdapter(Context context) {
         this.list = FakeDatabase.getInstance().vibrationPatterns;
@@ -42,27 +50,24 @@ public class ConfigurationPresetAdapter extends BaseAdapter implements ListAdapt
     }
 
     @Override
-    public int getCount() {
-        return list.size();
+    public int getItemCount() {
+        return this.list.size();
+    }
+
+    // Create new views (invoked by the layout manager)
+    @NonNull
+    @Override
+    public ConfigurationPresetAdapter.ViewHolder onCreateViewHolder(@org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
+        // create a new view
+        LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.pattern_preset_row, parent, false);
+        ConfigurationPresetAdapter.ViewHolder vh = new ConfigurationPresetAdapter.ViewHolder(l);
+        return vh;
     }
 
     @Override
-    public Object getItem(int pos) {
-        return list.get(pos);
-    }
-
-    @Override
-    public long getItemId(int pos) {
-        return 0;
-        //just return 0 if your list items do not have an Id variable.
-    }
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.pattern_preset_row, null);
-        }
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        LinearLayout view = ((ViewHolder)holder).layout;
         //Handle TextView and display string from your list
         final VibrationPattern currentPattern = list.get(position);
 
@@ -71,17 +76,17 @@ public class ConfigurationPresetAdapter extends BaseAdapter implements ListAdapt
 
         LinearLayout preset_display = view.findViewById(R.id.pattern_layout);
 
-        if (preset_display.getChildCount() == 0) {
-            LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-            for (VibrationPatternType type: currentPattern.patterns){
-                switch (type) {
-                    case LONG: {
-                        preset_display.addView(inflater.inflate(R.layout.preset_line_long, preset_display, false));
-                    }
-                    case SHORT: {
-                        preset_display.addView(inflater.inflate(R.layout.preset_line_short, preset_display, false));
-                    }
+        for (VibrationPatternType type: currentPattern.patterns){
+            switch (type) {
+                case LONG: {
+                    preset_display.addView(inflater.inflate(R.layout.preset_line_long, view, false));
+                    break;
+                }
+                case SHORT: {
+                    preset_display.addView(inflater.inflate(R.layout.preset_line_short, view, false));
+                    break;
                 }
             }
         }
@@ -101,8 +106,6 @@ public class ConfigurationPresetAdapter extends BaseAdapter implements ListAdapt
                 onCheck.onNext(new ConfigurationCheckedItem(currentPattern, v.getId()));
             }
         });
-
-        return view;
     }
 
     public Observable<VibrationPattern> onEditClicked() {

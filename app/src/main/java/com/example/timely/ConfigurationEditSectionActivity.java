@@ -10,12 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
@@ -43,7 +44,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
         final EditText section_name = findViewById(R.id.sec_name);
         final EditText section_duration = findViewById(R.id.sec_duration);
         final TextView selectedPattern = findViewById(R.id.selectedPattern);
-        final ListView listView = findViewById(R.id.listview2);
+        final RecyclerView recyclerView = findViewById(R.id.listview2);
 
         section_name.setText(section.sectionName);
         section_duration.setText(section.getDurationString());
@@ -63,7 +64,9 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
         });
 
         final ConfigurationPresetAdapter adapter = new ConfigurationPresetAdapter(this);
-        listView.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
         onEditClicked = adapter.onEditClicked().subscribe(new Consumer<VibrationPattern>() {
             @Override
@@ -82,8 +85,8 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
         onPatternSelected = adapter.onPatternSelected().subscribe(new Consumer<ConfigurationCheckedItem>() {
             @Override
             public void accept(ConfigurationCheckedItem checkedItem) throws Exception {
-                for (int i = 0; i < adapter.getCount(); i++) {
-                    View v = listView.getChildAt(i);
+                for (int i = 0; i < adapter.getItemCount(); i++) {
+                    View v = recyclerView.getChildAt(i);
                     ImageButton button = v.findViewById(R.id.checkButton);
                     if (button.getId() == checkedItem.elementID) {
                         button.setImageResource(R.drawable.icon_check_circle_orange);

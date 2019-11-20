@@ -116,11 +116,10 @@
             android:textColor="#000000"
             android:textStyle="bold"
             />
-        <ListView
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.recyclerview.widget.RecyclerView
             android:paddingLeft="10dp"
             android:id="@+id/listview2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/allPatternPreset"
             android:divider="@null"
