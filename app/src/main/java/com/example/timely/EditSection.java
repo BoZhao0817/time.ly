@@ -13,11 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import dataStructures.FakeDatabase;
 import dataStructures.Section;
+import dataStructures.VibrationPattern;
 
 public class EditSection extends AppCompatActivity {
 
@@ -29,6 +33,8 @@ public class EditSection extends AppCompatActivity {
         final Intent intent=getIntent();
         final EditText section_name = (EditText) findViewById(R.id.sec_name);
         final EditText section_duration = (EditText) findViewById(R.id.sec_duration);
+        final TextView selectedPattern= (TextView)findViewById(R.id.selectedPattern);
+        ListView lView = (ListView)findViewById(R.id.listview2);
         section_name.setText(intent.getStringExtra("section_name"));
         section_duration.setText(intent.getStringExtra("section_duration"));
         Button delete_button= findViewById(R.id.DeleteSection);
@@ -40,6 +46,8 @@ public class EditSection extends AppCompatActivity {
                 startActivity(go_back);
             }
         });
+        PresetAdapter adapter = new PresetAdapter(FakeDatabase.getInstance().aList,selectedPattern, this);
+        lView.setAdapter(adapter);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

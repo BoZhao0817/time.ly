@@ -7,10 +7,12 @@ public class FakeDatabase {
     public ArrayList<Profile> users;
     public Profile currentUser;
     public Report testReport;
+    public ArrayList<ArrayList<VibrationPattern> > aList = new ArrayList<ArrayList<VibrationPattern> >();
     private static FakeDatabase instance;
     private FakeDatabase() {
         this.presentations = new ArrayList<>();
         this.users = new ArrayList<>();
+        this.aList= new ArrayList<ArrayList<VibrationPattern> >();
         populateData();
     }
     // add synchronized for multi-threading
@@ -78,5 +80,18 @@ public class FakeDatabase {
 
         c.reports.add(cr);
 
+        ArrayList<VibrationPattern> pattern1= new ArrayList<>();
+        pattern1.add(VibrationPattern.SHORT);
+        //pattern1.add(VibrationPattern.LONG);
+        //pattern1.add(VibrationPattern.SHORT);
+        aList.add(pattern1);
+        ArrayList<VibrationPattern> pattern2= new ArrayList<>();
+        pattern2.add(VibrationPattern.LONG);
+        aList.add(pattern2);
+        ArrayList<VibrationPattern> pattern3= new ArrayList<>();
+        pattern3.add(VibrationPattern.SHORT);
+        pattern3.add(VibrationPattern.SHORT);
+        pattern3.add(VibrationPattern.LONG);
+        aList.add(pattern3);
     }
 }

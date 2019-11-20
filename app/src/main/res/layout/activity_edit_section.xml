@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
-
     <RelativeLayout
+        android:id="@+id/rl1"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="250dp"
         android:paddingTop="40dp"
         android:paddingLeft="20dp"
         android:background="@android:color/holo_blue_dark">
@@ -65,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_section_name"
-            android:id="@+id/pattern_name"
+            android:id="@+id/selectedPattern"
             android:text="Pattern1"
             android:layout_toRightOf="@+id/pattern"
             />
@@ -77,5 +78,45 @@
             android:layout_centerHorizontal="true"
             android:text="Delete Current Section"/>
     </RelativeLayout>
-
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl1"
+        android:paddingTop="40dp"
+        android:paddingLeft="20dp"
+        android:background="@android:color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Pattern Presets"
+            android:id="@+id/allPatternPreset"
+            />
+        <ListView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:paddingLeft="10dp"
+            android:id="@+id/listview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/allPatternPreset"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listview2"
+            android:id="@+id/addPreset"
+            android:layout_toLeftOf="@+id/addPresetbutton"
+            android:text="Add New Preset"
+            />
+        <Button
+            android:id="@+id/addPresetbutton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/listview2"
+            android:layout_alignRight="@+id/listview2"
+            android:background="@drawable/icon_add_outline"/>
+    </RelativeLayout>
 </LinearLayout>

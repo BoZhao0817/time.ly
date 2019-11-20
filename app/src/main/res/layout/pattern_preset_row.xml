@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/pattern_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="180dp"
+        android:layout_marginBottom="10dp"
+        android:text="hello"/>
+    <Button
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/checkButton"
+        android:background="@drawable/ic_check_circle_black_24dp"
+        android:layout_toRightOf="@+id/pattern_name"
+        android:layout_marginRight="30dp"
+        />
+    <Button
+        android:id="@+id/EditPreset"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toRightOf="@+id/checkButton"
+        android:background="@drawable/ic_settings_black_24dp"/>
+    <LinearLayout
+        android:id="@+id/pattern_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_below="@+id/pattern_name"
+        android:layout_alignLeft="@+id/pattern_name"
+        android:orientation="horizontal"/>
+
+</RelativeLayout>
