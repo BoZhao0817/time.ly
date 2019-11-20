@@ -31,6 +31,7 @@ class ConfigurationCheckedItem {
 public class ConfigurationPresetAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<VibrationPattern> list;
     private Context context;
+    private ViewGroup root;
 
     private final PublishSubject<VibrationPattern> onEdit = PublishSubject.create();
     private final PublishSubject<ConfigurationCheckedItem> onCheck = PublishSubject.create();
@@ -69,15 +70,18 @@ public class ConfigurationPresetAdapter extends BaseAdapter implements ListAdapt
         pattern_name.setText(currentPattern.name);
 
         LinearLayout preset_display = view.findViewById(R.id.pattern_layout);
-        LayoutInflater inflater = LayoutInflater.from(context);
 
-        for (VibrationPatternType type: currentPattern.patterns){
-            switch (type) {
-                case LONG: {
-                    preset_display.addView(inflater.inflate(R.layout.preset_line_short, null));
-                }
-                case SHORT: {
-                    preset_display.addView(inflater.inflate(R.layout.preset_line_long, null));
+        if (preset_display.getChildCount() == 0) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+
+            for (VibrationPatternType type: currentPattern.patterns){
+                switch (type) {
+                    case LONG: {
+                        preset_display.addView(inflater.inflate(R.layout.preset_line_long, preset_display, false));
+                    }
+                    case SHORT: {
+                        preset_display.addView(inflater.inflate(R.layout.preset_line_short, preset_display, false));
+                    }
                 }
             }
         }
@@ -97,6 +101,7 @@ public class ConfigurationPresetAdapter extends BaseAdapter implements ListAdapt
                 onCheck.onNext(new ConfigurationCheckedItem(currentPattern, v.getId()));
             }
         });
+
         return view;
     }
 

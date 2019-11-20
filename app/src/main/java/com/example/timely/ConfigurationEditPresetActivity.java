@@ -36,10 +36,10 @@ public class ConfigurationEditPresetActivity extends AppCompatActivity {
         for (VibrationPatternType type: pattern.patterns){
             switch (type) {
                 case LONG: {
-                    preset_display.addView(inflater.inflate(R.layout.preset_rect_short, preset_display));
+                    preset_display.addView(inflater.inflate(R.layout.preset_rect_short, null));
                 }
                 case SHORT: {
-                    preset_display.addView(inflater.inflate(R.layout.preset_rect_long, preset_display));
+                    preset_display.addView(inflater.inflate(R.layout.preset_rect_long, null));
                 }
             }
         }
