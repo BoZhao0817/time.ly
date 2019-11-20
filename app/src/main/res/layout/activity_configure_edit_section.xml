@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/DeleteSection"
             android:layout_marginTop="10dp"
-            android:textColor="#db5318"
+            android:textColor="@color/darkWarningText"
             android:background="#FF184063"
             android:layout_gravity="center"
             android:text="Delete Current Section"/>
