@@ -17,27 +17,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dataStructures.FakeDatabase;
+import dataStructures.Presentation;
 import dataStructures.Section;
 
 public class EditSection extends AppCompatActivity {
-
+    Presentation activePresentation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_section);
         createActionBar();
         final Intent intent=getIntent();
-        final EditText section_name = (EditText) findViewById(R.id.sec_name);
-        final EditText section_duration = (EditText) findViewById(R.id.sec_duration);
+        final EditText section_name = findViewById(R.id.sec_name);
+        final EditText section_duration = findViewById(R.id.sec_duration);
+        activePresentation = (Presentation) intent.getSerializableExtra("data");
         section_name.setText(intent.getStringExtra("section_name"));
         section_duration.setText(intent.getStringExtra("section_duration"));
         Button delete_button= findViewById(R.id.DeleteSection);
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent go_back = new Intent(getApplicationContext(), ConfigurationActivity.class);
-                FakeDatabase.getInstance().presentations.get(1).sections.remove(intent.getIntExtra("section_index",0));
-                startActivity(go_back);
+                //Intent go_back = new Intent(getApplicationContext(), ConfigurationActivity.class);
+                activePresentation.sections.remove(intent.getIntExtra("section_index",0));
+                onBackPressed();
             }
         });
     }
@@ -52,23 +54,28 @@ public class EditSection extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.mybutton) {
             final Intent intent=getIntent();
-            final EditText section_name = (EditText) findViewById(R.id.sec_name);
-            final EditText section_duration = (EditText) findViewById(R.id.sec_duration);
+            final EditText section_name = findViewById(R.id.sec_name);
+            final EditText section_duration = findViewById(R.id.sec_duration);
             if(intent.getStringExtra("section_name")==null)
             {
-                FakeDatabase.getInstance().presentations.get(1).sections.add(new Section
+                activePresentation.sections.add(new Section
                         (section_name.getText().toString(), intent.getStringExtra("user_name"),
                                 intent.getStringExtra("user_id"), Integer.parseInt(section_duration.getText().toString())));
-                Intent go_back = new Intent(getApplicationContext(), ConfigurationActivity.class);
-                startActivity(go_back);
+                //Intent go_back = new Intent(getApplicationContext(), ConfigurationActivity.class);
+                //startActivity(go_back);
+                onBackPressed();
             }
             else {
-                FakeDatabase.getInstance().presentations.get(1).sections.set(intent.getIntExtra
-                        ("section_index", 0), new Section
-                        (section_name.getText().toString(), intent.getStringExtra("user_name"),
-                                intent.getStringExtra("user_id"), Integer.parseInt(section_duration.getText().toString())));
-                Intent go_back = new Intent(getApplicationContext(), ConfigurationActivity.class);
-                startActivity(go_back);
+                int idx = intent.getIntExtra("section_index", 0);
+                String name = section_name.getText().toString();
+                String user = intent.getStringExtra("user_name");
+                String uid = intent.getStringExtra("user_id");
+                int duration = Integer.parseInt(section_duration.getText().toString());
+                Section s = new Section(name, user, uid, duration);
+                activePresentation.sections.set(idx, s);
+                //Intent go_back = new Intent(getApplicationContext(), ConfigurationActivity.class);
+                //startActivity(go_back);
+                onBackPressed();
             }
 
         }

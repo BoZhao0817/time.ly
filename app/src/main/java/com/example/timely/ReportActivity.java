@@ -24,9 +24,8 @@ import dataStructures.PresentationType;
 import dataStructures.Report;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-
+/*
 public class ReportActivity extends AppCompatActivity implements View.OnClickListener {
-
     private ReportRecyclerAdapter recyclerAdapter;
 
     private Disposable listItemClicked;
@@ -162,3 +161,4 @@ public class ReportActivity extends AppCompatActivity implements View.OnClickLis
         this.listItemClicked.dispose();
     }
 }
+*/
