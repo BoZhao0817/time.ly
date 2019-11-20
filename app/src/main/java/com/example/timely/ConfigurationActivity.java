@@ -1,14 +1,9 @@
 package com.example.timely;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
@@ -76,10 +74,14 @@ public class ConfigurationActivity extends AppCompatActivity {
     }
     private void createActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("");
         if (actionBar != null) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.appBar)));
+            final Drawable backArrow = ContextCompat.getDrawable(this, R.drawable.icon_light_arrow_back);
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.appBar)));
+            actionBar.setTitle("Settings");
             actionBar.setElevation(0);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(backArrow);
             actionBar.show();
         }
     }
