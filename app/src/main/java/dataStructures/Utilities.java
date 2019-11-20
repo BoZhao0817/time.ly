@@ -2,6 +2,8 @@ package dataStructures;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -68,5 +70,27 @@ public class Utilities {
     public int convertPX(int px) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int)Math.ceil(px / scale);
+    }
+
+    public void playVibration(VibrationPattern currentVibration) {
+        long shortDuration = 300L;
+        long longDuration = 700L;
+        long delay = 200L;
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = new long[currentVibration.patterns.size()*2];
+        pattern[0] = 0;
+        for (int i = 1; i <= currentVibration.patterns.size(); i++) {
+            VibrationPatternType vp = currentVibration.patterns.get(i-1);
+            if (vp == VibrationPatternType.LONG) {
+                pattern[2 * i - 1] = longDuration;
+                if (i != currentVibration.patterns.size())
+                    pattern[2 * i] = delay;
+            } else {
+                pattern[2 * i - 1] = shortDuration;
+                if (i != currentVibration.patterns.size())
+                    pattern[2 * i] = delay;
+            }
+        }
+        v.vibrate(VibrationEffect.createWaveform(pattern, -1));
     }
 }

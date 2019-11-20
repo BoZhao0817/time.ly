@@ -62,6 +62,7 @@ public class FakeDatabase {
 
         presentations.add(a);
         presentations.add(b);
+        // Hello
         presentations.add(c);
 
         Report r = new Report(b, "existing recording");
