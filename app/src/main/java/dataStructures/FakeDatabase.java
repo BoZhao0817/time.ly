@@ -70,6 +70,7 @@ public class FakeDatabase {
         r.addEstimate(90);
         r.addEstimate(20);
         r.group_type = ReportGroupType.GROUP;
+        r.type = PresentationType.GROUP;
         a.reports.add(r);
 
         Report br = new Report(b, "Test B1");

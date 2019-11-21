@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import dataStructures.Presentation;
+import dataStructures.PresentationType;
 import dataStructures.Report;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -54,7 +55,12 @@ public class PracticeRecyclerAdapter extends RecyclerView.Adapter {
         TextView name = layout.findViewById(R.id.main_presentation_name);
         name.setText(elem.name);
         TextView type = layout.findViewById(R.id.main_presentation_type);
-        type.setText(elem.type.toString());
+        if (elem.type == PresentationType.GROUP) {
+            type.setText(elem.group_type.toString());
+        } else {
+            type.setText("");
+        }
+
         TextView duration = layout.findViewById(R.id.main_presentation_duration);
         duration.setText(elem.getDurationString());
 
