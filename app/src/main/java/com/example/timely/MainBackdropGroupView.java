@@ -91,6 +91,13 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
                 startActivity(intent);
                 break;
             }
+
+            case R.id.main_group_share_button: {
+                Intent intent = new Intent(mainActivity, GroupActivity.class);
+                intent.putExtra("data", mainActivity.activePresentation);
+                startActivity(intent);
+                break;
+            }
         }
     }
 }

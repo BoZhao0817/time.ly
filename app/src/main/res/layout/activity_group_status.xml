@@ -60,8 +60,8 @@
             android:textSize="15dp"
             />
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="6dp"
+            android:layout_width="350dp"
+            android:layout_height="20dp"
             android:id="@+id/ll1"
             android:orientation="horizontal"
             android:layout_below="@+id/group_glance"
@@ -123,5 +123,10 @@
             android:layout_marginRight="20dp"
             android:layout_alignTop="@+id/add_new_member"
             android:layout_alignBottom="@+id/add_new_member"/>
+        <ListView
+            android:id="@+id/userList"
+            android:layout_below="@id/add_new_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 </LinearLayout>
