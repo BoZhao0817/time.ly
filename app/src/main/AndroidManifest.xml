@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConfigurationEditPresetActivity"></activity>
+        <activity android:name=".SearchUserActivity"></activity>
+        <activity android:name=".ConfigurationEditPresetActivity" />
         <activity android:name=".ConfigurationSectionAdapter" />
         <activity android:name=".ConfigurationEditSectionActivity" />
         <activity android:name=".GroupActivity" />
@@ -21,6 +22,7 @@
         <activity android:name=".StartActivity" />
         <activity android:name=".PracticeActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".AddGroupMemberActivity"/>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
