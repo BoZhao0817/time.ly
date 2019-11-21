@@ -40,7 +40,6 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
 
         TextView add = findViewById(R.id.add_new_member);
         Button addButton = findViewById(R.id.add_member);
-
         add.setOnClickListener(this);
         addButton.setOnClickListener(this);
 
