@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,55 +68,71 @@
                 android:textSize="17sp" />
 
             <EditText
+                android:id="@+id/editName"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="0dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="40dp"
+                android:layout_weight="1"
                 android:hint="Chris" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/Duration"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="10dp"
-
-        >
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
-
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:textStyle="bold"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center|left"
             android:text="Duration"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="40dp"
-            android:textColor="#444242"
-            android:textSize="17sp"
-            />
+            android:textColor="@color/lightMainText"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
-            android:layout_width="50dp"
+            android:id="@+id/minutes"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:hint="2:00" />
+            android:layout_weight="0.25"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="2"
+            android:inputType="number" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="5dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text=":"
+            android:textColor="@color/lightMainText"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/seconds"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="00"
+            android:inputType="number" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -158,24 +176,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:textStyle="bold"
+            android:layout_marginLeft="53dp"
+            android:layout_marginTop="2dp"
             android:text="This is myself"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="10dp"
             android:textColor="#444242"
             android:textSize="17sp"
-            />
+            android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatToggleButton
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOff="Not Me"
-            android:textOn= "Me"
-            android:textStyle="bold"
-            android:textColor="#444242"
             android:layout_alignParentRight="true"
             android:layout_marginRight="35dp"
-            />
+            android:textColor="#444242"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -229,53 +243,59 @@
         >
 
         <Button
+            android:id="@+id/searchView"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="SEARCH USERS"
-            android:textSize="17sp"
-            android:textColor="#FFA500"
             android:layout_marginLeft="40dp"
-            />
+            android:gravity="center"
+            android:text="SEARCH USERS"
+            android:textColor="#FFA500"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <Button
+            android:id="@+id/copyView"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="COPY LINK"
             android:layout_alignParentRight="true"
-            android:textSize="17sp"
-            android:textColor="#FFA500"
             android:layout_marginRight="40dp"
-            />
+            android:gravity="center"
+            android:text="COPY LINK"
+            android:textColor="#FFA500"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="40dp"
-        >
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_alignParentBottom="true"
+        <TextView
+            android:id="@+id/deleteView"
+            android:layout_width="150dp"
+            android:layout_height="39dp"
             android:gravity="center"
-            android:textSize="17sp"
-            android:layout_marginLeft="60dp"
-            android:text="REMOVE FROM PRESENTATION"
-            android:textColor="#FF0000"/>
+            android:text="DELETE"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp" />
 
-
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/saveView"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="SAVE"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </LinearLayout>

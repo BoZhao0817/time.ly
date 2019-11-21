@@ -1,8 +1,9 @@
 package dataStructures;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
     public String name;
     public UUID id;
     public int duration;
