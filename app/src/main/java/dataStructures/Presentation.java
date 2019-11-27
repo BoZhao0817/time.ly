@@ -9,15 +9,17 @@ import java.util.UUID;
 
 public class Presentation implements Serializable {
     public String name;
-    public String id;
+    public UUID id;
+    public UUID ownerID;
     public PresentationType type;
     public Integer duration; // seconds
     public ArrayList<Section> sections;
     public ArrayList<Report> reports;
 
+
     public Presentation(String name, PresentationType type, Integer duration) {
         this.name = name;
-        this.id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID();
         this.type = type;
         this.duration = duration;
         this.sections = new ArrayList<>();
@@ -50,12 +52,12 @@ public class Presentation implements Serializable {
         return toStringTime(duration);
     }
 
-    public ArrayList<String> getAllUserIDs() {
-        ArrayList<String> userIDs = new ArrayList<>();
-        Set<String> visitedIDs = new HashSet<>();
+    public ArrayList<UUID> getAllUserIDs() {
+        ArrayList<UUID> userIDs = new ArrayList<>();
+        Set<UUID> visitedIDs = new HashSet<>();
         Iterator<Section> sectionIterator = sections.iterator();
         while (sectionIterator.hasNext()) {
-            String id = sectionIterator.next().userID;
+            UUID id = sectionIterator.next().userID;
             if (!visitedIDs.contains(id)) {
                 visitedIDs.add(id);
                 userIDs.add(id);
@@ -64,12 +66,12 @@ public class Presentation implements Serializable {
         return userIDs;
     }
 
-    public Integer getPortionDuration(String userID) {
+    public Integer getPortionDuration(UUID userID) {
         Iterator<Section> sectionIterator = sections.iterator();
         Integer acc = 0;
         while (sectionIterator.hasNext()) {
             Section currentSection = sectionIterator.next();
-            String id = currentSection.userID;
+            UUID id = currentSection.userID;
             if (id.equals(userID)) {
                 acc += currentSection.duration;
             }
@@ -77,7 +79,7 @@ public class Presentation implements Serializable {
         return acc;
     }
 
-    public String getPortionDurationString(String userID) {
+    public String getPortionDurationString(UUID userID) {
         return toStringTime(getPortionDuration(userID));
     }
 }

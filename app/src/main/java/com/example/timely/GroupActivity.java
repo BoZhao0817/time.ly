@@ -1,71 +1,116 @@
 package com.example.timely;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import dataStructures.Group;
-import dataStructures.User;
+import dataStructures.FakeDatabase;
+import dataStructures.NamedSegments;
+import dataStructures.Presentation;
+import dataStructures.Section;
+import dataStructures.VizSegments;
 import dataStructures.Utilities;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
+enum GroupFeedbackType {
+    CANCEL, DELETE, SAVE
+}
 
 public class GroupActivity extends AppCompatActivity implements View.OnClickListener {
+    private Presentation currentPresentation;
+    private Disposable onEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_status);
-        Group testGroup = new Group();
-        User u1 = new User("Zach", 60, "Organizer");
-        User u2 = new User("Hang", 30, "Member");
-        User u3 = new User("Bo", 45, "Member");
-        User u4 = new User("Samuel", 20, "Member");
-        User u5 = new User("Aditi", 60, "Member");
-        User u6 = new User("Harshit", 80, "Member");
-        testGroup.users.add(u1);
-        testGroup.users.add(u2);
-        testGroup.users.add(u3);
-        testGroup.users.add(u4);
-        testGroup.users.add(u5);
-        testGroup.users.add(u6);
+        setContentView(R.layout.activity_group);
+        createActionBar();
 
-        TextView add = findViewById(R.id.add_new_member);
-        Button addButton = findViewById(R.id.add_member);
-        add.setOnClickListener(this);
+        currentPresentation = (Presentation) (getIntent().getSerializableExtra("data"));
+
+        Button addButton = findViewById(R.id.group_add_section);
         addButton.setOnClickListener(this);
 
-        ListView users = findViewById(R.id.userList);
-        GroupAdapter adapter = new GroupAdapter(this, testGroup.users);
+        RecyclerView users = findViewById(R.id.group_members_list);
+        GroupRecyclerAdapter adapter = new GroupRecyclerAdapter(currentPresentation);
         users.setAdapter(adapter);
+        onEdit = adapter.onEdit().subscribe(new Consumer<Section>() {
+            @Override
+            public void accept(Section section) throws Exception {
+                Intent intent = new Intent(GroupActivity.this, GroupAddMemberActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", section);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 1);
+            }
+        });
 
-        LinearLayout glance = findViewById(R.id.ll1);
+        LinearLayout glance = findViewById(R.id.group_glance);
         Utilities util = new Utilities(getApplicationContext());
-        ArrayList<Integer> times = new ArrayList<>();
-        for (User u : testGroup.users) {
-            times.add(u.duration);
+
+        ArrayList<NamedSegments> args = new ArrayList<>();
+        for (Section s: currentPresentation.sections) {
+            args.add(new VizSegments(
+                    FakeDatabase.getInstance().findUser(s.userID).name,
+                    s.duration
+            ));
         }
-        util.setChart(glance, times, 350);
+        util.setChart(glance, args);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.add_new_member:
-            case R.id.add_member:
-                Intent i = new Intent(this, AddGroupMemberActivity.class);
-                startActivity(i);
+            case R.id.group_add_section:
+                Intent intent = new Intent(this, GroupAddMemberActivity.class);
+                Bundle bundle = new Bundle();
+                Section activeSection = Section.newInstance();
+                bundle.putSerializable("data", activeSection);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 1);
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        onEdit.dispose();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.simple_app_bar, menu);
+        return true;
+    }
+
+    private void createActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            final Drawable backArrow = ContextCompat.getDrawable(this, R.drawable.icon_light_arrow_back);
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.appBar)));
+            actionBar.setTitle("Practice");
+            actionBar.setElevation(0);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(backArrow);
+            actionBar.show();
         }
     }
 }

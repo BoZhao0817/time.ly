@@ -4,61 +4,65 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.timely.R;
 
 import java.util.ArrayList;
 
 public class Utilities {
     Context context;
 
+    public static final String[] stackedBarChartColors = {
+            "#1ABC9C", "#2ECC71", "#F1C40F", "#27AE60", "#F39C12", "#E74C3C",
+            "#E67E22", "#95A5A6", "#7F8C8D", "#BDC3C7", "#34495E", "#16A085",
+            "#C0392B", "#8E44AD", "#2980B9", "#9B59B6", "#3498DB", "#D35400",
+    };
+
     public Utilities(Context c) {
         context = c;
     }
-    public void setChartPreset(LinearLayout l2, ArrayList<Integer> values) {
-        String[] colors = {"#013220", "#037d50","#FFFFFF"};
-        //int total = 0;
-        //for (int v : values) {
-        //    total += v;
-        //}
-        //Log.v("hey",String.valueOf(values.size()));
-        int count=0;
+
+    public void setChart(LinearLayout ll, ArrayList<NamedSegments> values) {
+        LayoutInflater inflater = LayoutInflater.from(context);
         for (int i = 0; i < values.size(); i++) {
-            count++;
-            //int dp = (int)Math.floor(((values.get(i)*1.0) / total) * length);
-            View v = new View(context);
-            if(values.get(i)==10)
-            {
-                v.setLayoutParams(new LinearLayout.LayoutParams(convertDP(40), convertDP(20)));
-                v.setBackgroundColor(Color.parseColor(colors[0]));
-            }
-            else if(values.get(i)==20) {
-                v.setLayoutParams(new LinearLayout.LayoutParams(convertDP(80), convertDP(20)));
-                v.setBackgroundColor(Color.parseColor(colors[1]));
-            }
-            View v2 = new View(context);
-            v2.setLayoutParams(new LinearLayout.LayoutParams(convertDP(10), convertDP(20)));
-            v2.setBackgroundColor(Color.parseColor(colors[2]));
-            //Log.v("my",v.toString());
-            l2.addView(v);
-            l2.addView(v2);
+            NamedSegments currentValue = values.get(i);
+            View v = inflater.inflate(R.layout.fragment_viz_segment_view, ll, false);
+            v.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, currentValue.getDuration()));
+            v.findViewById(R.id.group_viz_segment_color).setBackgroundColor(Color.parseColor(stackedBarChartColors[i % stackedBarChartColors.length]));
+            ((TextView)(v.findViewById(R.id.group_viz_segment_text))).setText(currentValue.getName());
+            ll.addView(v);
         }
-        Log.v("ct",String.valueOf(count));
     }
 
-    public void setChart(LinearLayout ll, ArrayList<Integer> values, int length) {
+    public void setChartDynamicLength(LinearLayout ll, ArrayList<NamedSegments> values, int length) {
         String[] colors = {"#FC6451", "#1CBD7D", "#FDD242", "#C056FF"};
-        int total = 0;
-        for (int v : values) {
-            total += v;
+        float total = 0;
+        for (NamedSegments v : values) {
+            total += v.getDuration();
         }
         for (int i = 0; i < values.size(); i++) {
-            int dp = (int)Math.floor(((values.get(i)*1.0) / total) * length);
+            LinearLayout wrapper = new LinearLayout(this.context);
+            wrapper.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            int dp = (int)Math.floor(((values.get(i).getDuration()) / total) * length);
             View v = new View(context);
             v.setLayoutParams(new LinearLayout.LayoutParams(convertDP(dp), convertDP(20)));
             v.setBackgroundColor(Color.parseColor(colors[i % colors.length]));
-            ll.addView(v);
+            TextView txt = new TextView(this.context);
+            txt.setText(values.get(i).getName());
+            txt.setTextColor(this.context.getColor(R.color.darkMainText));
+
+            wrapper.setOrientation(LinearLayout.VERTICAL);
+            wrapper.setGravity(Gravity.START);
+            wrapper.addView(v);
+            wrapper.addView(txt);
+            ll.addView(wrapper);
         }
     }
 

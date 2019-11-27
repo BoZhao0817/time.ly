@@ -11,8 +11,8 @@ public class Report implements Serializable {
     public String name;
     public int total_estimate;
     public int total_actual;
-    public ArrayList<Integer> estimates;
-    public ArrayList<Integer> actuals;
+    public ArrayList<NamedSegments> estimates;
+    public ArrayList<NamedSegments> actuals;
     public PresentationType type;
     public ReportGroupType group_type;
 
@@ -25,14 +25,13 @@ public class Report implements Serializable {
         estimates = new ArrayList<>();
         type = p.type;
         group_type = null;
-        for (Section s : p.sections) {
-            actuals.add(s.duration);
-        }
+        actuals = new ArrayList<>();
+        actuals.addAll(p.sections);
     }
 
-    public void addEstimate(int dur) {
-        estimates.add(dur);
-        total_estimate += dur;
+    public void addEstimate(String name, float duration) {
+        estimates.add(new VizSegments(name, duration));
+        total_estimate += duration;
     }
 
     public String getDurationString() {

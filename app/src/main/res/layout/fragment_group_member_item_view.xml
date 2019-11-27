@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/group_members_list_member_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textColor="@color/lightMainText"
+        android:fontFamily="sans-serif-medium"
+        android:text="Emma"/>
+
+
+    <TextView
+        android:id="@+id/group_members_list_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3:00"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/lightMainText"
+        android:layout_toRightOf="@+id/member_name"/>
+
+    <TextView
+        android:id="@+id/group_members_list_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="organizer"
+        android:textColor="@color/lightMainText"
+        android:layout_toRightOf="@+id/duration"/>
+
+
+    <ImageButton
+        android:id="@+id/group_members_list_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_settings_orange"
+        android:background="@android:color/transparent"
+        android:layout_gravity="end"/>
+
+    <ImageButton
+        android:id="@+id/group_members_list_drag_handler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_drag_handle"
+        android:layout_marginStart="20dp"
+        android:background="@android:color/transparent"
+        android:layout_gravity="end"/>
+
+
+</LinearLayout>

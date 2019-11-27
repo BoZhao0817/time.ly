@@ -1,12 +1,13 @@
 package dataStructures;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class FakeDatabase {
     public ArrayList<Presentation> presentations;
-    public ArrayList<Profile> users;
+    public ArrayList<User> users;
     public ArrayList<VibrationPattern> vibrationPatterns;
-    public Profile currentUser;
+    public User currentUser;
     public Report testReport;
 
     private static FakeDatabase instance;
@@ -26,9 +27,9 @@ public class FakeDatabase {
     }
 
     private void populateData() {
-        users.add(new Profile("me"));
-        users.add(new Profile("Emma"));
-        users.add(new Profile("Chris"));
+        users.add(new User("me"));
+        users.add(new User("Emma"));
+        users.add(new User("Chris"));
 
         currentUser = users.get(0);
 
@@ -48,17 +49,20 @@ public class FakeDatabase {
         vibrationPatterns.add(vp3);
 
         Presentation a = new Presentation("CS465", PresentationType.GROUP, 600);
-        a.sections.add(new Section("a1", users.get(0).userName, users.get(0).userID, 60, vp1.id));
-        a.sections.add(new Section("a2", users.get(1).userName, users.get(1).userID, 100, vp2.id));
-        a.sections.add(new Section("a3", users.get(2).userName, users.get(2).userID, 10, vp3.id));
+        a.ownerID = currentUser.id;
+        a.sections.add(new Section("a1", users.get(0).name, users.get(0).id, 60, vp1.id));
+        a.sections.add(new Section("a2", users.get(1).name, users.get(1).id, 100, vp2.id));
+        a.sections.add(new Section("a3", users.get(2).name, users.get(2).id, 10, vp3.id));
 
         Presentation b = new Presentation("CS498", PresentationType.INDIVIDUAL, 120);
-        b.sections.add(new Section("b1", users.get(0).userName, users.get(0).userID, 10, vp1.id));
-        b.sections.add(new Section("b2", users.get(0).userName, users.get(0).userID, 15, vp2.id));
-        b.sections.add(new Section("b3", users.get(0).userName, users.get(0).userID, 10, vp2.id));
+        b.ownerID = currentUser.id;
+        b.sections.add(new Section("b1", users.get(0).name, users.get(0).id, 10, vp1.id));
+        b.sections.add(new Section("b2", users.get(0).name, users.get(0).id, 15, vp2.id));
+        b.sections.add(new Section("b3", users.get(0).name, users.get(0).id, 10, vp2.id));
 
         Presentation c = new Presentation("CS101", PresentationType.INDIVIDUAL, 60);
-        c.sections.add(new Section("c1", users.get(0).userName, users.get(0).userID, 60, vp1.id));
+        c.ownerID = currentUser.id;
+        c.sections.add(new Section("c1", users.get(0).name, users.get(0).id, 60, vp1.id));
 
         presentations.add(a);
         presentations.add(b);
@@ -66,38 +70,38 @@ public class FakeDatabase {
         presentations.add(c);
 
         Report r = new Report(b, "existing recording");
-        r.addEstimate(45);
-        r.addEstimate(90);
-        r.addEstimate(20);
+        r.addEstimate(b.sections.get(0).sectionName, 45);
+        r.addEstimate(b.sections.get(1).sectionName, 90);
+        r.addEstimate(b.sections.get(2).sectionName, 20);
         r.group_type = ReportGroupType.GROUP;
         r.type = PresentationType.GROUP;
         a.reports.add(r);
 
         Report br = new Report(b, "Test B1");
-        br.addEstimate(45);
-        br.addEstimate(90);
-        br.addEstimate(20);
+        br.addEstimate(b.sections.get(0).sectionName, 45);
+        br.addEstimate(b.sections.get(1).sectionName, 90);
+        br.addEstimate(b.sections.get(2).sectionName, 20);
 
         Report br2 = new Report(b, "Test B2");
-        br2.addEstimate(50);
-        br2.addEstimate(100);
-        br2.addEstimate(40);
+        br2.addEstimate(b.sections.get(0).sectionName, 50);
+        br2.addEstimate(b.sections.get(1).sectionName, 100);
+        br2.addEstimate(b.sections.get(2).sectionName, 40);
         testReport = br;
 
         Report ar = new Report(a, "Test A1");
-        ar.addEstimate(70);
-        ar.addEstimate(110);
-        ar.addEstimate(20);
+        ar.addEstimate(a.sections.get(0).sectionName, 70);
+        ar.addEstimate(a.sections.get(1).sectionName, 110);
+        ar.addEstimate(a.sections.get(2).sectionName, 20);
         ar.group_type = ReportGroupType.GROUP;
 
         Report ar2 = new Report(a, "Test A2");
-        ar2.addEstimate(50);
-        ar2.addEstimate(90);
-        ar2.addEstimate(5);
+        ar2.addEstimate(a.sections.get(0).sectionName, 70);
+        ar2.addEstimate(a.sections.get(1).sectionName, 110);
+        ar2.addEstimate(a.sections.get(2).sectionName, 20);
         ar2.group_type = ReportGroupType.GROUP;
 
         Report cr = new Report(c, "Test C1");
-        cr.addEstimate(80);
+        cr.addEstimate(c.sections.get(0).sectionName, 80);
 
         b.reports.add(br);
         b.reports.add(br2);
@@ -108,10 +112,19 @@ public class FakeDatabase {
         c.reports.add(cr);
     }
 
-    public VibrationPattern findPattern(String id) {
+    public VibrationPattern findPattern(UUID id) {
         for (VibrationPattern pattern : vibrationPatterns) {
             if (pattern.id.equals(id)) {
                 return pattern;
+            }
+        }
+        return null;
+    }
+
+    public User findUser(UUID id) {
+        for (User user : users) {
+            if (user.id.equals(id)) {
+                return user;
             }
         }
         return null;

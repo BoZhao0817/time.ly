@@ -23,10 +23,12 @@ public abstract class PracticeCommonView extends Fragment implements View.OnClic
     Timer timer;
     boolean finished = false;
     int delay = 1000;
+    String currentSectionName;
 
     Presentation presentation;
     Report report;
     View root;
+
 
     TextView section;
     TextView target;
@@ -88,6 +90,7 @@ public abstract class PracticeCommonView extends Fragment implements View.OnClic
             section.setText(presentation.sections.get(curr).sectionName);
             target.setText(Presentation.toStringTime(presentation.sections.get(curr).duration));
             time.setText("00:00");
+            this.currentSectionName = presentation.sections.get(curr).sectionName;
         }
     }
 
@@ -111,7 +114,7 @@ public abstract class PracticeCommonView extends Fragment implements View.OnClic
             case R.id.nextButton:
                 timer.count++;
                 timer.done = true;
-                report.addEstimate(timer.seconds);
+                report.addEstimate(currentSectionName, timer.seconds);
                 break;
             default:
                 break;

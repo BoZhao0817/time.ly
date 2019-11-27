@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/frontLayer">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/layout1"
         >
         <TextView
             android:id="@+id/presentation_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:textColor="@color/lightMainText"
+            android:textColor="@color/lightIndicatorText"
             android:fontFamily="sans-serif-medium"
             android:textSize="18sp"
             android:text="For CS"
@@ -27,103 +30,94 @@
             android:id="@+id/total_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/section_name"
-            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@id/presentation_name"
+            android:layout_alignParentEnd="true"
             android:text="5:00"
             android:textSize="20sp"
-            android:textColor="@color/lightMainText"
+            android:textColor="@color/lightIndicatorText"
             android:fontFamily="sans-serif-medium"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:gravity="right"
             />
-
+        <TextView
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/presentation_name"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/lightHelperText"
+            android:text="Only the group leader can modify a group presentation"
+            />
     </RelativeLayout>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/layout2"
-        android:layout_below="@id/layout1"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
         android:padding="20dp"
+        android:orientation="vertical"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/group_glance"
-            android:text="Group Status at Glance"
+            android:text="Group Members at Glance"
             android:textColor="@color/lightIndicatorText"
             android:fontFamily="sans-serif-medium"
-            android:textSize="15dp"
+            android:textSize="15sp"
+            android:layout_marginBottom="15dp"
             />
         <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="20dp"
-            android:id="@+id/ll1"
+            android:id="@+id/group_glance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/group_glance"
             />
-    </RelativeLayout>
-    <RelativeLayout
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout2"
-        android:id="@+id/layout3"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@android:color/white"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:orientation="vertical"
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Group members"
-            android:id="@+id/group_members"
+            android:text="Group Member Details"
             android:textColor="@color/lightIndicatorText"
             android:fontFamily="sans-serif-medium"
-            android:textSize="15dp"
+            android:textSize="15sp"
             />
-
-
-
-        <TextView
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/add_new_member"
-            android:text="ADD NEW MEMBER"
-            android:textColor="#F68928"
-            android:textStyle="bold"
-            android:layout_marginTop="25dp"
-            android:layout_toLeftOf="@+id/add_member"
+            android:id="@+id/group_add_section"
+            android:text="ADD NEW SECTION"
+            android:textColor="@color/lightButtonText"
+            android:fontFamily="sans-serif-medium"
+            android:drawablePadding="5dp"
+            android:drawableEnd="@drawable/icon_add_outline"
             />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/group_members_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Drag"
             android:text="Drag to Reorder"
-            android:textColor="#909090"
-            android:textSize="12dp"
-            android:layout_alignTop="@+id/add_new_member"
-            android:layout_alignBottom="@+id/add_new_member"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="-25dp"
-            android:layout_marginRight="30dp"
-            />
-        <Button
-            android:id="@+id/add_member"
-            android:background="@drawable/icon_add_outline"
-            android:layout_width="20dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignTop="@+id/add_new_member"
-            android:layout_alignBottom="@+id/add_new_member"/>
-        <ListView
-            android:id="@+id/userList"
-            android:layout_below="@id/add_new_member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+            android:textColor="@color/lightHelperText"
+            android:textSize="12sp"
+            android:layout_gravity="end"/>
+    </LinearLayout>
 </LinearLayout>

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
+import dataStructures.NamedSegments;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
 import dataStructures.Report;
@@ -66,8 +67,10 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
         actTime.setText(Presentation.toStringTime(datum.total_actual));
         LinearLayout est = root.findViewById(R.id.estimateChart);
         LinearLayout act = root.findViewById(R.id.actualChart);
-        ArrayList<Integer> estimates = datum.estimates;
-        ArrayList<Integer> actuals = datum.actuals;
+
+        ArrayList<NamedSegments> estimates = datum.estimates;
+        ArrayList<NamedSegments> actuals = datum.actuals;
+
         double avse = (datum.total_actual*1.0) / datum.total_estimate;
         double evsa = (datum.total_estimate*1.0) / datum.total_actual;
         double est_len;
@@ -83,8 +86,8 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
         est_len = util.convertPX((int)est_len);
         act_len = util.convertPX((int)act_len);
 
-        util.setChart(est, estimates, (int)est_len);
-        util.setChart(act, actuals, (int)act_len);
+        util.setChartDynamicLength(est, estimates, (int)est_len);
+        util.setChartDynamicLength(act, actuals, (int)act_len);
 
 
         return root;

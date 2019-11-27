@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/presentation_name"
             android:layout_marginTop="10dp"
-            android:textColor="#909090"
+            android:textColor="@color/lightHelperText"
             android:text="You can only configure your own portion in group presentation"
             />
     </RelativeLayout>
@@ -70,8 +70,8 @@
             android:layout_marginBottom="15dp"
             />
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/ll1"
             android:orientation="horizontal"
             android:layout_below="@+id/sections_glance"
@@ -103,7 +103,8 @@
             android:id="@+id/add_section"
             android:text="ADD NEW SECTION"
             android:textColor="@color/lightButtonText"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:drawablePadding="5dp"
             android:layout_below="@id/section_details"
             android:layout_alignParentStart="true"
             android:drawableEnd="@drawable/icon_add_outline"

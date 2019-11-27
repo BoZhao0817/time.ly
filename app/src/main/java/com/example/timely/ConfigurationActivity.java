@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import dataStructures.NamedSegments;
 import dataStructures.Presentation;
 import dataStructures.Section;
 import dataStructures.Utilities;
@@ -50,15 +51,16 @@ public class ConfigurationActivity extends AppCompatActivity {
         Button add_section= findViewById(R.id.add_section);
 
         ArrayList<Section> list = new ArrayList<>();
-        ArrayList<Integer> array1=new ArrayList<>();
+        ArrayList<NamedSegments> array1 = new ArrayList<>();
 
         for (Section temp: activePresentation.sections) {
             list.add(temp);
-            array1.add(temp.duration);
+            array1.add(temp);
         }
 
         ConfigurationSectionAdapter adapter = new ConfigurationSectionAdapter(list, this);
-        utilities.setChart(linearLayout1,array1,320);
+        utilities.setChart(linearLayout1, array1);
+
         lView.setAdapter(adapter);
         total_time.setText(activePresentation.getDurationString());
         add_section.setOnClickListener(new View.OnClickListener() {
