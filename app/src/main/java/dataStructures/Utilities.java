@@ -19,9 +19,9 @@ public class Utilities {
     Context context;
 
     public static final String[] stackedBarChartColors = {
-            "#1ABC9C", "#2ECC71", "#F1C40F", "#27AE60", "#F39C12", "#E74C3C",
-            "#E67E22", "#95A5A6", "#7F8C8D", "#BDC3C7", "#34495E", "#16A085",
-            "#C0392B", "#8E44AD", "#2980B9", "#9B59B6", "#3498DB", "#D35400",
+            "#D35400", "#F1C40F", "#27AE60", "#3498DB", "#8E44AD",
+            "#34495E", "#BDC3C7", "#E67E22", "#2ECC71", "#16A085",
+            "#1ABC9C", "#2980B9", "#9B59B6", "#E74C3C", "#2C3E50"
     };
 
     public Utilities(Context c) {

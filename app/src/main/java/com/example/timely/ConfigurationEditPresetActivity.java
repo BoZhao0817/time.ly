@@ -116,7 +116,7 @@ public class ConfigurationEditPresetActivity extends AppCompatActivity implement
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.edit_section_menu, menu);
+        getMenuInflater().inflate(R.menu.edit_bar, menu);
         return true;
     }
 
@@ -127,7 +127,7 @@ public class ConfigurationEditPresetActivity extends AppCompatActivity implement
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", pattern);
-                bundle.putSerializable("actionType", ConfigurationFeedbackType.CANCEL);
+                bundle.putSerializable("actionType", FeedbackType.CANCEL);
                 intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -137,7 +137,7 @@ public class ConfigurationEditPresetActivity extends AppCompatActivity implement
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", pattern);
-                bundle.putSerializable("actionType", ConfigurationFeedbackType.SAVE);
+                bundle.putSerializable("actionType", FeedbackType.SAVE);
                 intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
                 finish();

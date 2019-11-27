@@ -56,7 +56,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", section);
-                bundle.putSerializable("actionType", ConfigurationFeedbackType.DELETE);
+                bundle.putSerializable("actionType", FeedbackType.DELETE);
                 intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -106,7 +106,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                 Bundle bundle = intent.getExtras();
                 VibrationPattern passedPattern = (VibrationPattern)(bundle.get("data"));
                 ArrayList<VibrationPattern> allPatterns = FakeDatabase.getInstance().vibrationPatterns;
-                switch ((ConfigurationFeedbackType)(bundle.get("actionType"))) {
+                switch ((FeedbackType)(bundle.get("actionType"))) {
                     case CANCEL: {
                         break;
                     }
@@ -149,7 +149,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.edit_section_menu, menu);
+        getMenuInflater().inflate(R.menu.edit_bar, menu);
         return true;
     }
 
@@ -160,7 +160,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", section);
-                bundle.putSerializable("actionType", ConfigurationFeedbackType.CANCEL);
+                bundle.putSerializable("actionType", FeedbackType.CANCEL);
                 intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -170,7 +170,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", section);
-                bundle.putSerializable("actionType", ConfigurationFeedbackType.SAVE);
+                bundle.putSerializable("actionType", FeedbackType.SAVE);
                 intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
                 finish();

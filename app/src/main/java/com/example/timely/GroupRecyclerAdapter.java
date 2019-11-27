@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import dataStructures.GroupMember;
 import dataStructures.Presentation;
 import dataStructures.Section;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 public class GroupRecyclerAdapter extends RecyclerView.Adapter {
-    private ArrayList<Section> data;
+    private ArrayList<GroupMember> data;
     private UUID ownerID;
-    private final PublishSubject<Section> onEdit = PublishSubject.create();
+    private final PublishSubject<GroupMember> onEdit = PublishSubject.create();
 
     public static class GroupViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -32,7 +33,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter {
     }
 
     public GroupRecyclerAdapter(Presentation presentation) {
-        this.data = presentation.sections;
+        this.data = presentation.members;
         this.ownerID = presentation.ownerID;
     }
 
@@ -42,7 +43,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter {
     public GroupRecyclerAdapter.GroupViewHolder onCreateViewHolder(@org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
         // create a new view
         LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_main_presentation_item_view, parent, false);
+                .inflate(R.layout.fragment_group_member_item_view, parent, false);
         GroupRecyclerAdapter.GroupViewHolder vh = new GroupRecyclerAdapter.GroupViewHolder(l);
         return vh;
     }
@@ -50,18 +51,21 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        final Section elem = data.get(position);
+        final GroupMember elem = data.get(position);
         LinearLayout layout = ((GroupRecyclerAdapter.GroupViewHolder)holder).layout;
-        TextView name = layout.findViewById(R.id.member_name);
-        name.setText(elem.ownerName);
+        TextView name = layout.findViewById(R.id.group_members_list_member_name);
+        name.setText(elem.memberName);
         TextView type = layout.findViewById(R.id.group_members_list_role);
-        if (elem.userID == this.ownerID) {
-            type.setText("Organizer");
+        if (elem.isAccepted) {
+            if (elem.ownerID == this.ownerID) {
+                type.setText("Organizer");
+            } else {
+                type.setText("Member");
+            }
         } else {
-            type.setText("Member");
+            type.setText("Pending");
         }
+
 
         TextView duration = layout.findViewById(R.id.group_members_list_duration);
         duration.setText(elem.getDurationString());
@@ -74,13 +78,12 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter {
         });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-    public Observable<Section> onEdit() {
+    public Observable<GroupMember> onEdit() {
         return onEdit.hide();
     }
 
@@ -100,7 +103,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter {
         notifyItemRangeChanged(idx, this.data.size());
     }
 
-    public void addData(Section datum) {
+    public void addData(GroupMember datum) {
         this.data.add(0, datum);
     }
 }

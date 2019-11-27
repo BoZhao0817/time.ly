@@ -22,7 +22,7 @@
         <activity android:name=".StartActivity" />
         <activity android:name=".PracticeActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".GroupAddMemberActivity"/>
+        <activity android:name=".GroupEditMemberActivity"/>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">

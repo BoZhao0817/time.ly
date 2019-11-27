@@ -2,9 +2,7 @@ package dataStructures;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.UUID;
 
 public class Presentation implements Serializable {
@@ -15,6 +13,7 @@ public class Presentation implements Serializable {
     public Integer duration; // seconds
     public ArrayList<Section> sections;
     public ArrayList<Report> reports;
+    public ArrayList<GroupMember> members;
 
 
     public Presentation(String name, PresentationType type, Integer duration) {
@@ -24,6 +23,7 @@ public class Presentation implements Serializable {
         this.duration = duration;
         this.sections = new ArrayList<>();
         this.reports = new ArrayList<>();
+        this.members = new ArrayList<>();
     }
 
     public static Presentation newInstance() {
@@ -50,20 +50,6 @@ public class Presentation implements Serializable {
 
     public String getDurationString() {
         return toStringTime(duration);
-    }
-
-    public ArrayList<UUID> getAllUserIDs() {
-        ArrayList<UUID> userIDs = new ArrayList<>();
-        Set<UUID> visitedIDs = new HashSet<>();
-        Iterator<Section> sectionIterator = sections.iterator();
-        while (sectionIterator.hasNext()) {
-            UUID id = sectionIterator.next().userID;
-            if (!visitedIDs.contains(id)) {
-                visitedIDs.add(id);
-                userIDs.add(id);
-            }
-        }
-        return userIDs;
     }
 
     public Integer getPortionDuration(UUID userID) {

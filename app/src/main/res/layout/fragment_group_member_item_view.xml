@@ -23,17 +23,16 @@
         android:layout_height="wrap_content"
         android:text="3:00"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/lightMainText"
-        android:layout_toRightOf="@+id/member_name"/>
+        android:textColor="@color/lightMainText"/>
 
     <TextView
         android:id="@+id/group_members_list_role"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:text="organizer"
+        android:text="Organizer"
         android:textColor="@color/lightMainText"
-        android:layout_toRightOf="@+id/duration"/>
+        android:textAlignment="textStart"/>
 
 
     <ImageButton

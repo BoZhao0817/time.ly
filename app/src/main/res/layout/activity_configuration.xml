@@ -23,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:textColor="@color/lightIndicatorText"
             android:fontFamily="sans-serif-medium"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="For CS"
             />
         <TextView

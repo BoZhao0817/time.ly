@@ -53,20 +53,24 @@ public class FakeDatabase {
         a.sections.add(new Section("a1", users.get(0).name, users.get(0).id, 60, vp1.id));
         a.sections.add(new Section("a2", users.get(1).name, users.get(1).id, 100, vp2.id));
         a.sections.add(new Section("a3", users.get(2).name, users.get(2).id, 10, vp3.id));
+        a.members.add(new GroupMember(60, users.get(0)));
+        a.members.add(new GroupMember(100, users.get(1)));
+        a.members.add(new GroupMember(10, users.get(2)));
 
         Presentation b = new Presentation("CS498", PresentationType.INDIVIDUAL, 120);
         b.ownerID = currentUser.id;
         b.sections.add(new Section("b1", users.get(0).name, users.get(0).id, 10, vp1.id));
         b.sections.add(new Section("b2", users.get(0).name, users.get(0).id, 15, vp2.id));
         b.sections.add(new Section("b3", users.get(0).name, users.get(0).id, 10, vp2.id));
+        b.members.add(new GroupMember(120, users.get(0)));
 
         Presentation c = new Presentation("CS101", PresentationType.INDIVIDUAL, 60);
         c.ownerID = currentUser.id;
         c.sections.add(new Section("c1", users.get(0).name, users.get(0).id, 60, vp1.id));
+        c.members.add(new GroupMember(60, users.get(0)));
 
         presentations.add(a);
         presentations.add(b);
-        // Hello
         presentations.add(c);
 
         Report r = new Report(b, "existing recording");

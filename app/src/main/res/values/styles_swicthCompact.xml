@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Timely.SwitchCompat" parent="">
+        <item name="colorControlActivated">@color/backDrop</item>
+        <item name="colorSwitchThumbNormal">@color/lightHelperText</item>
+        <item name="android:colorForeground">@color/lightHelperText</item>
+    </style>
+</resources>

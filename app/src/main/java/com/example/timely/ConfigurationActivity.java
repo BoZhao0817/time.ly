@@ -26,7 +26,7 @@ import dataStructures.Utilities;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-enum ConfigurationFeedbackType {
+enum FeedbackType {
     CANCEL, DELETE, SAVE
 }
 
@@ -109,7 +109,7 @@ public class ConfigurationActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 Bundle bundle = intent.getExtras();
                 Section passedSection = (Section)(bundle.get("data"));
-                switch ((ConfigurationFeedbackType)(bundle.get("actionType"))) {
+                switch ((FeedbackType)(bundle.get("actionType"))) {
                     case CANCEL: {
                         break;
                     }

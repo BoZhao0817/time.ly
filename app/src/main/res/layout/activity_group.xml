@@ -23,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:textColor="@color/lightIndicatorText"
             android:fontFamily="sans-serif-medium"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="For CS"
             />
         <TextView
@@ -96,8 +96,8 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/group_add_section"
-            android:text="ADD NEW SECTION"
+            android:id="@+id/group_add_member"
+            android:text="ADD NEW MEMBER"
             android:textColor="@color/lightButtonText"
             android:fontFamily="sans-serif-medium"
             android:drawablePadding="5dp"

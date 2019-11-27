@@ -12,22 +12,21 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import dataStructures.FakeDatabase;
+import dataStructures.GroupMember;
 import dataStructures.NamedSegments;
 import dataStructures.Presentation;
 import dataStructures.Section;
-import dataStructures.VizSegments;
 import dataStructures.Utilities;
+import dataStructures.VizSegments;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-enum GroupFeedbackType {
-    CANCEL, DELETE, SAVE
-}
 
 public class GroupActivity extends AppCompatActivity implements View.OnClickListener {
     private Presentation currentPresentation;
@@ -41,18 +40,22 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
 
         currentPresentation = (Presentation) (getIntent().getSerializableExtra("data"));
 
-        Button addButton = findViewById(R.id.group_add_section);
+        Button addButton = findViewById(R.id.group_add_member);
         addButton.setOnClickListener(this);
 
         RecyclerView users = findViewById(R.id.group_members_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        users.setLayoutManager(layoutManager);
         GroupRecyclerAdapter adapter = new GroupRecyclerAdapter(currentPresentation);
         users.setAdapter(adapter);
-        onEdit = adapter.onEdit().subscribe(new Consumer<Section>() {
+        onEdit = adapter.onEdit().subscribe(new Consumer<GroupMember>() {
             @Override
-            public void accept(Section section) throws Exception {
-                Intent intent = new Intent(GroupActivity.this, GroupAddMemberActivity.class);
+            public void accept(GroupMember member) throws Exception {
+                Intent intent = new Intent(GroupActivity.this, GroupEditMemberActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("data", section);
+                bundle.putSerializable("data", member);
+                bundle.putString("presentationName", currentPresentation.name);
+                bundle.putString("presentationDuration", currentPresentation.getDurationString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
             }
@@ -74,11 +77,13 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.group_add_section:
-                Intent intent = new Intent(this, GroupAddMemberActivity.class);
+            case R.id.group_add_member:
+                Intent intent = new Intent(this, GroupEditMemberActivity.class);
                 Bundle bundle = new Bundle();
-                Section activeSection = Section.newInstance();
-                bundle.putSerializable("data", activeSection);
+                GroupMember activeMember = GroupMember.newInstance();
+                bundle.putSerializable("data", activeMember);
+                bundle.putString("presentationName", currentPresentation.name);
+                bundle.putString("presentationDuration", currentPresentation.getDurationString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 break;
@@ -98,6 +103,49 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.simple_app_bar, menu);
         return true;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                Bundle bundle = intent.getExtras();
+                GroupMember passedMember = (GroupMember)(bundle.get("data"));
+                switch ((FeedbackType)(bundle.get("actionType"))) {
+                    case CANCEL: {
+                        break;
+                    }
+                    case DELETE: {
+                        int i = 0;
+                        boolean found = false;
+                        for (;i < currentPresentation.members.size(); i += 1) {
+                            if (currentPresentation.members.get(i).id.equals(passedMember.id)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found) {
+                            currentPresentation.members.remove(i);
+                        }
+                    }
+                    case SAVE: {
+                        int i = 0;
+                        boolean found = false;
+                        for (;i < currentPresentation.members.size(); i += 1) {
+                            if (currentPresentation.members.get(i).id.equals(passedMember.id)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found) {
+                            currentPresentation.members.set(i, passedMember);
+                        } else {
+                            currentPresentation.members.add(passedMember);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void createActionBar() {
