@@ -178,7 +178,7 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
                     case SAVE: {
                         this.currentMember.ownerID = passedUser.id;
                         ((TextView)findViewById(R.id.group_edit_member_shareIndicator)).setText(
-                                "User with name " + passedUser.name + " has been chosen"
+                                "User with name " + passedUser.name + " has been selected"
                         );
                     }
                 }

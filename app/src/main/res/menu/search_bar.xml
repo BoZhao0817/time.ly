@@ -5,16 +5,18 @@
     android:layoutDirection="ltr"
     >
     <item
-        android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search_white_24dp"
         android:orderInCategory="1"
+        android:id="@+id/search_bar_search"
+        android:icon="@drawable/icon_search"
         android:title="Search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        />
     <item
-        android:orderInCategory="3"
-        android:id="@+id/EditSection"
-        android:title="Confirm"
+        android:orderInCategory="2"
+        android:id="@+id/search_bar_confirm"
+        android:title="SAVE"
         app:showAsAction="always"
         />
+
 </menu>

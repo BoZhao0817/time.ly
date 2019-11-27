@@ -12,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GroupSearchUserActivity"></activity>
+        <activity android:name=".GroupSearchUserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
         <activity android:name=".ConfigurationEditPresetActivity" />
         <activity android:name=".ConfigurationSectionAdapter" />
         <activity android:name=".ConfigurationEditSectionActivity" />

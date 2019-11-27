@@ -133,4 +133,14 @@ public class FakeDatabase {
         }
         return null;
     }
+
+    public ArrayList<User> findUser(String name) {
+        ArrayList<User> results = new ArrayList<>();
+        for (User user : users) {
+            if (user.name.contains(name)) {
+                results.add(user);
+            }
+        }
+        return results;
+    }
 }
