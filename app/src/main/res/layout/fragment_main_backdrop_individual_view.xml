@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/backDrop"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
     tools:context=".MainBackdropIndividualView">
 
     <LinearLayout
@@ -26,19 +27,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="10:00"
             android:textColor="@color/darkMainText"
-            android:textSize="70sp" />
-
-        <Button
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:id="@+id/main_delete_presentation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:layout_weight="0"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:text="DELETE"
-            android:textColor="@color/darkWarningText" />
+            android:textSize="60sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,7 +76,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:text="Start the presentation"
                 android:textColor="@color/darkHelperText"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
         </GridLayout>
 
         <GridLayout
@@ -132,7 +121,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:text="Practice with the presentation"
                 android:textColor="@color/darkHelperText"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
         </GridLayout>
 
         <GridLayout
@@ -177,7 +166,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:text="View and add sections and customized vibrations"
                 android:textColor="@color/darkHelperText"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
         </GridLayout>
 
         <GridLayout
@@ -223,7 +212,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:text="Convert current presentation to group presentation"
                 android:textColor="@color/darkHelperText"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
         </GridLayout>
 
     </LinearLayout>

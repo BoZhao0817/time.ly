@@ -66,10 +66,6 @@ public class MainBackdropIndividualView extends Fragment implements View.OnClick
         }
 
         switch (v.getId()) {
-            case R.id.main_delete_presentation: {
-                mainActivity.deleteData(this.datum);
-                break;
-            }
             case R.id.main_individual_start_button: {
                 Intent intent = new Intent(mainActivity, CountdownActivity.class);
                 intent.putExtra("data", mainActivity.activePresentation);

@@ -154,6 +154,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 minimizeBottomSheet();
                 break;
             }
+            case R.id.main_delete_presentation: {
+                deleteData(this.activePresentation);
+                break;
+            }
         }
     }
 

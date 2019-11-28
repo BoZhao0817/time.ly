@@ -137,10 +137,19 @@ public class FakeDatabase {
     public ArrayList<User> findUser(String name) {
         ArrayList<User> results = new ArrayList<>();
         for (User user : users) {
-            if (user.name.contains(name)) {
+            if (user.name.toLowerCase().contains(name.toLowerCase())) {
                 results.add(user);
             }
         }
         return results;
+    }
+
+    public Presentation findPresentation(UUID id) {
+        for (Presentation p : presentations) {
+            if (p.id.equals(id)) {
+                return p;
+            }
+        }
+        return null;
     }
 }

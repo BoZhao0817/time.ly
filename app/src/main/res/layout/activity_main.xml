@@ -23,12 +23,11 @@
             android:layout_weight="0"
             android:paddingBottom="20dp">
             <TextView
-                android:id="@+id/main_backdrop_presentation_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/darkIndicatorText"
-                android:text="New Presentation"
+                android:text="Current Presentation"
                 android:fontFamily="sans-serif-medium"/>
             <TextView
                 android:id="@+id/main_backdrop_presentation_type"
@@ -39,6 +38,36 @@
                 android:textAlignment="textEnd"
                 android:text="Individual"
                 android:fontFamily="sans-serif-medium"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/main_backdrop_presentation_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/darkMainText"
+                android:text="Temporary Presentation"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="20sp"/>
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/main_delete_presentation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_marginEnd="-10dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="DELETE"
+                android:textColor="@color/darkWarningText" />
         </LinearLayout>
 
         <FrameLayout

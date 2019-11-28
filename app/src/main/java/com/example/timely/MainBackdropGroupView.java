@@ -69,10 +69,6 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         }
 
         switch (v.getId()) {
-            case R.id.main_delete_presentation: {
-                mainActivity.deleteData(this.datum);
-                break;
-            }
             case R.id.main_group_start_button: {
                 Intent intent = new Intent(mainActivity, CountdownActivity.class);
                 intent.putExtra("data", mainActivity.activePresentation);
