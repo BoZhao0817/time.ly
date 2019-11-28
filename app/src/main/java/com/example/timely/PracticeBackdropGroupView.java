@@ -8,6 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.UUID;
+
+import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.Report;
 import dataStructures.ReportGroupType;
@@ -26,7 +29,7 @@ public class PracticeBackdropGroupView extends PracticeCommonView implements Rad
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            currentPresentation = (Presentation) bundle.getSerializable("data");
+            currentPresentation = FakeDatabase.getInstance().findPresentation((UUID) bundle.getSerializable("presentationID"));
             if (currentPresentation != null) {
                 currentReport = currentPresentation.reports.get(currentPresentation.reports.size() - 1);
                 currentReport.group_type = ReportGroupType.PORTION;

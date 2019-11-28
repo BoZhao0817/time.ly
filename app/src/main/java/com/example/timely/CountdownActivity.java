@@ -20,6 +20,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import java.util.UUID;
+
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.Section;
@@ -36,9 +38,10 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_countdown);
+
         Intent i = getIntent();
-        presentation = (Presentation) i.getSerializableExtra("data");
-        Log.d("PRESENTATION", presentation.id + " " + presentation.name);
+        presentation = FakeDatabase.getInstance().findPresentation((UUID)(i.getSerializableExtra("presentationID")));
+
         this.createActionBar();
         this.initializeText(0);
         timer = new Timer(presentation.sections.get(0).duration);

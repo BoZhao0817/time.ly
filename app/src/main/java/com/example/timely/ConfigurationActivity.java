@@ -8,19 +8,21 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
-import com.google.gson.Gson;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
+import dataStructures.FakeDatabase;
 import dataStructures.NamedSegments;
 import dataStructures.Presentation;
+import dataStructures.PresentationType;
 import dataStructures.Section;
 import dataStructures.Utilities;
 import io.reactivex.disposables.Disposable;
@@ -42,31 +44,40 @@ public class ConfigurationActivity extends AppCompatActivity {
         createActionBar();
 
         Intent i = getIntent();
-        activePresentation = (Presentation) i.getSerializableExtra("data");
+        activePresentation = FakeDatabase.getInstance().findPresentation((UUID)(i.getSerializableExtra("presentationID")));
 
         Utilities utilities = new Utilities(getApplicationContext());
         TextView total_time = findViewById(R.id.total_time);
-        ListView lView = findViewById(R.id.listview);
         LinearLayout linearLayout1=findViewById(R.id.ll1);
         Button add_section= findViewById(R.id.add_section);
 
         ArrayList<Section> list = new ArrayList<>();
         ArrayList<NamedSegments> array1 = new ArrayList<>();
 
-        for (Section temp: activePresentation.sections) {
+        ArrayList<Section> currentSections;
+        if (activePresentation.type == PresentationType.GROUP) {
+            currentSections = activePresentation.getSectionsByUser(FakeDatabase.getInstance().currentUser.id);
+        } else {
+            currentSections = activePresentation.sections;
+        }
+        for (Section temp: currentSections) {
             list.add(temp);
             array1.add(temp);
         }
 
-        ConfigurationSectionAdapter adapter = new ConfigurationSectionAdapter(list, this);
         utilities.setChart(linearLayout1, array1);
 
-        lView.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.configure_sections_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        ConfigurationSectionAdapter adapter = new ConfigurationSectionAdapter(currentSections);
+        recyclerView.setAdapter(adapter);
+
         total_time.setText(activePresentation.getDurationString());
         add_section.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ConfigurationEditSectionActivity.class);
+                Intent intent = new Intent(ConfigurationActivity.this, ConfigurationEditSectionActivity.class);
                 Bundle bundle = new Bundle();
                 Section activeSection = Section.newInstance();
                 bundle.putSerializable("data", activeSection);
@@ -80,10 +91,7 @@ public class ConfigurationActivity extends AppCompatActivity {
             public void accept(Section section) throws Exception {
                 Intent intent = new Intent(getApplicationContext(), ConfigurationEditSectionActivity.class);
                 Bundle bundle = new Bundle();
-                // deep copy
-                Gson gson = new Gson();
-                Section activeSection = gson.fromJson(gson.toJson(section), Section.class);
-                bundle.putSerializable("data", activeSection);
+                bundle.putSerializable("data", section);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
             }

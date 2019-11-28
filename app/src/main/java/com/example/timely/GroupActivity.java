@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import dataStructures.FakeDatabase;
 import dataStructures.GroupMember;
@@ -38,7 +39,7 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_group);
         createActionBar();
 
-        currentPresentation = (Presentation) (getIntent().getSerializableExtra("data"));
+        currentPresentation = FakeDatabase.getInstance().findPresentation((UUID)(getIntent().getSerializableExtra("presentationID")));
 
         Button addButton = findViewById(R.id.group_add_member);
         addButton.setOnClickListener(this);

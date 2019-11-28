@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.util.UUID;
+
+import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
 import dataStructures.Report;
@@ -43,8 +46,8 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_practice);
         Intent i = getIntent();
-        this.activePresentation = (Presentation) i.getSerializableExtra("data");
-//        activePresentation = (Presentation) getIntent().getSerializableExtra("data");
+        this.activePresentation = FakeDatabase.getInstance().findPresentation((UUID)(i.getSerializableExtra("presentationID")));
+
         activeReport = new Report(this.activePresentation, "new recording");
         this.activePresentation.reports.add(activeReport);
 
@@ -105,7 +108,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         if (findViewById(R.id.practice_backdrop_menu_wrapper) != null) {
             FragmentManager manager = getSupportFragmentManager();
             Bundle inputData = new Bundle();
-            inputData.putSerializable("data", this.activePresentation);
+            inputData.putSerializable("presentationID", this.activePresentation.id);
             if (this.activePresentation.type == PresentationType.GROUP) {
                 PracticeBackdropGroupView v = new PracticeBackdropGroupView();
                 v.setArguments(inputData);

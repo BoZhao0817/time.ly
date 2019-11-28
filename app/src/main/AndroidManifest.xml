@@ -20,7 +20,6 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity android:name=".ConfigurationEditPresetActivity" />
-        <activity android:name=".ConfigurationSectionAdapter" />
         <activity android:name=".ConfigurationEditSectionActivity" />
         <activity android:name=".GroupActivity" />
         <activity android:name=".CountdownActivity" />

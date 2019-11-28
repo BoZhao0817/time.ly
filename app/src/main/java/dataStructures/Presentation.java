@@ -68,4 +68,14 @@ public class Presentation implements Serializable {
     public String getPortionDurationString(UUID userID) {
         return toStringTime(getPortionDuration(userID));
     }
+
+    public ArrayList<Section> getSectionsByUser(UUID userID) {
+        ArrayList<Section> results = new ArrayList<>();
+        for (Section s: sections) {
+            if (s.userID == userID) {
+                results.add(s);
+            }
+        }
+        return results;
+    }
 }

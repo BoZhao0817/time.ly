@@ -71,26 +71,26 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.main_group_start_button: {
                 Intent intent = new Intent(mainActivity, CountdownActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
+                intent.putExtra("presentationID", mainActivity.activePresentation.id);
                 startActivity(intent);
                 break;
             }
             case R.id.main_group_practice_button: {
                 Intent intent = new Intent(mainActivity, PracticeActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
+                intent.putExtra("presentationID", mainActivity.activePresentation.id);
                 startActivity(intent);
                 break;
             }
             case R.id.main_group_settings_button: {
                 Intent intent = new Intent(mainActivity, ConfigurationActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
+                intent.putExtra("presentationID", mainActivity.activePresentation.id);
                 startActivity(intent);
                 break;
             }
 
             case R.id.main_group_share_button: {
                 Intent intent = new Intent(mainActivity, GroupActivity.class);
-                intent.putExtra("data", mainActivity.activePresentation);
+                intent.putExtra("presentationID", mainActivity.activePresentation.id);
                 startActivity(intent);
                 break;
             }

@@ -60,7 +60,7 @@ public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
     public ConfigurationPresetAdapter.ViewHolder onCreateViewHolder(@org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
         // create a new view
         LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pattern_preset_row, parent, false);
+                .inflate(R.layout.fragment_configuration_pattern_item_view, parent, false);
         ConfigurationPresetAdapter.ViewHolder vh = new ConfigurationPresetAdapter.ViewHolder(l);
         return vh;
     }

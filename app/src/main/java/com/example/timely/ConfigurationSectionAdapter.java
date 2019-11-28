@@ -1,13 +1,14 @@
 package com.example.timely;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -15,44 +16,44 @@ import dataStructures.Section;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class ConfigurationSectionAdapter extends BaseAdapter implements ListAdapter {
+public class ConfigurationSectionAdapter extends RecyclerView.Adapter {
+
     private ArrayList<Section> list;
-    private Context context;
 
     private final PublishSubject<Section> onClickEvent = PublishSubject.create();
 
-    public ConfigurationSectionAdapter(ArrayList<Section> list, Context context) {
-        this.list = list;
-        this.context = context;
-    }
-
-    @Override
-    public int getCount() {
-        return list.size();
-    }
-
-    @Override
-    public Object getItem(int pos) {
-        return list.get(pos);
-    }
-
-    @Override
-    public long getItemId(int pos) {
-        return 0;
-        //just return 0 if your list items do not have an Id variable.
-    }
-
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (inflater != null) {
-                view = inflater.inflate(R.layout.section_row, null);
-            }
+    public static class ConfigurationSectionViewHolder extends RecyclerView.ViewHolder {
+        public RelativeLayout layout;
+        public ConfigurationSectionViewHolder(RelativeLayout l) {
+            super(l);
+            layout = l;
         }
+    }
 
-        //Handle TextView and display string from your list
+    public ConfigurationSectionAdapter(ArrayList<Section> list) {
+        this.list = list;
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.list.size();
+    }
+
+    // Create new views (invoked by the layout manager)
+    @NonNull
+    @Override
+    public ConfigurationSectionAdapter.ConfigurationSectionViewHolder onCreateViewHolder(@org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
+        // create a new view
+        RelativeLayout l = (RelativeLayout) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_configuration_section_item_view, parent, false);
+        ConfigurationSectionAdapter.ConfigurationSectionViewHolder vh = new ConfigurationSectionAdapter.ConfigurationSectionViewHolder(l);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        RelativeLayout view = ((ConfigurationSectionAdapter.ConfigurationSectionViewHolder)holder).layout;
+
         final Section currentSection = list.get(position);
         TextView section_name= view.findViewById(R.id.section_name);
         section_name.setText(currentSection.sectionName);
@@ -69,9 +70,6 @@ public class ConfigurationSectionAdapter extends BaseAdapter implements ListAdap
                 onClickEvent.onNext(currentSection);
             }
         });
-
-
-        return view;
     }
 
     public Observable<Section> onEditClicked() {

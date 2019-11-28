@@ -116,7 +116,8 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/icon_add_outline"
                     android:text="ADD NEW PRESENTATION"
-                    android:textColor="@color/lightButtonText" />
+                    android:textColor="@color/lightButtonText"
+                    android:drawablePadding="5dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/main_recycler_view"

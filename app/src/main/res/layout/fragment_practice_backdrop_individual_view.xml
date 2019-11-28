@@ -13,14 +13,24 @@
         android:layout_weight="0"
         android:paddingBottom="20dp">
         <TextView
-            android:id="@+id/practice_backdrop_recording_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/darkIndicatorText"
-            android:text="New Presentation"
+            android:text="Current Recording"
             android:fontFamily="sans-serif-medium"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/practice_backdrop_recording_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/darkMainText"
+        android:text="Temporary Name"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"/>
 
     <include
         layout="@layout/fragment_practice_common_view"/>
