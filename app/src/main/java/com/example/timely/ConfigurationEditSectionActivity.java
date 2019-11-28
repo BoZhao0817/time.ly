@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -85,16 +84,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
         onPatternSelected = adapter.onPatternSelected().subscribe(new Consumer<ConfigurationCheckedItem>() {
             @Override
             public void accept(ConfigurationCheckedItem checkedItem) throws Exception {
-                for (int i = 0; i < adapter.getItemCount(); i++) {
-                    View v = recyclerView.getChildAt(i);
-                    ImageButton button = v.findViewById(R.id.checkButton);
-                    if (button.getId() == checkedItem.elementID) {
-                        button.setImageResource(R.drawable.icon_check_circle_orange);
-                        selectedPattern.setText(checkedItem.pattern.name);
-                    } else {
-                        button.setImageResource(R.drawable.icon_check_circle_light);
-                    }
-                }
+                selectedPattern.setText(checkedItem.pattern.name);
             }
         });
     }

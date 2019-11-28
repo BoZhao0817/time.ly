@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,8 @@ class ConfigurationCheckedItem {
 public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
     private ArrayList<VibrationPattern> list;
     private Context context;
+    private int lastCheckedPosition = -1;
+    private RecyclerView recyclerView;
 
     private final PublishSubject<VibrationPattern> onEdit = PublishSubject.create();
     private final PublishSubject<ConfigurationCheckedItem> onCheck = PublishSubject.create();
@@ -47,6 +50,12 @@ public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
     public ConfigurationPresetAdapter(Context context) {
         this.list = FakeDatabase.getInstance().vibrationPatterns;
         this.context = context;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
     }
 
     @Override
@@ -66,7 +75,7 @@ public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         LinearLayout view = ((ViewHolder)holder).layout;
         //Handle TextView and display string from your list
         final VibrationPattern currentPattern = list.get(position);
@@ -92,7 +101,7 @@ public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
         }
 
         ImageButton editButton = view.findViewById(R.id.EditPreset);
-        final ImageButton checkButton = view.findViewById(R.id.checkButton);
+        final RadioButton checkButton = view.findViewById(R.id.checkButton);
 
         editButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -103,6 +112,15 @@ public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
         checkButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if (lastCheckedPosition < 0) {
+                    lastCheckedPosition = position;
+                } else {
+                    RadioButton lastRadio = recyclerView.findViewHolderForAdapterPosition(lastCheckedPosition).itemView.findViewById(R.id.checkButton);
+                    if (lastRadio != null) {
+                        lastRadio.setChecked(false);
+                    }
+                    lastCheckedPosition = position;
+                }
                 onCheck.onNext(new ConfigurationCheckedItem(currentPattern, v.getId()));
             }
         });

@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="end">
+        android:layout_gravity="end"
+        android:gravity="center_vertical">
         <TextView
             android:id="@+id/pattern_name"
             android:layout_width="0dp"
@@ -18,13 +20,12 @@
             android:text="Default Pattern"
             android:fontFamily="sans-serif-medium"
             android:textColor="@color/lightMainText"/>
-        <ImageButton
+        <RadioButton
             android:id="@+id/checkButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:src="@drawable/icon_check_circle_light"
-            android:background="@android:color/transparent"/>
+            android:buttonTint="@color/lightButtonText"/>
 
         <ImageButton
             android:id="@+id/EditPreset"
