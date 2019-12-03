@@ -8,37 +8,37 @@
         android:id="@+id/section_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/lightMainText"
+        android:layout_marginEnd="90dp"
         android:fontFamily="sans-serif-medium"
         android:text="Default Section"
-        android:layout_marginEnd="90dp"/>
+        android:textColor="@color/lightMainText"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_marginEnd="100dp"
+        android:layout_toEndOf="@+id/section_name"
         android:text="3:00"
         android:textColor="@color/lightMainText"
-        android:layout_marginEnd="100dp"
-        android:layout_toEndOf="@+id/section_name"/>
+        android:textSize="18sp" />
 
-      <Button
+    <ImageButton
         android:id="@+id/Edit"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_toEndOf="@+id/duration"
-        android:background="@drawable/icon_settings_orange" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/icon_settings_orange" />
 
-    <Button
+    <ImageView
         android:id="@+id/Drag"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_marginStart="40dp"
         android:layout_toEndOf="@+id/duration"
-        android:background="@drawable/icon_drag_handle"
-        android:layout_marginStart="40dp"/>
-
+        android:src="@drawable/icon_drag_handle" />
 
 
 </RelativeLayout>

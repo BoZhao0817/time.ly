@@ -3,7 +3,7 @@ package com.example.timely;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,7 +61,7 @@ public class ConfigurationSectionAdapter extends RecyclerView.Adapter {
         duration.setText(currentSection.getDurationString());
 
         //Handle buttons and add onClickListeners
-        Button callbtn = view.findViewById(R.id.Edit);
+        ImageButton callbtn = view.findViewById(R.id.Edit);
 
         callbtn.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -35,7 +35,7 @@
             android:src="@drawable/icon_settings_orange"
             android:background="@android:color/transparent"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/DragHandle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
