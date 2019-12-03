@@ -2,12 +2,16 @@ package com.example.timely;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -40,10 +44,59 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_main_backdrop_group_view, container, false);
-        TextView groupDuration = root.findViewById(R.id.main_backdrop_presentation_group_duration);
-        groupDuration.setText(datum.getDurationString());
-        TextView portionDuration = root.findViewById(R.id.main_backdrop_presentation_portion_duration);
+
+        final TextView portionDuration = root.findViewById(R.id.main_backdrop_presentation_portion_duration);
         portionDuration.setText(datum.getPortionDurationString(FakeDatabase.getInstance().currentUser.id));
+        portionDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (datum.isOwner()) {
+                    Toast.makeText(getActivity(), "Portion can be edited from Sharing menu", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "Contact group organizer to change portions", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        final EditText groupDuration = root.findViewById(R.id.main_backdrop_presentation_group_duration);
+        final String durationString = datum.getDurationString();
+        groupDuration.setText(durationString);
+        if (datum.isOwner()) {
+            final MainActivity mainActivity = (MainActivity) getActivity();
+
+            groupDuration.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    String d = s.toString();
+                    TextView warning = mainActivity.warning;
+                    if (datum.toDuration(d)) {
+                        groupDuration.clearFocus();
+                        warning.setVisibility(View.GONE);
+                        portionDuration.setText(datum.getPortionDurationString(FakeDatabase.getInstance().currentUser.id));
+                        mainActivity.recyclerAdapter.notifyDataSetChanged();
+                    } else {
+                        if (warning.getVisibility() == View.GONE) {
+                            warning.setText("Change not applied. Please input number in format mm:ss");
+                            warning.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            });
+        } else {
+            groupDuration.setKeyListener(null);
+            groupDuration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "Contact group organizer to change total duration", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
 
         Button delete = root.findViewById(R.id.main_delete_presentation);
         if (delete != null) {

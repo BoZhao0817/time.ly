@@ -37,7 +37,9 @@ import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
-    private MainRecyclerAdapter recyclerAdapter;
+    public MainRecyclerAdapter recyclerAdapter;
+    public TextView warning;
+
     private BottomSheetBehavior bottomSheet;
     private DrawerLayout drawer;
     private Disposable listItemClicked;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createBottomSheet();
         createRecyclerView();
         createNavigationDrawer();
+
+        this.warning = findViewById(R.id.main_warning);
 
         // all layout elements are populated
         listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Presentation>() {
@@ -179,13 +183,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View headerView = navigationView.getHeaderView(0);
         TextView username = headerView.findViewById(R.id.main_navigation_header_name);
         username.setText(FakeDatabase.getInstance().currentUser.name);
-//        NavigationView v = drawer.findViewById(R.id.main_navigation_view);
-//        int[][] states = new int[][] {
-//                new int[] {android.R.attr.state_enabled},
-//                new int[] {android.R.attr.state_enabled}
-//        };
-//        int[] colors = new int[]{R.color.lightMainText, R.color.lightMainText};
-//        v.setItemTextColor(new ColorStateList(states, colors));
     }
 
     private void updateBackdrop(Presentation datum) {

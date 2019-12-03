@@ -12,7 +12,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:isScrollContainer="false" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -93,6 +94,17 @@
                         android:text="DELETE"
                         android:textColor="@color/darkWarningText" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/main_warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/icon_error_outline"
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/darkWarningText"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:visibility="gone"/>
 
                 <FrameLayout
                     android:id="@+id/main_backdrop_menu_wrapper"

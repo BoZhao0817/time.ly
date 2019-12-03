@@ -52,6 +52,43 @@ public class Presentation implements Serializable {
         return toStringTime(duration);
     }
 
+    public boolean toDuration(String durationString) {
+        if (durationString.length() != 5 || !durationString.contains(":")) {
+            return false;
+        }
+        String numbers = durationString.replaceAll("\\D+","");
+        if (numbers.length() != 4) {
+            return false;
+        }
+        String[] time = durationString.split(":");
+        if (time.length != 2) {
+            return false;
+        }
+        String minutes = time[0];
+        if (minutes.length() != 2) {
+            return false;
+        }
+        String seconds = time[1];
+
+        float prevDuration = this.duration;
+        this.duration = Integer.parseInt(minutes) * 60 + Integer.parseInt(seconds);
+
+        if ((float) this.duration < prevDuration) {
+            // rescale only when smaller
+            for (Section s: sections) {
+                float d = s.duration;
+                s.duration = (int) (d / prevDuration * (float)this.duration);
+            }
+            if (this.members != null && this.members.size() > 0) {
+                for (GroupMember m : members) {
+                    float d = m.duration;
+                    m.duration = (int) (d/prevDuration * (float)this.duration);
+                }
+            }
+        }
+        return true;
+    }
+
     public Integer getPortionDuration(UUID userID) {
         Iterator<Section> sectionIterator = sections.iterator();
         Integer acc = 0;
@@ -77,5 +114,9 @@ public class Presentation implements Serializable {
             }
         }
         return results;
+    }
+
+    public boolean isOwner() {
+        return ownerID.equals(FakeDatabase.getInstance().currentUser.id);
     }
 }
