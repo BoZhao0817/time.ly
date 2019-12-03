@@ -176,6 +176,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer = findViewById(R.id.main_drawer_layout);
         NavigationView navigationView = drawer.findViewById(R.id.main_navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView username = headerView.findViewById(R.id.main_navigation_header_name);
+        username.setText(FakeDatabase.getInstance().currentUser.name);
 //        NavigationView v = drawer.findViewById(R.id.main_navigation_view);
 //        int[][] states = new int[][] {
 //                new int[] {android.R.attr.state_enabled},
