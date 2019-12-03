@@ -2,6 +2,7 @@ package com.example.timely;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -128,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void createBackDrop() {
+        Button delete = findViewById(R.id.main_delete_presentation);
+        delete.setOnClickListener(this);
 
         if (findViewById(R.id.main_backdrop_menu_wrapper) != null) {
             FragmentManager manager = getSupportFragmentManager();
