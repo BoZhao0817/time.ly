@@ -2,11 +2,13 @@ package com.example.timely;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -135,8 +137,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (findViewById(R.id.main_backdrop_menu_wrapper) != null) {
             FragmentManager manager = getSupportFragmentManager();
             // title
-            TextView name = findViewById(R.id.main_backdrop_presentation_name);
+            final EditText name = findViewById(R.id.main_backdrop_presentation_name);
             name.setText(this.activePresentation.name);
+            name.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    activePresentation.name = s.toString();
+                    recyclerAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    name.clearFocus();
+                }
+            });
             // type
             TextView type = findViewById(R.id.main_backdrop_presentation_type);
             type.setText(this.activePresentation.type.toString());

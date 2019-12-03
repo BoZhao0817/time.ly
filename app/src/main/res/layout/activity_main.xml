@@ -69,15 +69,17 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:gravity="center_vertical">
-                    <TextView
+                    <EditText
                         android:id="@+id/main_backdrop_presentation_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:inputType="text"
                         android:textColor="@color/darkMainText"
                         android:text="Temporary Presentation"
                         android:fontFamily="sans-serif-medium"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        android:background="@android:color/transparent"/>
 
                     <Button
                         style="@style/Widget.AppCompat.Button.Borderless"
