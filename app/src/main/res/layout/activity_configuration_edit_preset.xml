@@ -104,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:drawableStart="@drawable/icon_error_outline"
+            android:drawableStart="@drawable/icon_error_outline_dark_red"
             android:text="Please do not append more than 5 vibration segments"
             android:textColor="@color/lightWarningText"
             android:textSize="12sp"
