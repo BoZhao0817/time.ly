@@ -10,13 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class MainRecyclerAdapter extends RecyclerView.Adapter {
+
+public class MainRecyclerAdapter extends RecyclerView.Adapter implements DragHelperAdapter {
     private ArrayList<Presentation> data;
     private final PublishSubject<Presentation> onClickEvent = PublishSubject.create();
 
@@ -95,5 +97,19 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter {
     public void addData(Presentation datum) {
         this.data.add(0, datum);
         notifyItemInserted(0);
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(data, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(data, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
     }
 }
