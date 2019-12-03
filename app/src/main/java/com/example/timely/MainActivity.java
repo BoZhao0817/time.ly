@@ -1,5 +1,6 @@
 package com.example.timely;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -215,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @SuppressLint("CheckResult")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -224,7 +226,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.main_delete_presentation: {
-                deleteData(this.activePresentation);
+                DeleteDialogActivity dialog = new DeleteDialogActivity(
+                        this, "Presentation Deleted",
+                        "The presentation " + this.activePresentation.name + " has been deleted"
+                );
+//                deleteData(this.activePresentation);
+
+                dialog.onDismissClicked().subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        deleteData(activePresentation);
+                    }
+                });
+
+                dialog.show();
+
                 break;
             }
         }
