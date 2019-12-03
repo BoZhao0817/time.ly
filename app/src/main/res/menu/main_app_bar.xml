@@ -14,10 +14,4 @@
         app:showAsAction="always"
         android:icon="@drawable/icon_mail_outline"
         android:title="Invitations"/>
-    <item
-        android:id="@+id/action_sidePanel"
-        android:orderInCategory="3"
-        app:showAsAction="always"
-        android:icon="@drawable/icon_menu"
-        android:title="Side Panel"/>
 </menu>

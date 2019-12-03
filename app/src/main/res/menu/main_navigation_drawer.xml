@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/main_navigation_drawer_app_settings"
+            android:icon="@drawable/icon_settings_orange"
+            android:title="Application Settings"/>
+        <item
+            android:id="@+id/main_navigation_drawer_profile_settings"
+            android:icon="@drawable/icon_person_outline_orange"
+            android:title="Edit Profile"/>
+    </group>
+</menu>

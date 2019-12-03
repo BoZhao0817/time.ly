@@ -8,10 +8,4 @@
         app:showAsAction="always"
         android:icon="@drawable/icon_help_outline"
         android:title="Help"/>
-    <item
-        android:id="@+id/action_sidePanel"
-        android:orderInCategory="3"
-        app:showAsAction="always"
-        android:icon="@drawable/icon_menu"
-        android:title="Side Panel"/>
 </menu>

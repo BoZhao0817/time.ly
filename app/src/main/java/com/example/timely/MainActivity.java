@@ -1,16 +1,22 @@
 package com.example.timely;
 
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.navigation.NavigationView;
 
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
@@ -25,10 +32,11 @@ import dataStructures.PresentationType;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private MainRecyclerAdapter recyclerAdapter;
     private BottomSheetBehavior bottomSheet;
+    private DrawerLayout drawer;
     private Disposable listItemClicked;
     Presentation activePresentation;
 
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createBackDrop();
         createBottomSheet();
         createRecyclerView();
+        createNavigationDrawer();
 
         // all layout elements are populated
         listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Presentation>() {
@@ -62,10 +71,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void createActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.appBar)));
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            ActionBar actionBar = getSupportActionBar();
+            final Drawable menu = ContextCompat.getDrawable(this, R.drawable.icon_menu);
+            actionBar.setTitle("Settings");
             actionBar.setElevation(0);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(menu);
             actionBar.show();
         }
     }
@@ -138,6 +152,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void createNavigationDrawer() {
+        drawer = findViewById(R.id.main_drawer_layout);
+        NavigationView navigationView = drawer.findViewById(R.id.main_navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+//        NavigationView v = drawer.findViewById(R.id.main_navigation_view);
+//        int[][] states = new int[][] {
+//                new int[] {android.R.attr.state_enabled},
+//                new int[] {android.R.attr.state_enabled}
+//        };
+//        int[] colors = new int[]{R.color.lightMainText, R.color.lightMainText};
+//        v.setItemTextColor(new ColorStateList(states, colors));
+    }
+
     private void updateBackdrop(Presentation datum) {
         if (this.activePresentation != null && datum.id.equals(this.activePresentation.id)) {
             return;
@@ -181,6 +208,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            // Android home
+            case android.R.id.home:
+                drawer.openDrawer(GravityCompat.START);
+                return true;
+            // manage other entries if you have it ...
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.main_navigation_drawer_app_settings: {
+                Toast.makeText(getApplicationContext(), "App Settings Clicked", Toast.LENGTH_LONG).show();
+                break;
+            }
+            case R.id.main_navigation_drawer_profile_settings: {
+                Toast.makeText(getApplicationContext(), "Profile Settings Clicked", Toast.LENGTH_LONG).show();
+                break;
+            }
+        }
+        drawer.closeDrawers();
+        return true;
     }
 
     public void expandBottomSheet() {

@@ -26,7 +26,7 @@
         <activity android:name=".ConfigurationActivity" />
         <activity android:name=".StartActivity" />
         <activity android:name=".PracticeActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".GroupEditMemberActivity"/>
         <activity
             android:name=".SplashScreen"
