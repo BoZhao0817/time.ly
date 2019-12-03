@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:text="Detail"
         android:textColor="@color/lightMainText"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="16sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
