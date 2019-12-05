@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textColor="@color/darkMainText"
-                android:text="Section 1"
+                android:text="a2"
                 android:fontFamily="sans-serif-medium"
                 android:backgroundTint="@color/darkButtonText"/>
         </LinearLayout>

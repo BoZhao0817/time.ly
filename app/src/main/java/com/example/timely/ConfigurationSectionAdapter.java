@@ -16,11 +16,16 @@ import dataStructures.Section;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class ConfigurationSectionAdapter extends RecyclerView.Adapter {
+public class ConfigurationSectionAdapter extends RecyclerView.Adapter implements  DragHelperAdapter {
 
     private ArrayList<Section> list;
 
     private final PublishSubject<Section> onClickEvent = PublishSubject.create();
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+
+    }
 
     public static class ConfigurationSectionViewHolder extends RecyclerView.ViewHolder {
         public RelativeLayout layout;
