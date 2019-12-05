@@ -61,7 +61,7 @@ public class PracticeBackdropGroupView extends PracticeCommonView implements Rad
             type.setText(currentReport.group_type.toString());
         }
         RadioGroup radios = root.findViewById(R.id.practice_radios);
-        if (type != null) {
+        if (type != null && radios != null) {
             ((LinearLayout) radios.getParent()).removeView(radios);
         }
 
