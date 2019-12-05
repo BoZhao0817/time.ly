@@ -88,7 +88,11 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
             }
         });
     }
-
+    public static int toIntTime(String time) {
+        int seconds = Integer.parseInt(time.split(":")[1]);
+        int minutes = Integer.parseInt(time.split(":")[0]);
+        return seconds+minutes*60;
+    }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == 1) {
@@ -157,6 +161,10 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.save_button: {
+                final EditText section_name = findViewById(R.id.sec_name);
+                final EditText section_duration = findViewById(R.id.sec_duration);
+                section.sectionName=section_name.getText().toString();
+                section.duration=toIntTime(section_duration.getText().toString());
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", section);

@@ -33,7 +33,7 @@ public class Section implements Serializable, NamedSegments {
 
     public static Section newInstance() {
         return new Section(
-                "Default Section",
+                "a2",
                 FakeDatabase.getInstance().currentUser.name,
                 FakeDatabase.getInstance().currentUser.id,
                 100,
