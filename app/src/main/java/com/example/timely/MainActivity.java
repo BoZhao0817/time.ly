@@ -1,6 +1,7 @@
 package com.example.timely;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public MainRecyclerAdapter recyclerAdapter;
     public TextView warning;
-
+    public MainRecyclerAdapter adapter;
     private BottomSheetBehavior bottomSheet;
     private DrawerLayout drawer;
     private Disposable listItemClicked;
@@ -72,9 +73,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_app_bar, menu);
+
         return true;
     }
 
@@ -109,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView recyclerView = findViewById(R.id.main_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        MainRecyclerAdapter adapter = new MainRecyclerAdapter();
+        adapter = new MainRecyclerAdapter();
         recyclerView.setAdapter(adapter);
 //        recyclerView.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
@@ -254,6 +262,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case android.R.id.home:
                 drawer.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.action_invitations:
+                Intent i = new Intent(this, InviteActivity.class);
+                startActivity(i);
+                break;
             // manage other entries if you have it ...
         }
         return true;

@@ -12,12 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".InviteActivity"></activity>
         <activity android:name=".GroupSearchUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".ConfigurationEditPresetActivity" />
         <activity android:name=".ConfigurationEditSectionActivity" />
@@ -25,9 +28,14 @@
         <activity android:name=".CountdownActivity" />
         <activity android:name=".ConfigurationActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name=".PracticeActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".GroupEditMemberActivity"/>
+        <activity
+            android:name=".PracticeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".GroupEditMemberActivity" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">

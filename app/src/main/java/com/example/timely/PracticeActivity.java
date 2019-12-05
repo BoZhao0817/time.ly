@@ -48,7 +48,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         Intent i = getIntent();
         this.activePresentation = FakeDatabase.getInstance().findPresentation((UUID)(i.getSerializableExtra("presentationID")));
 
-        activeReport = new Report(this.activePresentation, "new recording");
+        activeReport = new Report(this.activePresentation, activeReport.name);
         this.activePresentation.reports.add(activeReport);
 
         createActionBar();

@@ -3,6 +3,7 @@ package com.example.timely;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -35,7 +36,8 @@ public abstract class PracticeCommonView extends Fragment implements View.OnClic
     TextView time;
     WaveView wave;
     WaveView wave2;
-
+    TextView name;
+    float amp = 0;
     protected abstract void toReport();
     protected abstract void onStarted();
 
@@ -44,8 +46,19 @@ public abstract class PracticeCommonView extends Fragment implements View.OnClic
         this.report = report;
         this.root = root;
 
+        name = root.findViewById(R.id.practice_backdrop_recording_name);
+        name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                report.name = v.getText().toString();
+                return true;
+            }
+        });
         wave = root.findViewById(R.id.wave);
         wave2 = root.findViewById(R.id.wave2);
+        amp = wave.getAmplitude();
+        wave.setAmplitude(0);
+        wave2.setAmplitude(0);
         wave.pause();
         wave2.pause();
         Button in = root.findViewById(R.id.recordInner);
@@ -102,10 +115,14 @@ public abstract class PracticeCommonView extends Fragment implements View.OnClic
                 animate();
                 onStarted();
                 if(wave.isPlaying()) {
+                    wave.setAmplitude(0);
+                    wave2.setAmplitude(0);
                     wave.pause();
                     wave2.pause();
                     timer.state = State.PAUSED;
                 } else {
+                    wave.setAmplitude(amp);
+                    wave2.setAmplitude(amp);
                     wave.play();
                     wave2.play();
                     timer.state = State.PLAYING;

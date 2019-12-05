@@ -9,7 +9,9 @@ public class FakeDatabase {
     public ArrayList<VibrationPattern> vibrationPatterns;
     public User currentUser;
     public Report testReport;
-
+    public boolean b465 = false;
+    public boolean b411 = false;
+    public boolean b498 = false;
     private static FakeDatabase instance;
     private FakeDatabase() {
         this.presentations = new ArrayList<>();

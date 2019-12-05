@@ -30,7 +30,7 @@
             android:fontFamily="sans-serif-medium"/>
     </LinearLayout>
 
-    <TextView
+    <EditText
         android:id="@+id/practice_backdrop_recording_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
