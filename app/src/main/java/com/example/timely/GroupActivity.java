@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -125,7 +126,7 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         LinearLayout glance = findViewById(R.id.group_glance);
         glance.removeAllViews();
         Utilities util = new Utilities(getApplicationContext());
-        util.setChart(glance, args);
+        util.setChart(glance, args, false);
         currentPresentation.syncSections();
     }
 
