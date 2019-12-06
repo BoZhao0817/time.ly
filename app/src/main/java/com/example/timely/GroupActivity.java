@@ -33,7 +33,7 @@ import io.reactivex.functions.Consumer;
 public class GroupActivity extends AppCompatActivity implements View.OnClickListener {
     private Presentation currentPresentation;
     private Disposable onEdit;
-
+    private GroupRecyclerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,7 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         RecyclerView users = findViewById(R.id.group_members_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         users.setLayoutManager(layoutManager);
-        GroupRecyclerAdapter adapter = new GroupRecyclerAdapter(currentPresentation);
+        adapter = new GroupRecyclerAdapter(currentPresentation);
         users.setAdapter(adapter);
         onEdit = adapter.onEdit().subscribe(new Consumer<GroupMember>() {
             @Override
@@ -75,7 +75,25 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         }
         util.setChart(glance, args);
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+        ArrayList<NamedSegments> args = new ArrayList<>();
+        int tot = 0;
+        for (Section s: currentPresentation.sections) {
+            args.add(new VizSegments(
+                    FakeDatabase.getInstance().findUser(s.userID).name,
+                    s.duration
+            ));
+            tot += s.duration;
+        }
+        currentPresentation.duration = tot;
+        LinearLayout glance = findViewById(R.id.group_glance);
+        glance.removeAllViews();
+        Utilities util = new Utilities(getApplicationContext());
+        util.setChart(glance, args);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

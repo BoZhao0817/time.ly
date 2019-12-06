@@ -106,6 +106,11 @@ public class ConfigurationActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+    @Override
     public void onBackPressed() {
         Intent main_page = new Intent(this, MainActivity.class);
         startActivity(main_page);
