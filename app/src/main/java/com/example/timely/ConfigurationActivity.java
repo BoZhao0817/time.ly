@@ -39,9 +39,11 @@ enum FeedbackType {
 public class ConfigurationActivity extends AppCompatActivity {
     Presentation activePresentation;
     private Disposable listItemClicked;
+    private Disposable onReorder;
     Utilities utilities;
     ArrayList<Section> currentSections;
     ConfigurationSectionAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +67,13 @@ public class ConfigurationActivity extends AppCompatActivity {
         createChart();
 
         RecyclerView recyclerView = findViewById(R.id.configure_sections_list);
-        ItemTouchHelper.Callback callback = new DragHelperCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ConfigurationSectionAdapter(currentSections);
         recyclerView.setAdapter(adapter);
+        ItemTouchHelper.Callback callback = new DragHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
         total_time.setText(activePresentation.getDurationString());
         add_section.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +96,12 @@ public class ConfigurationActivity extends AppCompatActivity {
                 bundle.putSerializable("data", section);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
+            }
+        });
+        onReorder = adapter.onReorder().subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                createChart();
             }
         });
     }
@@ -209,5 +217,6 @@ public class ConfigurationActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         listItemClicked.dispose();
+        onReorder.dispose();
     }
 }
