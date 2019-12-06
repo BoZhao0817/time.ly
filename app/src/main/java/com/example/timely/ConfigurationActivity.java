@@ -83,6 +83,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 Section activeSection = Section.newInstance();
                 bundle.putSerializable("data", activeSection);
+                bundle.putString("timeLeft", activePresentation.getRemainingTimeString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 // Do something
@@ -94,6 +95,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ConfigurationEditSectionActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", section);
+                bundle.putString("timeLeft", activePresentation.getRemainingTimeString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
             }

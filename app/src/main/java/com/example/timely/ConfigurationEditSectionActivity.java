@@ -38,7 +38,10 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_configure_edit_section);
         createActionBar();
 
-        section = (Section) (getIntent().getExtras().get("data"));
+        Bundle bundle = getIntent().getExtras();
+        section = (Section) (bundle.getSerializable("data"));
+
+        ((TextView)findViewById(R.id.edit_section_remaining_time)).setText(bundle.getString("timeLeft"));
 
         final EditText section_name = findViewById(R.id.sec_name);
         final EditText section_duration = findViewById(R.id.sec_duration);
