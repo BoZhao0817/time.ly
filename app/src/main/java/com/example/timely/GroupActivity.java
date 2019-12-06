@@ -64,7 +64,7 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", member);
                 bundle.putString("presentationName", currentPresentation.name);
-                bundle.putString("presentationDuration", currentPresentation.getDurationString());
+                bundle.putString("presentationDuration", currentPresentation.getRemainingTimeString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
             }
@@ -114,7 +114,7 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                 activeMember.ownerID = currentPresentation.ownerID;
                 bundle.putSerializable("data", activeMember);
                 bundle.putString("presentationName", currentPresentation.name);
-                bundle.putString("presentationDuration", currentPresentation.getDurationString());
+                bundle.putString("presentationDuration", currentPresentation.getRemainingTimeString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 break;

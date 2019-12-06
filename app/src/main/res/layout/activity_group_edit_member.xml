@@ -24,16 +24,26 @@
             android:layout_alignParentStart="true"
             />
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available Time Left: "
+            android:layout_toEndOf="@id/presentation_name"
+            android:layout_toStartOf="@id/total_time"
+            android:textColor="@color/lightHelperText"
+            android:fontFamily="sans-serif-medium"
+            android:textAlignment="textEnd"
+            android:layout_alignBottom="@id/presentation_name"/>
+        <TextView
             android:id="@+id/total_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5:00"
-            android:textSize="20sp"
             android:textColor="@color/lightIndicatorText"
             android:fontFamily="sans-serif-medium"
             android:textAlignment="textEnd"
             android:layout_marginEnd="10dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/presentation_name"
             />
     </RelativeLayout>
 
