@@ -116,7 +116,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:text="Start the presentation"
                 android:textColor="@color/darkHelperText"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </GridLayout>
 
         <GridLayout
@@ -161,7 +161,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:text="Practice with the presentation"
                 android:textColor="@color/darkHelperText"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </GridLayout>
 
         <GridLayout
@@ -206,7 +206,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:text="View and add sections and customized vibrations"
                 android:textColor="@color/darkHelperText"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </GridLayout>
 
         <GridLayout
@@ -252,7 +252,7 @@
                 android:layout_gravity="fill_horizontal"
                 android:text="Convert current presentation to group presentation"
                 android:textColor="@color/darkHelperText"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </GridLayout>
 
     </LinearLayout>

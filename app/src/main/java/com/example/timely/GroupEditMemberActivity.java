@@ -55,6 +55,12 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
             Integer second = duration % 60;
             seconds.setText(second.toString());
             minutes.setText(minute.toString());
+
+            if (!currentMember.ownerID.equals(FakeDatabase.getInstance().currentUser.id)) {
+                ((TextView)findViewById(R.id.group_edit_member_shareIndicator)).setText(
+                        "User with name " + FakeDatabase.getInstance().findUser(currentMember.ownerID).name + " has been selected"
+                );
+            }
         }
 
         Button delete = findViewById(R.id.group_edit_member_delete);

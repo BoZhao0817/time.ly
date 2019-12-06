@@ -19,7 +19,7 @@
     <color name="lightIndicatorText">#484644</color>
     <color name="lightMainText">#292827</color>
     <color name="lightButtonText">#F57F17</color>
-    <color name="lightHelperText">#C8C6C4</color>
+    <color name="lightHelperText">#bebbb8</color>
     <color name="lightWarningText">#8F2F13</color>
 
     <color name="shortVibrationSegment">#389453</color>
