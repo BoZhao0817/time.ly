@@ -39,7 +39,8 @@
         android:textColor="@color/darkMainText"
         android:text="Temporary Name"
         android:textSize="20sp"
-        android:fontFamily="sans-serif-medium"/>
+        android:fontFamily="sans-serif-medium"
+        android:background="@android:color/transparent"/>
 
     <RadioGroup
         android:id="@+id/practice_radios"
