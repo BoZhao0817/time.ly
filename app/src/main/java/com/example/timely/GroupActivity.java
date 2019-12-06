@@ -95,7 +95,15 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                     s.duration
             ));
         }
-        util.setChart(glance, args);
+        Integer timeLeft = currentPresentation.getRemainingTime();
+        boolean hasVacant = false;
+        if (timeLeft > 0) {
+            VizSegments viz = new VizSegments("EMPTY", timeLeft);
+            viz.isVacant = true;
+            args.add(viz);
+            hasVacant = true;
+        }
+        util.setChart(glance, args, hasVacant);
     }
     @Override
     protected void onResume() {

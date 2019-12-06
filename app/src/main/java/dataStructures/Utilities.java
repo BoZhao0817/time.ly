@@ -24,17 +24,22 @@ public class Utilities {
             "#1ABC9C", "#2980B9", "#9B59B6", "#E74C3C", "#2C3E50"
     };
 
+    public static final String vacantColor = "#edebe9";
+
     public Utilities(Context c) {
         context = c;
     }
 
-    public void setChart(LinearLayout ll, ArrayList<NamedSegments> values) {
+    public void setChart(LinearLayout ll, ArrayList<NamedSegments> values, boolean hasVacant) {
         LayoutInflater inflater = LayoutInflater.from(context);
         for (int i = 0; i < values.size(); i++) {
             NamedSegments currentValue = values.get(i);
             View v = inflater.inflate(R.layout.fragment_viz_segment_view, ll, false);
             v.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, currentValue.getDuration()));
             v.findViewById(R.id.group_viz_segment_color).setBackgroundColor(Color.parseColor(stackedBarChartColors[i % stackedBarChartColors.length]));
+            if (hasVacant && i == values.size() - 1) {
+                v.findViewById(R.id.group_viz_segment_color).setBackgroundColor(Color.parseColor(vacantColor));
+            }
             ((TextView)(v.findViewById(R.id.group_viz_segment_text))).setText(currentValue.getName());
             ll.addView(v);
         }
