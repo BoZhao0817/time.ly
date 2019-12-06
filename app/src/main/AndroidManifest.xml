@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InviteActivity"></activity>
+        <activity android:name=".InviteActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".GroupSearchUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -34,7 +35,11 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
         <activity android:name=".GroupEditMemberActivity" />
         <activity
             android:name=".SplashScreen"

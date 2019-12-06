@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             case R.id.action_invitations:
                 Intent i = new Intent(this, InviteActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
                 break;
             // manage other entries if you have it ...
         }
@@ -285,6 +285,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         drawer.closeDrawers();
         return true;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // restart main
+                finish();
+                startActivity(getIntent());
+            }
+        }
     }
 
     public void expandBottomSheet() {

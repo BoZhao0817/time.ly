@@ -1,123 +1,159 @@
 package com.example.timely;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Iterator;
+import java.util.UUID;
 
 import dataStructures.FakeDatabase;
+import dataStructures.GroupMember;
+import dataStructures.Invitation;
+import dataStructures.InvitationType;
 import dataStructures.Presentation;
-import dataStructures.PresentationType;
 import dataStructures.Section;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
-public class InviteActivity extends AppCompatActivity implements View.OnClickListener {
-    Button a465;
-    Button c465;
-    Button a411;
-    Button c411;
-    Button a498;
-    Button c498;
-    Presentation p465;
-    Presentation p411;
-    Presentation p498;
-    int count = 3;
+public class InviteActivity extends AppCompatActivity {
+    int count = FakeDatabase.getInstance().invitations.size();
+
+    private InviteRecyclerAdapter adapter;
+    private Disposable onAccept;
+    private Disposable onDecline;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite);
-        p465 = new Presentation("CS465 Final", PresentationType.GROUP, 600);
-        p465.sections.add(new Section("Intro", "Emma", FakeDatabase.getInstance().users.get(1).id, 300, FakeDatabase.getInstance().vibrationPatterns.get(0).id));
-        p465.sections.add(new Section("Conclusion", "me", FakeDatabase.getInstance().users.get(0).id, 300, FakeDatabase.getInstance().vibrationPatterns.get(1).id));
-        p465.ownerID = FakeDatabase.getInstance().users.get(1).id;
-        p411 = new Presentation("CS411 Final", PresentationType.GROUP, 300);
-        p411.sections.add(new Section("Intro", "me", FakeDatabase.getInstance().users.get(0).id, 180, FakeDatabase.getInstance().vibrationPatterns.get(0).id));
-        p411.sections.add(new Section("Intro", "Emma", FakeDatabase.getInstance().users.get(1).id, 120, FakeDatabase.getInstance().vibrationPatterns.get(0).id));
-        p411.ownerID = FakeDatabase.getInstance().users.get(1).id;
-        p498 = new Presentation("CS498 Final", PresentationType.GROUP, 720);
-        p498.sections.add(new Section("Intro", "Emma", FakeDatabase.getInstance().users.get(1).id, 300, FakeDatabase.getInstance().vibrationPatterns.get(0).id));
-        p498.sections.add(new Section("Content", "me", FakeDatabase.getInstance().users.get(0).id, 300, FakeDatabase.getInstance().vibrationPatterns.get(1).id));
-        p498.sections.add(new Section("Conclusion", "Chris", FakeDatabase.getInstance().users.get(2).id, 120, FakeDatabase.getInstance().vibrationPatterns.get(0).id));
-        p498.ownerID = FakeDatabase.getInstance().users.get(1).id;
 
-        a465 = findViewById(R.id.accept465);
-        a411 = findViewById(R.id.accept411);
-        a498 = findViewById(R.id.accept498);
-        c465 = findViewById(R.id.cancel465);
-        c411 = findViewById(R.id.cancel411);
-        c498 = findViewById(R.id.cancel498);
+        createActionBar();
+        createRecyclerView();
 
-        a465.setOnClickListener(this);
-        a411.setOnClickListener(this);
-        a498.setOnClickListener(this);
-        c465.setOnClickListener(this);
-        c411.setOnClickListener(this);
-        c498.setOnClickListener(this);
+        if (count <= 0) {
+            findViewById(R.id.invite_recycler_view).setVisibility(View.GONE);
+            findViewById(R.id.invite_all_read).setVisibility(View.VISIBLE);
+        }
+    }
 
-        LinearLayout ll = findViewById(R.id.invitell);
-        FakeDatabase data = FakeDatabase.getInstance();
-        if(data.b411) {
-            ll.removeView(findViewById(R.id.card411));
-            count--;
-        }
-        if(data.b465) {
-            ll.removeView(findViewById(R.id.card465));
-            count--;
-        }
-        if(data.b498) {
-            ll.removeView(findViewById(R.id.card498));
-            count--;
-        }
-        if(count == 0) {
-            this.setContentView(R.layout.all_read);
+    private void deleteItem(int idx) {
+        FakeDatabase.getInstance().invitations.remove(idx);
+        adapter.notifyItemRemoved(idx);
+        count -= 1;
+        if (count <= 0) {
+            findViewById(R.id.invite_recycler_view).setVisibility(View.GONE);
+            findViewById(R.id.invite_all_read).setVisibility(View.VISIBLE);
         }
     }
 
     @Override
-    public void onClick(View v) {
-        LinearLayout ll = findViewById(R.id.invitell);
-        switch(v.getId()) {
-            case R.id.accept411:
-                FakeDatabase.getInstance().presentations.add(p411);
-                Toast.makeText(this, "Presentation Added", Toast.LENGTH_LONG).show();
-                ll.removeView((View) v.getParent());
-                FakeDatabase.getInstance().b411 = true;
-                count--;
-                break;
-            case R.id.accept465:
-                FakeDatabase.getInstance().presentations.add(p465);
-                Toast.makeText(this, "Presentation Added", Toast.LENGTH_LONG).show();
-                ll.removeView((View) v.getParent());
-                FakeDatabase.getInstance().b465 = true;
-                count--;
-                break;
-            case R.id.accept498:
-                FakeDatabase.getInstance().presentations.add(p498);
-                Toast.makeText(this, "Presentation Added", Toast.LENGTH_LONG).show();
-                ll.removeView((View) v.getParent());
-                FakeDatabase.getInstance().b498 = true;
-                count--;
-                break;
-            case R.id.cancel411:
-                ll.removeView((View) v.getParent());
-                FakeDatabase.getInstance().b411 = true;
-                count--;
-                break;
-            case R.id.cancel465:
-                ll.removeView((View) v.getParent());
-                FakeDatabase.getInstance().b465 = true;
-                count--;
-                break;
-            case R.id.cancel498:
-                ll.removeView((View) v.getParent());
-                FakeDatabase.getInstance().b498 = true;
-                count--;
-                break;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
-        if(count == 0) {
-            this.setContentView(R.layout.all_read);
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void createActionBar() {
+        Toolbar toolbar = findViewById(R.id.invite_toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            ActionBar actionBar = getSupportActionBar();
+            final Drawable backArrow = ContextCompat.getDrawable(this, R.drawable.icon_blue_arrow_back);
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.frontLayer)));
+            actionBar.setElevation(0);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(backArrow);
+            actionBar.setTitle("Invitations");
+            actionBar.show();
         }
+    }
+
+    private void createRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.invite_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new InviteRecyclerAdapter();
+        recyclerView.setAdapter(adapter);
+
+        onAccept = adapter.onAccept().subscribe(new Consumer<UUID>() {
+            @Override
+            public void accept(UUID uuid) throws Exception {
+                int idx = FakeDatabase.getInstance().getInvitationIndex(uuid);
+                if (idx >= 0) {
+                    Presentation p = FakeDatabase.getInstance().invitations.get(idx).presentation;
+                    for (GroupMember m: p.members) {
+                        if (m.ownerID.equals(FakeDatabase.getInstance().currentUser.id)) {
+                            m.isAccepted = true;
+                        }
+                    }
+                    FakeDatabase.getInstance().presentations.add(p);
+                    deleteItem(idx);
+                }
+            }
+        });
+
+        onDecline = adapter.onDecline().subscribe(new Consumer<UUID>() {
+            @Override
+            public void accept(UUID uuid) throws Exception {
+                int idx = FakeDatabase.getInstance().getInvitationIndex(uuid);
+                if (idx >= 0) {
+                    Invitation inv = FakeDatabase.getInstance().invitations.get(idx);
+                    Presentation p = inv.presentation;
+                    if (inv.type == InvitationType.NEW) {
+                        for (GroupMember m: p.members) {
+                            if (m.ownerID.equals(inv.receiverID)) {
+                                m.isAccepted = false;
+                            }
+                        }
+                    } else if (inv.type == InvitationType.DECLINED) {
+                        // dismiss: remove all traces
+                        p = FakeDatabase.getInstance().findPresentation(p.id);
+                        if (p != null) {
+                            {
+                                Iterator<GroupMember> i = p.members.iterator();
+                                while (i.hasNext()) {
+                                    GroupMember m = i.next();
+                                    if (m.ownerID.equals(inv.receiverID)) {
+                                        i.remove();
+                                    }
+                                }
+                            }
+                            {
+                                Iterator<Section> i = p.sections.iterator();
+                                while (i.hasNext()) {
+                                    Section s = i.next();
+                                    if (s.userID.equals(inv.receiverID)) {
+                                        i.remove();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    deleteItem(idx);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        onDecline.dispose();
+        onAccept.dispose();
     }
 }

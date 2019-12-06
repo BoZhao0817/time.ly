@@ -5,140 +5,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".InviteActivity">
+    tools:context=".InviteActivity"
+    android:background="@color/frontLayer">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card465"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/invite_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:titleTextColor="@color/appBar"
+        android:subtitleTextColor="@color/appBar"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emma has invited you to the presentation:"
-            android:textColor="@color/lightMainText"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/invite_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/invite_all_read"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:textColor="@color/lightMainText"
-            android:text="&quot;CS465 Final&quot;"/>
-
-        <Button
-            android:id="@+id/cancel465"
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:text="CANCEL"
-            android:textColor="#d6564f"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="260dp"
-            android:background="#fff"
-            />
-        <Button
-            android:id="@+id/accept465"
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:text="ACCEPT"
-            android:textColor="#4f97d6"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="170dp"
-            android:background="#fff"
-            />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card411"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp">
+            android:layout_marginBottom="30dp"
+            app:srcCompat="@drawable/icon_read_blue" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Emma has invited you to the presentation:"
-            android:textColor="@color/lightMainText"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/lightMainText"
-            android:text="&quot;CS411 Final&quot;"/>
-
-        <Button
-            android:id="@+id/cancel411"
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:text="CANCEL"
-            android:textColor="#d6564f"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="260dp"
-            android:background="#fff"
-            />
-        <Button
-            android:id="@+id/accept411"
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:text="ACCEPT"
-            android:textColor="#4f97d6"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="170dp"
-            android:background="#fff"
-            />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card498"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emma has invited you to the presentation:"
-            android:textColor="@color/lightMainText"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/lightMainText"
-            android:text="&quot;CS498 Final&quot;"/>
-
-        <Button
-            android:id="@+id/cancel498"
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:text="CANCEL"
-            android:textColor="#d6564f"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="260dp"
-            android:background="#fff"
-            />
-        <Button
-            android:id="@+id/accept498"
-            android:layout_width="75dp"
-            android:layout_height="30dp"
-            android:text="ACCEPT"
-            android:textColor="#4f97d6"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="170dp"
-            android:background="#fff"
-            />
-    </androidx.cardview.widget.CardView>
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:gravity="center"
+            android:text="All Invites Read"
+            android:textColor="@color/lightIndicatorText"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="20sp"/>
+    </LinearLayout>
 </LinearLayout>

@@ -7,16 +7,15 @@ public class FakeDatabase {
     public ArrayList<Presentation> presentations;
     public ArrayList<User> users;
     public ArrayList<VibrationPattern> vibrationPatterns;
+    public ArrayList<Invitation> invitations;
     public User currentUser;
     public Report testReport;
-    public boolean b465 = false;
-    public boolean b411 = false;
-    public boolean b498 = false;
     private static FakeDatabase instance;
     private FakeDatabase() {
         this.presentations = new ArrayList<>();
         this.users = new ArrayList<>();
         this.vibrationPatterns= new ArrayList<>();
+        this.invitations = new ArrayList<>();
         populateData();
     }
     // add synchronized for multi-threading
@@ -116,6 +115,27 @@ public class FakeDatabase {
         a.reports.add(ar2);
 
         c.reports.add(cr);
+
+        // add invitations
+        Presentation p465 = new Presentation("IE465 Final", PresentationType.GROUP, 600);
+        p465.sections.add(new Section("Intro", "Emma", users.get(1).id, 300, vibrationPatterns.get(0).id));
+        p465.sections.add(new Section("Conclusion", "me", users.get(0).id, 300, vibrationPatterns.get(1).id));
+        p465.ownerID = users.get(1).id;
+        Presentation p411 = new Presentation("IE411 Final", PresentationType.GROUP, 300);
+        p411.sections.add(new Section("Intro", "me", users.get(0).id, 180, vibrationPatterns.get(0).id));
+        p411.sections.add(new Section("Intro", "Emma", users.get(1).id, 120, vibrationPatterns.get(0).id));
+        p411.ownerID = users.get(0).id;
+        Presentation p498 = new Presentation("IE498 Final", PresentationType.GROUP, 720);
+        p498.sections.add(new Section("Intro", "Emma", users.get(1).id, 300, vibrationPatterns.get(0).id));
+        p498.sections.add(new Section("Content", "me", users.get(0).id, 300, vibrationPatterns.get(1).id));
+        p498.sections.add(new Section("Conclusion", "Chris", users.get(2).id, 120, vibrationPatterns.get(0).id));
+        p498.ownerID = users.get(1).id;
+
+        invitations.add(new Invitation(p465, currentUser.id));
+        invitations.add(new Invitation(p411, users.get(1).id));
+        invitations.add(new Invitation(p498, currentUser.id));
+
+        invitations.get(1).type = InvitationType.DECLINED;
     }
 
     public VibrationPattern findPattern(UUID id) {
@@ -153,5 +173,14 @@ public class FakeDatabase {
             }
         }
         return null;
+    }
+
+    public int getInvitationIndex(UUID id) {
+        for (int i = 0; i < invitations.size(); i += 1) {
+            if (invitations.get(i).id.equals(id)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
