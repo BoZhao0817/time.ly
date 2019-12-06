@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import dataStructures.FakeDatabase;
 import dataStructures.VibrationPattern;
@@ -33,6 +34,7 @@ class ConfigurationCheckedItem {
 public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
     private ArrayList<VibrationPattern> list;
     private Context context;
+    private UUID initialPatternID;
     private int lastCheckedPosition = -1;
     private RecyclerView recyclerView;
 
@@ -47,9 +49,10 @@ public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public ConfigurationPresetAdapter(Context context) {
+    public ConfigurationPresetAdapter(Context context, UUID initialPatternID) {
         this.list = FakeDatabase.getInstance().vibrationPatterns;
         this.context = context;
+        this.initialPatternID = initialPatternID;
     }
 
     @Override
@@ -102,6 +105,12 @@ public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
 
         ImageButton editButton = view.findViewById(R.id.EditPreset);
         final RadioButton checkButton = view.findViewById(R.id.checkButton);
+
+        if (currentPattern.id.equals(initialPatternID)) {
+            checkButton.setChecked(true);
+            initialPatternID = null;
+            lastCheckedPosition = position;
+        }
 
         editButton.setOnClickListener(new View.OnClickListener(){
             @Override

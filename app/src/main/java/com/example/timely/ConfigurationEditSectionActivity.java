@@ -47,6 +47,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
 
         section_name.setText(section.sectionName);
         section_duration.setText(section.getDurationString());
+
         Button delete_button= findViewById(R.id.DeleteSection);
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +63,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
             }
         });
 
-        final ConfigurationPresetAdapter adapter = new ConfigurationPresetAdapter(this);
+        final ConfigurationPresetAdapter adapter = new ConfigurationPresetAdapter(this, section.patternID);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -85,6 +86,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
             @Override
             public void accept(ConfigurationCheckedItem checkedItem) throws Exception {
                 selectedPattern.setText(checkedItem.pattern.name);
+                section.patternID = checkedItem.pattern.id;
             }
         });
     }
