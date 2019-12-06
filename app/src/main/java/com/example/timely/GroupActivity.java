@@ -9,11 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +34,7 @@ import io.reactivex.functions.Consumer;
 public class GroupActivity extends AppCompatActivity implements View.OnClickListener {
     private Presentation currentPresentation;
     private Disposable onEdit;
+    private Disposable onReorder;
     private GroupRecyclerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,11 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         users.setLayoutManager(layoutManager);
         adapter = new GroupRecyclerAdapter(currentPresentation);
         users.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback = new DragHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(users);
+
         onEdit = adapter.onEdit().subscribe(new Consumer<GroupMember>() {
             @Override
             public void accept(GroupMember member) throws Exception {
@@ -63,9 +69,23 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                 startActivityForResult(intent, 1);
             }
         });
+        onReorder = adapter.onReorder().subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                createChart();
+            }
+        });
+
+
         Button add = findViewById(R.id.group_add_member);
         add.setOnClickListener(this);
+
+        createChart();
+    }
+
+    private void createChart() {
         LinearLayout glance = findViewById(R.id.group_glance);
+        glance.removeAllViews();
         Utilities util = new Utilities(getApplicationContext());
 
         ArrayList<NamedSegments> args = new ArrayList<>();
@@ -81,23 +101,9 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
-        ArrayList<NamedSegments> args = new ArrayList<>();
-        int tot = 0;
-        for (GroupMember s: currentPresentation.members) {
-            args.add(new VizSegments(
-                    s.memberName,
-                    s.duration
-            ));
-            tot += s.duration;
-        }
-        currentPresentation.duration = tot;
-        TextView total = findViewById(R.id.total_time);
-        total.setText(Presentation.toStringTime(tot));
-        LinearLayout glance = findViewById(R.id.group_glance);
-        glance.removeAllViews();
-        Utilities util = new Utilities(getApplicationContext());
-        util.setChart(glance, args);
+        createChart();
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -121,6 +127,7 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
         onEdit.dispose();
+        onReorder.dispose();
     }
 
     @Override
