@@ -38,6 +38,12 @@
         app:behavior_peekHeight="65dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+        <View
+            android:layout_width="40dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/drawer_drag_handle"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
