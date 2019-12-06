@@ -98,6 +98,7 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         glance.removeAllViews();
         Utilities util = new Utilities(getApplicationContext());
         util.setChart(glance, args);
+        currentPresentation.syncSections();
     }
     @Override
     public void onClick(View v) {

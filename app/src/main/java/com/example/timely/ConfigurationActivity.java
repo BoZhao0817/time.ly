@@ -61,7 +61,7 @@ public class ConfigurationActivity extends AppCompatActivity {
 
 
         if (activePresentation.type == PresentationType.GROUP) {
-            currentSections = activePresentation.getSectionsByUser(FakeDatabase.getInstance().currentUser.id);
+            currentSections = activePresentation.getSectionsByUser(FakeDatabase.getInstance().currentUser.name);
         } else {
             currentSections = activePresentation.sections;
         }

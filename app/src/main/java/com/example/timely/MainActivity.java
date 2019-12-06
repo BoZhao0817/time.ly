@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+        createBackDrop();
     }
 
     @Override

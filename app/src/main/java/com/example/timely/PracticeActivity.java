@@ -191,6 +191,7 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.practice_add_recording: {
+                this.recreate();
                 break;
             }
         }

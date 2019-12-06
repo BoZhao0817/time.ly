@@ -90,32 +90,55 @@ public class Presentation implements Serializable {
     }
 
     public Integer getPortionDuration(UUID userID) {
-        Iterator<Section> sectionIterator = sections.iterator();
-        Integer acc = 0;
+        Iterator<GroupMember> sectionIterator = members.iterator();
+        float acc = 0;
         while (sectionIterator.hasNext()) {
-            Section currentSection = sectionIterator.next();
-            UUID id = currentSection.userID;
-            if (id.equals(userID)) {
+            GroupMember currentSection = sectionIterator.next();
+            String id = currentSection.memberName;
+            User u = FakeDatabase.getInstance().findUser(userID);
+            if (id.equals(u.name)) {
                 acc += currentSection.duration;
             }
         }
-        return acc;
+        return (int)acc;
     }
 
     public String getPortionDurationString(UUID userID) {
         return toStringTime(getPortionDuration(userID));
     }
 
-    public ArrayList<Section> getSectionsByUser(UUID userID) {
+    public ArrayList<Section> getSectionsByUser(String userID) {
         ArrayList<Section> results = new ArrayList<>();
         for (Section s: sections) {
-            if (s.userID == userID) {
+            if (s.ownerName.equals(userID)) {
                 results.add(s);
             }
         }
         return results;
     }
-
+    public void syncSections() {
+        for(int i = 0; i < sections.size(); i++) {
+            Section s = sections.get(i);
+            GroupMember currM = null;
+            for(GroupMember m : members) {
+                if (m.memberName.equals(s.ownerName))
+                    currM = m;
+            }
+            sections.set(i, new Section(s.sectionName, s.ownerName, currM.id, (int)currM.duration, s.patternID));
+        }
+    }
+    public void syncGroup() {
+        for(int i = 0; i < members.size(); i++) {
+            GroupMember m = members.get(i);
+            int dur = 0;
+            for(Section s : sections) {
+                if (s.ownerName.equals(m.memberName)) {
+                    dur += s.duration;
+                }
+            }
+            m.duration = (float) dur;
+        }
+    }
     public boolean isOwner() {
         return ownerID.equals(FakeDatabase.getInstance().currentUser.id);
     }
