@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,14 +64,15 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                 startActivityForResult(intent, 1);
             }
         });
-
+        Button add = findViewById(R.id.group_add_member);
+        add.setOnClickListener(this);
         LinearLayout glance = findViewById(R.id.group_glance);
         Utilities util = new Utilities(getApplicationContext());
 
         ArrayList<NamedSegments> args = new ArrayList<>();
-        for (Section s: currentPresentation.sections) {
+        for (GroupMember s: currentPresentation.members) {
             args.add(new VizSegments(
-                    FakeDatabase.getInstance().findUser(s.userID).name,
+                    s.memberName,
                     s.duration
             ));
         }
@@ -81,14 +84,16 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         adapter.notifyDataSetChanged();
         ArrayList<NamedSegments> args = new ArrayList<>();
         int tot = 0;
-        for (Section s: currentPresentation.sections) {
+        for (GroupMember s: currentPresentation.members) {
             args.add(new VizSegments(
-                    FakeDatabase.getInstance().findUser(s.userID).name,
+                    s.memberName,
                     s.duration
             ));
             tot += s.duration;
         }
         currentPresentation.duration = tot;
+        TextView total = findViewById(R.id.total_time);
+        total.setText(Presentation.toStringTime(tot));
         LinearLayout glance = findViewById(R.id.group_glance);
         glance.removeAllViews();
         Utilities util = new Utilities(getApplicationContext());
@@ -101,6 +106,7 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(this, GroupEditMemberActivity.class);
                 Bundle bundle = new Bundle();
                 GroupMember activeMember = GroupMember.newInstance();
+                activeMember.ownerID = currentPresentation.ownerID;
                 bundle.putSerializable("data", activeMember);
                 bundle.putString("presentationName", currentPresentation.name);
                 bundle.putString("presentationDuration", currentPresentation.getDurationString());
