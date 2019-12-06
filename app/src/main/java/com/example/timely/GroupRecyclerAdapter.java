@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 import dataStructures.GroupMember;
@@ -18,10 +19,11 @@ import dataStructures.Section;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class GroupRecyclerAdapter extends RecyclerView.Adapter {
+public class GroupRecyclerAdapter extends RecyclerView.Adapter implements DragHelperAdapter {
     private ArrayList<GroupMember> data;
     private UUID ownerID;
     private final PublishSubject<GroupMember> onEdit = PublishSubject.create();
+    private final PublishSubject<Boolean> onReorder = PublishSubject.create();
 
     public static class GroupViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -83,10 +85,6 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter {
         return data.size();
     }
 
-    public Observable<GroupMember> onEdit() {
-        return onEdit.hide();
-    }
-
     public void deleteData(Section datum) {
         int idx = 0;
         boolean found = false;
@@ -105,5 +103,27 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter {
 
     public void addData(GroupMember datum) {
         this.data.add(0, datum);
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(data, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(data, i, i - 1);
+            }
+        }
+        onReorder.onNext(true);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    public Observable<GroupMember> onEdit() {
+        return onEdit.hide();
+    }
+    public Observable<Boolean> onReorder() {
+        return onReorder.hide();
     }
 }

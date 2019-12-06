@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.UUID;
+
+import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 
 
@@ -33,7 +36,7 @@ public class MainBackdropIndividualView extends Fragment implements View.OnClick
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            datum = (Presentation) bundle.getSerializable("data");
+            datum = FakeDatabase.getInstance().findPresentation((UUID) bundle.getSerializable("id"));
         }
     }
 
@@ -86,6 +89,12 @@ public class MainBackdropIndividualView extends Fragment implements View.OnClick
         g4.setOnClickListener(this);
         return root;
     }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+////        super.onActivityResult(requestCode, resultCode, data);
+//        getActivity().recreate();
+//    }
 
     @Override
     public void onClick(View v) {

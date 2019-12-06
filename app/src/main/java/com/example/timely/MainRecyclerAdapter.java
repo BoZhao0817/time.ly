@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.UUID;
 
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
@@ -20,7 +21,7 @@ import io.reactivex.subjects.PublishSubject;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter implements DragHelperAdapter {
     private ArrayList<Presentation> data;
-    private final PublishSubject<Presentation> onClickEvent = PublishSubject.create();
+    private final PublishSubject<UUID> onClickEvent = PublishSubject.create();
 
     public static class MainViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -63,7 +64,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter implements DragHel
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickEvent.onNext(elem);
+                onClickEvent.onNext(elem.id);
             }
         });
     }
@@ -74,7 +75,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter implements DragHel
         return data.size();
     }
 
-    public Observable<Presentation> onClick() {
+    public Observable<UUID> onClick() {
         return onClickEvent.hide();
     }
 

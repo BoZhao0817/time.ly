@@ -28,6 +28,7 @@ import dataStructures.Presentation;
 import dataStructures.PresentationType;
 import dataStructures.Section;
 import dataStructures.Utilities;
+import dataStructures.VizSegments;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -53,24 +54,16 @@ public class ConfigurationActivity extends AppCompatActivity {
 
         utilities = new Utilities(getApplicationContext());
         TextView total_time = findViewById(R.id.total_time);
-        LinearLayout linearLayout1=findViewById(R.id.ll1);
         Button add_section= findViewById(R.id.add_section);
-
-        ArrayList<Section> list = new ArrayList<>();
-        ArrayList<NamedSegments> array1 = new ArrayList<>();
-
 
         if (activePresentation.type == PresentationType.GROUP) {
             currentSections = activePresentation.getSectionsByUser(FakeDatabase.getInstance().currentUser.name);
         } else {
             currentSections = activePresentation.sections;
         }
-        for (Section temp: currentSections) {
-            list.add(temp);
-            array1.add(temp);
-        }
 
-        utilities.setChart(linearLayout1, array1);
+        createChart();
+
         RecyclerView recyclerView = findViewById(R.id.configure_sections_list);
         ItemTouchHelper.Callback callback = new DragHelperCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -167,13 +160,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                             currentSections.add(passedSection);
                             adapter.notifyItemInserted(currentSections.size()-1);
                         }
-                        LinearLayout linearLayout1=(LinearLayout)findViewById(R.id.ll1);
-                        ArrayList<NamedSegments>array1 = new ArrayList<>();
-                        linearLayout1.removeAllViews();
-                        for (Section temp: currentSections) {
-                            array1.add(temp);
-                        }
-                        utilities.setChart(linearLayout1, array1);
+                        createChart();
                     }
                 }
             }
@@ -188,6 +175,20 @@ public class ConfigurationActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createChart() {
+        LinearLayout linearLayout1 = findViewById(R.id.ll1);
+        ArrayList<NamedSegments>array1 = new ArrayList<>();
+        linearLayout1.removeAllViews();
+        array1.addAll(currentSections);
+        Integer timeLeft = activePresentation.getRemainingTime();
+        boolean hasVacant = false;
+        if (timeLeft > 0) {
+            array1.add(new VizSegments("EMPTY", timeLeft));
+            hasVacant = true;
+        }
+        utilities.setChart(linearLayout1, array1, hasVacant);
     }
 
     private void createActionBar() {

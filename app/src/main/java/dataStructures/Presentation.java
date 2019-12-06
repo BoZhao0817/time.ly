@@ -103,6 +103,24 @@ public class Presentation implements Serializable {
         return (int)acc;
     }
 
+    public Integer getRemainingTime() {
+        Integer time = duration;
+        for (Section s: sections) {
+            time -= s.duration;
+        }
+        return time;
+    }
+
+    public String getRemainingTimeString() {
+        Integer time = getRemainingTime();
+        if (time < 0) {
+            return "-"+toStringTime(time);
+        } else {
+            return toStringTime(time);
+        }
+    }
+
+
     public String getPortionDurationString(UUID userID) {
         return toStringTime(getPortionDuration(userID));
     }
