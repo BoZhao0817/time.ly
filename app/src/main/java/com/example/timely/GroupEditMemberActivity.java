@@ -111,7 +111,7 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", currentMember);
-                bundle.putSerializable("actionType", FeedbackType.SAVE);
+                bundle.putSerializable("actionType", FeedbackType.DELETE);
                 intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
                 finish();

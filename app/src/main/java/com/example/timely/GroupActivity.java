@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +24,6 @@ import dataStructures.FakeDatabase;
 import dataStructures.GroupMember;
 import dataStructures.NamedSegments;
 import dataStructures.Presentation;
-import dataStructures.Section;
 import dataStructures.Utilities;
 import dataStructures.VizSegments;
 import io.reactivex.disposables.Disposable;
@@ -152,7 +150,9 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                         }
                         if (found) {
                             currentPresentation.members.remove(i);
+                            adapter.notifyItemRemoved(i);
                         }
+                        break;
                     }
                     case SAVE: {
                         int i = 0;
@@ -165,9 +165,12 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                         }
                         if (found) {
                             currentPresentation.members.set(i, passedMember);
+                            adapter.notifyItemChanged(i);
                         } else {
                             currentPresentation.members.add(passedMember);
+                            adapter.notifyItemInserted(currentPresentation.members.size()-1);
                         }
+                        break;
                     }
                 }
             }
