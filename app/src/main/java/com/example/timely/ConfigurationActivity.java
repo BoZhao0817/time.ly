@@ -144,12 +144,13 @@ public class ConfigurationActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        Log.v("del2",Integer.toString(i));
                         if (found) {
                             currentSections.remove(i);
                             adapter.notifyItemRemoved(i);
                             adapter.notifyItemRangeChanged(i,currentSections.size());
                         }
+                        createChart();
+                        break;
                     }
                     case SAVE: {
                         int i = 0;
@@ -169,6 +170,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                             adapter.notifyItemInserted(currentSections.size()-1);
                         }
                         createChart();
+                        break;
                     }
                 }
             }
