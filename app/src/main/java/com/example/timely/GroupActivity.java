@@ -24,6 +24,7 @@ import dataStructures.FakeDatabase;
 import dataStructures.GroupMember;
 import dataStructures.NamedSegments;
 import dataStructures.Presentation;
+import dataStructures.PresentationType;
 import dataStructures.Utilities;
 import dataStructures.VizSegments;
 import io.reactivex.disposables.Disposable;
@@ -152,9 +153,23 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                             currentPresentation.members.remove(i);
                             adapter.notifyItemRemoved(i);
                         }
+
+                        // need to change presentation type
+                        boolean other = false;
+                        for (GroupMember m: currentPresentation.members) {
+                            if (!m.ownerID.equals(FakeDatabase.getInstance().currentUser.id)) {
+                                other = true;
+                                break;
+                            }
+                        }
+                        if (!other) {
+                            currentPresentation.type = PresentationType.INDIVIDUAL;
+                        }
                         break;
                     }
                     case SAVE: {
+                        // first need to change presentation type
+                        currentPresentation.type = PresentationType.GROUP;
                         int i = 0;
                         boolean found = false;
                         for (;i < currentPresentation.members.size(); i += 1) {

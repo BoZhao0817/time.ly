@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.UUID;
+
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 
@@ -35,7 +37,7 @@ public class MainBackdropGroupView extends Fragment implements View.OnClickListe
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            datum = (Presentation) bundle.getSerializable("data");
+            datum = FakeDatabase.getInstance().findPresentation((UUID) bundle.getSerializable("id"));
         }
     }
 

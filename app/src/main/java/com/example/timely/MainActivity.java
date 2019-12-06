@@ -31,6 +31,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.UUID;
+
 import dataStructures.FakeDatabase;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
@@ -63,10 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.warning = findViewById(R.id.main_warning);
 
         // all layout elements are populated
-        listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Presentation>() {
+        listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<UUID>() {
             @Override
-            public void accept(Presentation presentation) throws Exception {
-                updateBackdrop(presentation);
+            public void accept(UUID id) throws Exception {
+                updateBackdrop(FakeDatabase.getInstance().findPresentation(id));
                 minimizeBottomSheet();
             }
         });
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+        updateBackdrop(activePresentation);
     }
 
     @Override
@@ -172,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             type.setText(this.activePresentation.type.toString());
             // menu
             Bundle inputData = new Bundle();
-            inputData.putSerializable("data", this.activePresentation);
+            inputData.putSerializable("id", this.activePresentation.id);
             if (this.activePresentation.type == PresentationType.INDIVIDUAL) {
                 MainBackdropIndividualView individualView = new MainBackdropIndividualView();
                 individualView.setArguments(inputData);
@@ -195,12 +198,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateBackdrop(Presentation datum) {
-        if (this.activePresentation != null && datum.id.equals(this.activePresentation.id)) {
-            return;
-        }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Bundle inputData = new Bundle();
-        inputData.putSerializable("data", datum);
+        inputData.putSerializable("id", datum.id);
         this.activePresentation = datum;
 
         // title
@@ -285,17 +285,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         drawer.closeDrawers();
         return true;
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                // restart main
-                finish();
-                startActivity(getIntent());
-            }
-        }
     }
 
     public void expandBottomSheet() {
