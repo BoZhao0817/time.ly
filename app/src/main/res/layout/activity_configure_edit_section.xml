@@ -15,15 +15,26 @@
         android:background="#184063"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/SectionInformation"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Section Information"
-            android:layout_marginBottom="10dp"
-            android:textSize="15dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/darkIndicatorText"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/SectionInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Available time Left: "
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/darkIndicatorText"/>
+            <TextView
+                android:id="@+id/edit_section_remaining_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/darkIndicatorText"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -135,14 +146,6 @@
                 android:divider="@null"
                 android:dividerHeight="0dp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Drag"
-                android:text="Drag to Reorder"
-                android:textColor="@color/lightHelperText"
-                android:textSize="10dp"
-                android:layout_gravity="end"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

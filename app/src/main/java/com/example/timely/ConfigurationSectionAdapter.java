@@ -12,20 +12,32 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import dataStructures.Section;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class ConfigurationSectionAdapter extends RecyclerView.Adapter implements  DragHelperAdapter {
+public class ConfigurationSectionAdapter extends RecyclerView.Adapter implements DragHelperAdapter {
 
     private ArrayList<Section> list;
 
     private final PublishSubject<Section> onClickEvent = PublishSubject.create();
+    private final PublishSubject<Boolean> onMoveEvent = PublishSubject.create();
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(list, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(list, i, i - 1);
+            }
+        }
+        onMoveEvent.onNext(true);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     public static class ConfigurationSectionViewHolder extends RecyclerView.ViewHolder {
@@ -80,5 +92,8 @@ public class ConfigurationSectionAdapter extends RecyclerView.Adapter implements
 
     public Observable<Section> onEditClicked() {
         return onClickEvent.hide();
+    }
+    public Observable<Boolean> onReorder() {
+        return onMoveEvent.hide();
     }
 }

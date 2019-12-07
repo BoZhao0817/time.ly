@@ -6,8 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DragHelperCallback extends ItemTouchHelper.Callback {
     private final DragHelperAdapter adapter;
+    private boolean isVertial;
     public DragHelperCallback(DragHelperAdapter adapter) {
         this.adapter = adapter;
+        this.isVertial = true;
+    }
+    public DragHelperCallback(DragHelperAdapter adapter, boolean isVertial) {
+        this.adapter = adapter;
+        this.isVertial = isVertial;
     }
 
     @Override
@@ -17,7 +23,11 @@ public class DragHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.UP | ItemTouchHelper.DOWN);
+        if (isVertial) {
+            return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.UP | ItemTouchHelper.DOWN);
+        } else {
+            return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        }
     }
 
     @Override

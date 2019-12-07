@@ -11,7 +11,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="Default Section"
         android:textColor="@color/lightMainText"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/duration"
@@ -26,7 +26,6 @@
         android:id="@+id/Edit"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_toEndOf="@+id/duration"
         android:background="@android:color/transparent"
         android:src="@drawable/icon_settings_orange" />
 
@@ -34,9 +33,8 @@
         android:id="@+id/Drag"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="40dp"
-        android:layout_toEndOf="@+id/duration"
-        android:src="@drawable/icon_drag_handle" />
+        android:layout_marginStart="20dp"
+        android:src="@drawable/icon_drag_handle"/>
 
 
 </LinearLayout>

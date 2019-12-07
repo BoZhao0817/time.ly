@@ -39,9 +39,11 @@ enum FeedbackType {
 public class ConfigurationActivity extends AppCompatActivity {
     Presentation activePresentation;
     private Disposable listItemClicked;
+    private Disposable onReorder;
     Utilities utilities;
     ArrayList<Section> currentSections;
     ConfigurationSectionAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +67,13 @@ public class ConfigurationActivity extends AppCompatActivity {
         createChart();
 
         RecyclerView recyclerView = findViewById(R.id.configure_sections_list);
-        ItemTouchHelper.Callback callback = new DragHelperCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ConfigurationSectionAdapter(currentSections);
         recyclerView.setAdapter(adapter);
+        ItemTouchHelper.Callback callback = new DragHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
 
         total_time.setText(activePresentation.getDurationString());
         add_section.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +83,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 Section activeSection = Section.newInstance();
                 bundle.putSerializable("data", activeSection);
+                bundle.putString("timeLeft", activePresentation.getRemainingTimeString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 // Do something
@@ -92,8 +95,15 @@ public class ConfigurationActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ConfigurationEditSectionActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", section);
+                bundle.putString("timeLeft", activePresentation.getRemainingTimeString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
+            }
+        });
+        onReorder = adapter.onReorder().subscribe(new Consumer<Boolean>() {
+            @Override
+            public void accept(Boolean aBoolean) throws Exception {
+                createChart();
             }
         });
     }
@@ -136,12 +146,13 @@ public class ConfigurationActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        Log.v("del2",Integer.toString(i));
                         if (found) {
                             currentSections.remove(i);
                             adapter.notifyItemRemoved(i);
                             adapter.notifyItemRangeChanged(i,currentSections.size());
                         }
+                        createChart();
+                        break;
                     }
                     case SAVE: {
                         int i = 0;
@@ -161,6 +172,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                             adapter.notifyItemInserted(currentSections.size()-1);
                         }
                         createChart();
+                        break;
                     }
                 }
             }
@@ -209,5 +221,6 @@ public class ConfigurationActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         listItemClicked.dispose();
+        onReorder.dispose();
     }
 }
