@@ -40,7 +40,8 @@
         android:text="Temporary Name"
         android:textSize="20sp"
         android:fontFamily="sans-serif-medium"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent"
+        android:backgroundTint="@color/darkButtonText"/>
 
     <RadioGroup
         android:id="@+id/practice_radios"
