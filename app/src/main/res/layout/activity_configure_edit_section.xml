@@ -129,17 +129,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="20dp">
-
             <Button
-                android:id="@+id/addPresetbutton"
                 style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/addPresetbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="-10dp"
                 android:drawableStart="@drawable/icon_add_outline"
                 android:drawablePadding="10dp"
-                android:text="ADD NEW PATTERN"
-                android:textColor="@color/lightButtonText" />
+                android:layout_marginStart="-10dp"
+                android:text="ADD NEW PRESET"
+                android:textColor="@color/lightButtonText"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listview2"
                 android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
+import dataStructures.FakeDatabase;
 import dataStructures.NamedSegments;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
@@ -42,12 +44,12 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_practice_backdrop_report_view, container, false);
-        /*
+
         if (getContext() != null) {
             SeekBar seekBar = root.findViewById(R.id.seekBar);
             seekBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.darkButtonText), PorterDuff.Mode.MULTIPLY);
         }
-        */
+
         TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
         if (name != null) {
             name.setText(datum.name);
@@ -59,8 +61,8 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
             }
         }
 
-        //TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
-        //duration.setText(Presentation.toStringTime(datum.total_actual));
+        TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
+        duration.setText(Presentation.toStringTime(datum.total_actual));
         TextView estTime = root.findViewById(R.id.estimateTime);
         TextView actTime = root.findViewById(R.id.actualTime);
         estTime.setText(Presentation.toStringTime(datum.total_estimate));
@@ -88,11 +90,16 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
 
         util.setChartDynamicLength(est, estimates, (int)est_len);
         util.setChartDynamicLength(act, actuals, (int)act_len);
+        Button del = root.findViewById(R.id.delete_button);
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
         return root;
     }
-
 
     @Override
     public void onClick(View v) {
