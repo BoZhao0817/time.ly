@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
             final Drawable menu = ContextCompat.getDrawable(this, R.drawable.icon_menu);
-            actionBar.setTitle("Settings");
+            actionBar.setTitle("tíme.ly");
             actionBar.setElevation(0);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(menu);
