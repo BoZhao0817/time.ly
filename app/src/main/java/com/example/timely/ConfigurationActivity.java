@@ -56,6 +56,8 @@ public class ConfigurationActivity extends AppCompatActivity {
 
         utilities = new Utilities(getApplicationContext());
         TextView total_time = findViewById(R.id.total_time);
+        TextView name = findViewById(R.id.presentation_name);
+        name.setText(activePresentation.name);
         Button add_section= findViewById(R.id.add_section);
 
         if (activePresentation.type == PresentationType.GROUP) {

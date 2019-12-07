@@ -122,6 +122,8 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         }
         currentPresentation.duration = tot;
         TextView total = findViewById(R.id.total_time);
+        TextView name = findViewById(R.id.presentation_name);
+        name.setText(currentPresentation.name);
         total.setText(Presentation.toStringTime(tot));
         LinearLayout glance = findViewById(R.id.group_glance);
         glance.removeAllViews();
