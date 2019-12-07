@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,8 +29,8 @@ public class ConfigurationSectionAdapter extends RecyclerView.Adapter implements
     }
 
     public static class ConfigurationSectionViewHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout layout;
-        public ConfigurationSectionViewHolder(RelativeLayout l) {
+        public LinearLayout layout;
+        public ConfigurationSectionViewHolder(LinearLayout l) {
             super(l);
             layout = l;
         }
@@ -49,7 +50,7 @@ public class ConfigurationSectionAdapter extends RecyclerView.Adapter implements
     @Override
     public ConfigurationSectionAdapter.ConfigurationSectionViewHolder onCreateViewHolder(@org.jetbrains.annotations.NotNull ViewGroup parent, int viewType) {
         // create a new view
-        RelativeLayout l = (RelativeLayout) LayoutInflater.from(parent.getContext())
+        LinearLayout l = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_configuration_section_item_view, parent, false);
         ConfigurationSectionAdapter.ConfigurationSectionViewHolder vh = new ConfigurationSectionAdapter.ConfigurationSectionViewHolder(l);
         return vh;
@@ -57,7 +58,7 @@ public class ConfigurationSectionAdapter extends RecyclerView.Adapter implements
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        RelativeLayout view = ((ConfigurationSectionAdapter.ConfigurationSectionViewHolder)holder).layout;
+        LinearLayout view = ((ConfigurationSectionAdapter.ConfigurationSectionViewHolder)holder).layout;
 
         final Section currentSection = list.get(position);
         TextView section_name= view.findViewById(R.id.section_name);

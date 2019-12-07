@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -122,6 +123,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                     case SAVE: {
                         int i = 0;
                         boolean found = false;
+                        Log.e("SAVE", "Saved Section");
                         for (;i < allPatterns.size(); i += 1) {
                             if (allPatterns.get(i).id.equals(passedPattern.id)) {
                                 found = true;
