@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -110,6 +111,23 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
         super.onResume();
         adapter.notifyDataSetChanged();
         createChart();
+        ArrayList<NamedSegments> args = new ArrayList<>();
+        int tot = 0;
+        for (GroupMember s: currentPresentation.members) {
+            args.add(new VizSegments(
+                    s.memberName,
+                    s.duration
+            ));
+            tot += s.duration;
+        }
+        currentPresentation.duration = tot;
+        TextView total = findViewById(R.id.total_time);
+        total.setText(Presentation.toStringTime(tot));
+        LinearLayout glance = findViewById(R.id.group_glance);
+        glance.removeAllViews();
+        Utilities util = new Utilities(getApplicationContext());
+        util.setChart(glance, args, false);
+        currentPresentation.syncSections();
     }
 
     @Override

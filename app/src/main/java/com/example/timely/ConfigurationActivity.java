@@ -59,7 +59,7 @@ public class ConfigurationActivity extends AppCompatActivity {
         Button add_section= findViewById(R.id.add_section);
 
         if (activePresentation.type == PresentationType.GROUP) {
-            currentSections = activePresentation.getSectionsByUser(FakeDatabase.getInstance().currentUser.id);
+            currentSections = activePresentation.getSectionsByUser(FakeDatabase.getInstance().currentUser.name);
         } else {
             currentSections = activePresentation.sections;
         }
