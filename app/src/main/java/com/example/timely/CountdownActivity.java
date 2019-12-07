@@ -145,6 +145,7 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
             final Drawable backArrow = ContextCompat.getDrawable(this, R.drawable.icon_blue_arrow_back);
             actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.frontLayer)));
             actionBar.setElevation(0);
+            actionBar.setTitle("");
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(backArrow);
