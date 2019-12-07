@@ -87,6 +87,7 @@ public class ConfigurationPresetAdapter extends RecyclerView.Adapter {
         pattern_name.setText(currentPattern.name);
 
         LinearLayout preset_display = view.findViewById(R.id.pattern_layout);
+        preset_display.removeAllViews();
 
         LayoutInflater inflater = LayoutInflater.from(context);
 

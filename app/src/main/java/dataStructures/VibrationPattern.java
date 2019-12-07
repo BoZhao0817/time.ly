@@ -15,4 +15,10 @@ public class VibrationPattern implements Serializable {
         this.name = name;
         this.patterns = new ArrayList<>();
     }
+
+    public static VibrationPattern newInstance() {
+        VibrationPattern vp = new VibrationPattern("Default Pattern");
+        vp.patterns.add(VibrationPatternType.SHORT);
+        return vp;
+    }
 }

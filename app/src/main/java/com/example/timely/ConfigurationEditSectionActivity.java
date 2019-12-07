@@ -17,20 +17,21 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 
 import dataStructures.FakeDatabase;
+import dataStructures.Presentation;
 import dataStructures.Section;
 import dataStructures.VibrationPattern;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class ConfigurationEditSectionActivity extends AppCompatActivity {
+public class ConfigurationEditSectionActivity extends AppCompatActivity implements View.OnClickListener {
     Section section;
     private Disposable onEditClicked;
     private Disposable onPatternSelected;
+    private ConfigurationPresetAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +47,19 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
         final EditText section_name = findViewById(R.id.sec_name);
         final EditText section_duration = findViewById(R.id.sec_duration);
         final TextView selectedPattern = findViewById(R.id.selectedPattern);
-        final RecyclerView recyclerView = findViewById(R.id.listview2);
+        selectedPattern.setText(FakeDatabase.getInstance().findPattern(section.patternID).name);
+        recyclerView = findViewById(R.id.listview2);
 
         section_name.setText(section.sectionName);
         section_duration.setText(section.getDurationString());
 
-        Button delete_button= findViewById(R.id.DeleteSection);
-        delete_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent go_back = new Intent(getApplicationContext(), ConfigurationActivity.class);
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("data", section);
-                bundle.putSerializable("actionType", FeedbackType.DELETE);
-                intent.putExtras(bundle);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+        Button add_button = findViewById(R.id.addPresetbutton);
+        add_button.setOnClickListener(this);
 
-        final ConfigurationPresetAdapter adapter = new ConfigurationPresetAdapter(this, section.patternID);
+        Button delete_button= findViewById(R.id.DeleteSection);
+        delete_button.setOnClickListener(this);
+
+        adapter = new ConfigurationPresetAdapter(this, section.patternID);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -76,10 +69,7 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
             public void accept(VibrationPattern vibrationPattern) throws Exception {
                 Intent intent = new Intent(ConfigurationEditSectionActivity.this, ConfigurationEditPresetActivity.class);
                 Bundle bundle = new Bundle();
-                // deep copy
-                Gson gson = new Gson();
-                VibrationPattern copiedPattern = gson.fromJson(gson.toJson(vibrationPattern), VibrationPattern.class);
-                bundle.putSerializable("data", copiedPattern);
+                bundle.putSerializable("data", vibrationPattern);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
             }
@@ -98,6 +88,31 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
         int minutes = Integer.parseInt(time.split(":")[0]);
         return seconds+minutes*60;
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.addPresetbutton: {
+                Intent intent = new Intent(ConfigurationEditSectionActivity.this, ConfigurationEditPresetActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", VibrationPattern.newInstance());
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 1);
+                break;
+            }
+            case R.id.DeleteSection: {
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", section);
+                bundle.putSerializable("actionType", FeedbackType.DELETE);
+                intent.putExtras(bundle);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+            }
+        }
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == 1) {
@@ -120,8 +135,30 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                         }
                         if (found) {
                             allPatterns.remove(i);
-                            // TODO: Need to change associated sections as well
+//                            adapter.notifyItemRemoved(i);
+
+                            VibrationPattern active;
+                            if (allPatterns.size() == 0) {
+                                active = VibrationPattern.newInstance();
+                                allPatterns.add(active);
+//                                adapter.notifyItemInserted(0);
+                            } else {
+                                active = allPatterns.get(0);
+                            }
+                            // change all sections
+                            for (Presentation p: FakeDatabase.getInstance().presentations) {
+                                for (Section s: p.sections) {
+                                    if (s.patternID.equals(passedPattern.id)) {
+                                        s.patternID = active.id;
+                                    }
+                                }
+                            }
+                            if (section.patternID.equals(passedPattern.id)) {
+                                section.patternID = active.id;
+                            }
+                            adapter.notifyDataSetChanged();
                         }
+
                         break;
                     }
                     case SAVE: {
@@ -138,11 +175,50 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity {
                         } else {
                             allPatterns.add(passedPattern);
                         }
+                        adapter.notifyDataSetChanged();
                         break;
                     }
                 }
+                refreshReyclerView();
             }
         }
+    }
+
+    private void refreshReyclerView() {
+        final TextView selectedPattern = findViewById(R.id.selectedPattern);
+        selectedPattern.setText(FakeDatabase.getInstance().findPattern(section.patternID).name);
+        recyclerView = findViewById(R.id.listview2);
+
+        Button add_button = findViewById(R.id.addPresetbutton);
+        add_button.setOnClickListener(this);
+
+        Button delete_button= findViewById(R.id.DeleteSection);
+        delete_button.setOnClickListener(this);
+
+        adapter = new ConfigurationPresetAdapter(this, section.patternID);
+        recyclerView.swapAdapter(adapter, false);
+        adapter.notifyDataSetChanged();
+
+        onEditClicked.dispose();
+        onEditClicked = adapter.onEditClicked().subscribe(new Consumer<VibrationPattern>() {
+            @Override
+            public void accept(VibrationPattern vibrationPattern) throws Exception {
+                Intent intent = new Intent(ConfigurationEditSectionActivity.this, ConfigurationEditPresetActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", vibrationPattern);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        onPatternSelected.dispose();
+        onPatternSelected = adapter.onPatternSelected().subscribe(new Consumer<ConfigurationCheckedItem>() {
+            @Override
+            public void accept(ConfigurationCheckedItem checkedItem) throws Exception {
+                selectedPattern.setText(checkedItem.pattern.name);
+                section.patternID = checkedItem.pattern.id;
+            }
+        });
     }
 
     @Override
