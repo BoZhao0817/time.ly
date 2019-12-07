@@ -72,6 +72,7 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
         search.setOnClickListener(this);
 
         final LinearLayout sharing = findViewById(R.id.group_edit_member_share);
+        /*
         SwitchCompat switchCompat = findViewById(R.id.group_edit_member_toggle);
         if (currentMember.ownerID.equals(FakeDatabase.getInstance().currentUser.id)) {
             switchCompat.setChecked(true);
@@ -86,6 +87,7 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
                 sharing.setVisibility(isChecked ? View.GONE : View.VISIBLE);
             }
         });
+        */
     }
 
     private void createActionBar() {

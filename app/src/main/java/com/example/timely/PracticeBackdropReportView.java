@@ -42,12 +42,12 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_practice_backdrop_report_view, container, false);
-
+        /*
         if (getContext() != null) {
             SeekBar seekBar = root.findViewById(R.id.seekBar);
             seekBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.darkButtonText), PorterDuff.Mode.MULTIPLY);
         }
-
+        */
         TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
         if (name != null) {
             name.setText(datum.name);
@@ -59,8 +59,8 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
             }
         }
 
-        TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
-        duration.setText(Presentation.toStringTime(datum.total_actual));
+        //TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
+        //duration.setText(Presentation.toStringTime(datum.total_actual));
         TextView estTime = root.findViewById(R.id.estimateTime);
         TextView actTime = root.findViewById(R.id.actualTime);
         estTime.setText(Presentation.toStringTime(datum.total_estimate));
