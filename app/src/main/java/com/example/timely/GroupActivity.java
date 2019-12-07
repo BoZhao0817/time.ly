@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 import dataStructures.FakeDatabase;
@@ -26,6 +27,7 @@ import dataStructures.GroupMember;
 import dataStructures.NamedSegments;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
+import dataStructures.Section;
 import dataStructures.Utilities;
 import dataStructures.VizSegments;
 import io.reactivex.disposables.Disposable;
@@ -186,7 +188,6 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                         }
                         if (found) {
                             currentPresentation.members.remove(i);
-                            adapter.notifyItemRemoved(i);
                         }
 
                         // need to change presentation type
@@ -197,9 +198,17 @@ public class GroupActivity extends AppCompatActivity implements View.OnClickList
                                 break;
                             }
                         }
+                        Iterator<Section> iterator = currentPresentation.sections.iterator();
+                        while (iterator.hasNext()) {
+                            Section s = iterator.next();
+                            if (s.userID.equals(passedMember.id)) {
+                                iterator.remove();
+                            }
+                        }
                         if (!other) {
                             currentPresentation.type = PresentationType.INDIVIDUAL;
                         }
+                        adapter.notifyDataSetChanged();
                         break;
                     }
                     case SAVE: {

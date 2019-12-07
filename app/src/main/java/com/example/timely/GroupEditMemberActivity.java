@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +45,14 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
         minutes = findViewById(R.id.group_edit_member_minutes);
         seconds = findViewById(R.id.group_edit_member_seconds);
 
+        Button delete = findViewById(R.id.group_edit_member_delete);
+        Button copy = findViewById(R.id.group_edit_member_copy);
+        Button search = findViewById(R.id.group_edit_member_search);
+
+        delete.setOnClickListener(this);
+        copy.setOnClickListener(this);
+        search.setOnClickListener(this);
+
         if (currentMember != null) {
             name.setText(currentMember.memberName);
             int duration = (int) currentMember.duration;
@@ -58,34 +65,10 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
                 ((TextView)findViewById(R.id.group_edit_member_shareIndicator)).setText(
                         "User with name " + FakeDatabase.getInstance().findUser(currentMember.ownerID).name + " has been selected"
                 );
+            } else {
+                delete.setVisibility(View.GONE);
             }
         }
-
-        Button delete = findViewById(R.id.group_edit_member_delete);
-        Button copy = findViewById(R.id.group_edit_member_copy);
-        Button search = findViewById(R.id.group_edit_member_search);
-
-        delete.setOnClickListener(this);
-        copy.setOnClickListener(this);
-        search.setOnClickListener(this);
-
-        final LinearLayout sharing = findViewById(R.id.group_edit_member_share);
-        /*
-        SwitchCompat switchCompat = findViewById(R.id.group_edit_member_toggle);
-        if (currentMember.ownerID.equals(FakeDatabase.getInstance().currentUser.id)) {
-            switchCompat.setChecked(true);
-            sharing.setVisibility(View.GONE);
-        } else {
-            switchCompat.setChecked(false);
-            sharing.setVisibility(View.VISIBLE);
-        }
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                sharing.setVisibility(isChecked ? View.GONE : View.VISIBLE);
-            }
-        });
-        */
     }
 
     private void createActionBar() {
@@ -186,6 +169,7 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
                         ((TextView)findViewById(R.id.group_edit_member_shareIndicator)).setText(
                                 "User with name " + passedUser.name + " has been selected"
                         );
+                        break;
                     }
                 }
             }
