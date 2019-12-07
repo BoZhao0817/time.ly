@@ -114,6 +114,22 @@ public class ConfigurationEditPresetActivity extends AppCompatActivity implement
                 finish();
                 return true;
             }
+            case R.id.action_help: {
+                new HelperDialogActivity(
+                        this,
+                        "Help for Edit Section Page",
+                        "<b>X button</b> Goes back to the previous page<br/><br/>" +
+                                "<b>Save button</b> Save current pattern and goes back to previous page<br/><br/>" +
+                                "<b>Tap on the pattern name</b> Changes the name of the pattern<br/><br/>" +
+                                "<b>Drag and drop</b> Click on the block for 2 seconds and then drag to wanted position<br/><br/>" +
+                                "<b>Tap on block</b> Deletes the tapped block<br/><br/>" +
+                                "<b>Short button</b> Inserts a short vibration block<br/><br/>" +
+                                "<b>Long button</b> Inserts a long vibration block<br/><br/>" +
+                                "<b>Delete current pattern</b> Deletes the current pattern<br/><br/>" +
+                                "<b>Play button</b> Plays the current pattern<br/><br/>"
+                ).show();
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }

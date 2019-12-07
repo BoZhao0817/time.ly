@@ -148,6 +148,20 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
                 finish();
                 return true;
             }
+            case R.id.action_help: {
+                new HelperDialogActivity(
+                        this,
+                        "Help for Edit Member Page",
+                        "<b>X button</b> Goes back to the previous page<br/><br/>" +
+                                "<b>Save button</b> Save current member information and goes back to previous page<br/><br/>" +
+                                "<b>Tap on member name</b> Change the name of the member<br/><br/>" +
+                                "<b>Tap on the duration time</b> Changes the duration time<br/><br/>" +
+                                "<b>Copy Link</b> Copies the Share Presentation link onto your clipboard<br/><br/>" +
+                                "<b>Search Users</b> go to Search Users Page to identify the member<br/><br/>" +
+                                "<b>Remove from presentation</b> Deletes current member information from presentation<br/><br/>"
+                ).show();
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }

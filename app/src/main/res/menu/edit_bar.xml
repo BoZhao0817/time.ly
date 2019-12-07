@@ -5,6 +5,12 @@
     android:layoutDirection="ltr"
     >
     <item
+        android:id="@+id/action_help"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        android:icon="@drawable/icon_help_outline"
+        android:title="Help"/>
+    <item
         android:orderInCategory="3"
         android:id="@+id/save_button"
         android:title="SAVE"

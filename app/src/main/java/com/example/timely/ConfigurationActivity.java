@@ -187,6 +187,17 @@ public class ConfigurationActivity extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_help: {
+                new HelperDialogActivity(
+                        this,
+                        "Help for Settings Page",
+                        "<b>Back button</b> Goes back to the previous page<br/><br/>" +
+                                "<b>\"Add New Section\" button</b> Creates a new section<br/><br/>" +
+                                "<b>Gear Icon</b> Change the setting of the chosen section<br/><br/>" +
+                                "<b>Drag and drop</b> Click on section name for 2 seconds and then drag to wanted position<br/><br/>"
+                ).show();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

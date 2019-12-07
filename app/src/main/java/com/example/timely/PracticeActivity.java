@@ -79,6 +79,19 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_help: {
+                new HelperDialogActivity(
+                        this,
+                        "Help for Practice Page",
+                        "<b>Back button</b> Goes back to the previous page<br/><br/>" +
+                                "<b>Circular Play button</b> Press to start the recording<br/><br/>" +
+                                "<b>Rectangular Play button</b> Press to pause the recording<br/><br/>" +
+                                "<b>Next button</b> Skip to the next section<br/><br/>" +
+                                "<b>\"Add New Recording\" button</b> Creates a new Recording<br/><br/>" +
+                                "<b>Note: The play button and slider in the report view do not work</b>"
+                ).show();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

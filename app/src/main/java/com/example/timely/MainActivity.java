@@ -265,8 +265,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_invitations:
                 Intent i = new Intent(this, InviteActivity.class);
                 startActivityForResult(i, 1);
-                break;
-            // manage other entries if you have it ...
+                return true;
+            case R.id.action_help: {
+                new HelperDialogActivity(
+                        this,
+                        "Help for Main Page",
+                        "<b>Menu button</b> Contains the options to change profile or application settings<br/><br/>" +
+                                "<b>Mail button</b> Shows your notifications and invites<br/><br/>" +
+                                "<b>\"Add New Presentation\" button</b> Creates a new presentation <br/><br/>" +
+                                "<b>Delete button</b> Deletes current presentation<br/><br/>" +
+                                "<b>Tap on the name</b> Changes the name of the presentation<br/><br/>" +
+                                "<b>Tap on the duration time</b> Changes the duration time<br/><br/>"
+                ).show();
+                return true;
+            }
         }
         return true;
     }

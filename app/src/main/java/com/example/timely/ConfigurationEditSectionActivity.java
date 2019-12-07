@@ -257,9 +257,23 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity implemen
                 finish();
                 return true;
             }
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.action_help: {
+                new HelperDialogActivity(
+                        this,
+                        "Help for Edit Section Page",
+                        "<b>X button</b> Goes back to the previous page<br/><br/>" +
+                                "<b>Save button</b> Save current section and goes back to previous page<br/><br/>" +
+                                "<b>Delete current section</b> Deletes the current section<br/><br/>" +
+                                "<b>Tap on the section name</b> Changes the name of the section<br/><br/>" +
+                                "<b>Tap on the duration time</b> Changes the duration time<br/><br/>" +
+                                "<b>\"Add New Pattern\" button</b> Creates a new Pattern<br/><br/>" +
+                                "<b>Circle button</b> Selects which preset to use<br/><br/>" +
+                                "<b>Gear icon</b> Changes the setting of the chosen Pattern<br/><br/>"
+                ).show();
+                return true;
+            }
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void createActionBar() {
