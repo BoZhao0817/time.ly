@@ -289,7 +289,11 @@ public class ConfigurationEditSectionActivity extends AppCompatActivity implemen
             actionBar.show();
         }
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

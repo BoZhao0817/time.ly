@@ -24,14 +24,14 @@ import dataStructures.VibrationPatternType;
 public class ConfigurationEditPresetActivity extends AppCompatActivity implements View.OnClickListener {
     private VibrationPattern pattern;
     private ConfigurationVibrationAdapter adapter;
-
+    EditText presetName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration_edit_preset);
         createActionBar();
         pattern = (VibrationPattern) (getIntent().getExtras().getSerializable("data"));
-        final EditText presetName = findViewById(R.id.configure_set_preset_name);
+        presetName = findViewById(R.id.configure_set_preset_name);
         presetName.setText(pattern.name);
 
         RecyclerView recyclerView = findViewById(R.id.configure_display_preset);
@@ -97,6 +97,7 @@ public class ConfigurationEditPresetActivity extends AppCompatActivity implement
             case android.R.id.home: {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
+
                 bundle.putSerializable("data", pattern);
                 bundle.putSerializable("actionType", FeedbackType.CANCEL);
                 intent.putExtras(bundle);
@@ -107,6 +108,7 @@ public class ConfigurationEditPresetActivity extends AppCompatActivity implement
             case R.id.save_button: {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
+                pattern.name = presetName.getText().toString();
                 bundle.putSerializable("data", pattern);
                 bundle.putSerializable("actionType", FeedbackType.SAVE);
                 intent.putExtras(bundle);
