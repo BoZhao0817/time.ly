@@ -35,12 +35,12 @@ enum PracticeBackdropType {
 
 public class PracticeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private PracticeRecyclerAdapter recyclerAdapter;
+    public PracticeRecyclerAdapter recyclerAdapter;
     private BottomSheetBehavior bottomSheet;
     private Disposable listItemClicked;
 
     private Report activeReport;
-    private Presentation activePresentation;
+    public Presentation activePresentation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,10 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
         listItemClicked =  recyclerAdapter.onClick().subscribe(new Consumer<Report>() {
             @Override
             public void accept(Report report) throws Exception {
+                if (activeReport.total_estimate == 0) {
+                    activePresentation.reports.remove(activeReport);
+                    recyclerAdapter.notifyDataSetChanged();
+                }
                 updateBackdrop(PracticeBackdropType.REPORT, report);
             }
         });

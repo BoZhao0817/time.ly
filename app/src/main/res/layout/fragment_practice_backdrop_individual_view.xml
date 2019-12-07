@@ -28,6 +28,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginBottom="10dp"
         android:textColor="@color/darkMainText"
+        android:background="@android:color/transparent"
         android:text="Temporary Name"
         android:textSize="20sp"
         android:fontFamily="sans-serif-medium"/>

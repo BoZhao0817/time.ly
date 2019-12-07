@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import dataStructures.NamedSegments;
 import dataStructures.Presentation;
@@ -42,12 +44,15 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_practice_backdrop_report_view, container, false);
-        /*
+
         if (getContext() != null) {
             SeekBar seekBar = root.findViewById(R.id.seekBar);
             seekBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getContext(), R.color.darkButtonText), PorterDuff.Mode.MULTIPLY);
         }
-        */
+
+        Button delete = root.findViewById(R.id.report_delete_recording);
+        delete.setOnClickListener(this);
+
         TextView name = root.findViewById(R.id.practice_backdrop_recording_name);
         if (name != null) {
             name.setText(datum.name);
@@ -96,6 +101,20 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        // TODO
+        switch (v.getId()) {
+            case R.id.report_delete_recording: {
+                PracticeActivity p = (PracticeActivity) getActivity();
+                Iterator<Report> iterator = p.activePresentation.reports.iterator();
+                while (iterator.hasNext()) {
+                    Report r = iterator.next();
+                    if (r.id.equals(datum.id)) {
+                        iterator.remove();
+                    }
+                }
+                p.recyclerAdapter.notifyDataSetChanged();
+                p.recreate();
+                break;
+            }
+        }
     }
 }

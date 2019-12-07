@@ -93,26 +93,11 @@ public class FakeDatabase {
         br2.addEstimate(b.sections.get(2).sectionName, 40);
         testReport = br;
 
-        Report ar = new Report(a, "Test A1");
-        ar.addEstimate(a.sections.get(0).sectionName, 70);
-        ar.addEstimate(a.sections.get(1).sectionName, 110);
-        ar.addEstimate(a.sections.get(2).sectionName, 20);
-        ar.group_type = ReportGroupType.GROUP;
-
-        Report ar2 = new Report(a, "Test A2");
-        ar2.addEstimate(a.sections.get(0).sectionName, 70);
-        ar2.addEstimate(a.sections.get(1).sectionName, 110);
-        ar2.addEstimate(a.sections.get(2).sectionName, 20);
-        ar2.group_type = ReportGroupType.GROUP;
-
         Report cr = new Report(c, "Test C1");
         cr.addEstimate(c.sections.get(0).sectionName, 80);
 
         b.reports.add(br);
         b.reports.add(br2);
-
-        a.reports.add(ar);
-        a.reports.add(ar2);
 
         c.reports.add(cr);
 

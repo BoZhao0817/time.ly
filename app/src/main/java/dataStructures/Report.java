@@ -21,6 +21,7 @@ public class Report implements Serializable {
         this.name = name;
         date = new Date();
         total_actual = p.duration;
+        total_estimate = 0;
         actuals = new ArrayList<>();
         estimates = new ArrayList<>();
         type = p.type;
