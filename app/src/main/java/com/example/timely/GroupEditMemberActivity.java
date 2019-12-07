@@ -95,7 +95,7 @@ public class GroupEditMemberActivity extends AppCompatActivity implements View.O
         if (actionBar != null) {
             final Drawable cancel = ContextCompat.getDrawable(this, R.drawable.icon_close);
             actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.appBar)));
-            actionBar.setTitle("Edit Section");
+            actionBar.setTitle("Edit Member");
             actionBar.setElevation(0);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
