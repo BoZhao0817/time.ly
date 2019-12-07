@@ -219,7 +219,6 @@ public class PracticeActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();

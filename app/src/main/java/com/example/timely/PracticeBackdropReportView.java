@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import dataStructures.FakeDatabase;
 import dataStructures.NamedSegments;
 import dataStructures.Presentation;
 import dataStructures.PresentationType;
@@ -64,8 +65,8 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
             }
         }
 
-        //TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
-        //duration.setText(Presentation.toStringTime(datum.total_actual));
+        TextView duration = root.findViewById(R.id.report_backdrop_presentation_individual_duration);
+        duration.setText(Presentation.toStringTime(datum.total_actual));
         TextView estTime = root.findViewById(R.id.estimateTime);
         TextView actTime = root.findViewById(R.id.actualTime);
         estTime.setText(Presentation.toStringTime(datum.total_estimate));
@@ -94,10 +95,8 @@ public class PracticeBackdropReportView extends Fragment implements View.OnClick
         util.setChartDynamicLength(est, estimates, (int)est_len);
         util.setChartDynamicLength(act, actuals, (int)act_len);
 
-
         return root;
     }
-
 
     @Override
     public void onClick(View v) {

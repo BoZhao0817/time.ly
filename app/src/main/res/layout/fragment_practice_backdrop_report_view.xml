@@ -162,10 +162,9 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DELETE RECORDING"
-        android:textColor="@color/darkWarningText"
         android:layout_gravity="center"
-        />
+        android:text="DELETE RECORDING"
+        android:textColor="@color/darkWarningText" />
 
 </LinearLayout>
 

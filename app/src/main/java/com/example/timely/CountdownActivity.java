@@ -82,7 +82,7 @@ public class CountdownActivity extends AppCompatActivity implements View.OnClick
                 if (!finished) {
                     handler.postDelayed(this, delay);
                 } else {
-
+                    onBackPressed();
                 }
             }
         }, delay);
