@@ -51,23 +51,23 @@ public class FakeDatabase {
 
         Presentation a = new Presentation("CS465", PresentationType.GROUP, 600);
         a.ownerID = currentUser.id;
-        a.sections.add(new Section("a1", users.get(0).name, users.get(0).id, 60, vp1.id));
-        a.sections.add(new Section("a2", users.get(1).name, users.get(1).id, 100, vp2.id));
-        a.sections.add(new Section("a3", users.get(2).name, users.get(2).id, 10, vp3.id));
+        a.sections.add(new Section("Intro", users.get(0).name, users.get(0).id, 60, vp1.id));
+        a.sections.add(new Section("Content", users.get(1).name, users.get(1).id, 100, vp2.id));
+        a.sections.add(new Section("Conclusion", users.get(2).name, users.get(2).id, 10, vp3.id));
         a.members.add(new GroupMember(60, users.get(0)));
         a.members.add(new GroupMember(100, users.get(1)));
         a.members.add(new GroupMember(10, users.get(2)));
 
         Presentation b = new Presentation("CS498", PresentationType.INDIVIDUAL, 120);
         b.ownerID = currentUser.id;
-        b.sections.add(new Section("b1", users.get(0).name, users.get(0).id, 10, vp1.id));
-        b.sections.add(new Section("b2", users.get(0).name, users.get(0).id, 15, vp2.id));
-        b.sections.add(new Section("b3", users.get(0).name, users.get(0).id, 10, vp2.id));
+        b.sections.add(new Section("Start", users.get(0).name, users.get(0).id, 10, vp1.id));
+        b.sections.add(new Section("Middle", users.get(0).name, users.get(0).id, 15, vp2.id));
+        b.sections.add(new Section("End", users.get(0).name, users.get(0).id, 10, vp2.id));
         b.members.add(new GroupMember(120, users.get(0)));
 
         Presentation c = new Presentation("CS101", PresentationType.INDIVIDUAL, 60);
         c.ownerID = currentUser.id;
-        c.sections.add(new Section("c1", users.get(0).name, users.get(0).id, 60, vp1.id));
+        c.sections.add(new Section("Minute Pres.", users.get(0).name, users.get(0).id, 60, vp1.id));
         c.members.add(new GroupMember(60, users.get(0)));
 
         presentations.add(a);
@@ -123,7 +123,7 @@ public class FakeDatabase {
         p465.ownerID = users.get(1).id;
         Presentation p411 = new Presentation("IE411 Final", PresentationType.GROUP, 300);
         p411.sections.add(new Section("Intro", "me", users.get(0).id, 180, vibrationPatterns.get(0).id));
-        p411.sections.add(new Section("Intro", "Emma", users.get(1).id, 120, vibrationPatterns.get(0).id));
+        p411.sections.add(new Section("Content", "Emma", users.get(1).id, 120, vibrationPatterns.get(0).id));
         p411.ownerID = users.get(0).id;
         Presentation p498 = new Presentation("IE498 Final", PresentationType.GROUP, 720);
         p498.sections.add(new Section("Intro", "Emma", users.get(1).id, 300, vibrationPatterns.get(0).id));
